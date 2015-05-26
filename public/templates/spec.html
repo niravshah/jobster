@@ -1,0 +1,26 @@
+<div data-ng-controller="SpecCtrl" ng-init="initSpec()">
+    <div class="row">
+        <div class="col-lg-6">
+            <a ui-sref="spec.send">
+                <button id="spec-send" class="ladda-button" data-size="s" data-style="expand-right"><span class="ladda-label">Send</span>
+                </button>
+            </a>
+        </div>
+        <div class="col-lg-6">
+            <button id="spec-save" ng-click="specSave()" class="ladda-button" data-size="s" data-style="expand-right"><span class="ladda-label">Save</span>
+            </button>
+            <button id="spec-edit" ng-click="specEdit()" class="ladda-button" data-size="s" data-style="expand-right"><span class="ladda-label">Edit</span>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div ui-view></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div id="spec" ng-model="data">
+                {{data.spec}}
+            </div>
+        </div>
+    </div>
+</div>

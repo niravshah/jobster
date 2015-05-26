@@ -1,0 +1,16 @@
+<div>
+    <div class="row">
+        <div ng-controller="InviteCtrl" ng-init="getInvite()">
+            <div class="spec-data col-lg-6" ng-bind-html="data.spec" style="margin-top:80px;"></div>
+        </div>
+        <div ng-controller="SideBarCtrl" lass="col-lg-6" style="margin-top:80px;">
+            <div pageslide ps-open="checked">
+                <div style="padding:20px" id="demo-right">
+                    <h2>Hello Pageslide</h2>
+                    <p>Put here whatever you want</p>
+                    <a ng-click="toggle()" class="button">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

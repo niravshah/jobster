@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" ng-app="specky-invite">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Specky</title>
+    <!-- STYLES -->
+    <!-- build:css lib/css/main.min.css -->
+	    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/invite-css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">    	
+	<link rel="stylesheet" type="text/css" href="/bower_components/ladda-bootstrap/dist/ladda.min.css"/>
+	
+    <!-- endbuild -->
+    <!-- SCRIPTS -->
+    <!-- build:js lib/js/main.min.js -->
+	<script type="text/javascript" src="/bower_components/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>	
+	<script type="text/javascript" src="/bower_components/angular-pageslide-directive/dist/angular-pageslide-directive.min.js"></script>
+	<script type="text/javascript" src="/bower_components/ladda-bootstrap/dist/spin.min.js"></script>
+	<script type="text/javascript" src="/bower_components/ladda-bootstrap/dist/ladda.js"></script>
+		
+    <!-- endbuild -->
+    <!-- Custom Scripts -->
+    <script type="text/javascript" src="/invite-js/module.js"></script>
+    <script type="text/javascript" src="/invite-js/routes.js"></script>
+	<script type="text/javascript" src="/invite-js/controller/master-ctrl.js"></script>
+	<script type="text/javascript" src="/invite-js/controller/invite-ctrl.js"></script>
+</head>
+
+<body ng-controller="MasterCtrl">
+    <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>	
+		<nav class="navbar navbar-default navbar-fixed-top">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <a class="navbar-brand" href="#">
+				<img alt="Brand">
+			  </a>
+			</div>
+		  </div>
+		</nav>
+		<div id="content-wrapper">
+			<div class="page-content">
+				<!-- Main Content -->
+				<div class="ml-10">
+				<div ui-view></div>	
+				</div>				
+			</div>
+			<!-- End Page Content -->
+		</div>
+		<!-- End Content Wrapper -->
+	</div>
+    <!-- End Page Wrapper -->
+</body>
+
+</html>
