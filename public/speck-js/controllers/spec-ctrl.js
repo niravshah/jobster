@@ -11,9 +11,9 @@ function SpecCtrl($scope, $http, $stateParams) {
         $scope.sendLadda = Ladda.create(document.querySelector('button[id=spec-send]'));
         $scope.saveLadda = Ladda.create(document.querySelector('button[id=spec-save]'));
         Ladda.stopAll();
-        $http.get('/spec/' + $scope.specid).success(function(data, status, headers, config) {
+        $http.get('/api/spec/' + $scope.specid).success(function(data, status, headers, config) {
             console.log('Success', data.spec);
-            $scope.data = data;
+            $scope.data = angular.fromJson(data);
         }).
         error(function(data, status, headers, config) {
             console.log('Error', data);
@@ -40,7 +40,7 @@ function SpecSendCtrl($scope,$http, $stateParams, $state) {
         $scope.sendLadda.toggle()
     }
 	 $scope.sendSpecEmail = function() {
-        var url = '/spec/' + $scope.specid + '/send';
+        var url = '/api/spec/' + $scope.specid + '/send';
         $http.post(url, {
             'details': $scope.sendSpec
         }).success(function(data, status, headers, config) {

@@ -1,0 +1,55 @@
+<div>
+    <div class="row">
+        <div class="col-lg-6" ng-controller="InviteCtrl" ng-init="initInviteCtrl()">
+            <div class="spec-data" ng-bind-html="data.spec" style="margin-top:80px;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-controller="ModalCtrl" ng-init="initModal()">
+        </div>
+    </div>
+    <div ng-controller="SideBarCtrl" style="margin-top:80px;">
+        <div pageslide ps-custom-top="50px" ps-push="true" ps-open="checked" ps-size="400px" style="background-color:#F5F5F5;">
+            <div style="padding:20px" id="demo-right">
+                <div class="row mt-20">
+                    <a ng-click="toggle()" class="button">Close</a>
+                </div>
+                <div ng-controller="ResumeUploadCtrl">
+                    <div class="row mt-20">
+                        <div class="col-md-6">
+                            <button class="btn btn-primary" ngf-select ng-model="files">Upload</button>
+                            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
+                        </div>
+                        <div class="col-md-6">
+                            <progressbar class="progress-striped" value="progress" type="warning">{{progress}}%</progressbar>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <checkbox ng-model="register" ng-change="showPassword()"></checkbox>Register for QuickApply
+                        <input type="text" class="form-control" id="usr" ng-model="password" ng-show="showpass">
+                    </div>
+                </div>
+                <div class="row mt-20">
+                    <div class="col-md-6">
+                        <div ng-controller="MeetingCtrl">
+                            <p class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                <span class="input-group-btn">
+                				<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              					</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-20">
+                    <div class="col-md-6">
+                        <timepicker ng-model="tm" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

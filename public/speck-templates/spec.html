@@ -17,9 +17,8 @@
         <div ui-view></div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
-            <div id="spec" ng-model="data">
-                {{data.spec}}
+        <div class="col-lg-6" ng-model="data">
+            <div id="spec" ng-bind-html="data.spec">                
             </div>
         </div>
     </div>

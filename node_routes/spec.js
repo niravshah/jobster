@@ -1,8 +1,7 @@
 var Spec = require('../node_models/spec-model');
 var shortid = require('shortid');
-module.exports = function(app, passport) {
-    // show the home page (will also have our login links)
 
+module.exports = function(app, passport) {    
     app.post('/new-spec', passport.authenticate('local-login', {
         failureRedirect: '/login'
     }), function(req, res) {
@@ -19,7 +18,7 @@ module.exports = function(app, passport) {
             res.send('OK');
         }
     });
-    app.get('/spec/:specId', function(req, res) {
+    app.get('/api/spec/:specId', function(req, res) {
         Spec.findOne({
             'sid': req.param('specId')
         }, function(err, spec) {
@@ -46,12 +45,5 @@ module.exports = function(app, passport) {
             }
         });
     });
-    app.get('/api/invite/:code', function(req, res) {
-        Spec.findOne({
-            'invites.code': req.param('code')
-        }, function(err, spec) {
-            if(err) res.send('Error');
-            if(spec) res.send(spec);
-        })
-    });
+   
 }

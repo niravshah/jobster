@@ -8,5 +8,6 @@ var specSchema = mongoose.Schema({
 	invites:Object,
 	sid: String
 });
+
 // create the model for Spec and expose it to our app
 module.exports = mongoose.model('Spec', specSchema);

@@ -14,6 +14,7 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+var multer  = require('multer');
 
 var configDB = require('./node_config/database.js');
 
@@ -38,9 +39,17 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+app.use(multer({
+  dest: '/home/codio/workspace/specky/tmp',
+  rename: function (fieldname, filename) {
+    return filename.replace(/\W+/g, '-').toLowerCase() + '-' + Date.now();
+  }
+}));
+
 // routes ======================================================================
-require('./node_routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
-require('./node_routes/spec.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./node_routes/routes.js')(app, passport);
+require('./node_routes/spec.js')(app, passport); 
+require('./node_routes/invite-routes.js')(app, passport); 
 
 // launch ======================================================================
 app.listen(port);

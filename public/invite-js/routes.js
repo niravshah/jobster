@@ -2,25 +2,29 @@
 /**
  * Route configuration for the specky-invite module.
  */
-angular.module('specky-invite').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'jwtInterceptorProvider', '$locationProvider',
-    function($stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider,$locationProvider) {
-        // For unmatched routes
+angular.module('specky-invite').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'jwtInterceptorProvider', '$locationProvider', '$logProvider',
+    function($stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider,$locationProvider,$logProvider) {
+        
+		// For unmatched routes
         $urlRouterProvider.otherwise('/');
-        // Application routes
+        
+		// Application routes
         $stateProvider.state('invite', {
             url: '/invite/:code',
-            templateUrl: '/templates/invite/invite.html',
+            templateUrl: '/invite-templates/invite.html',
             controller: function($scope, $stateParams) {
                 $scope.code = $stateParams.code;
             }
         });
-        jwtInterceptorProvider.tokenGetter = [
+        
+		jwtInterceptorProvider.tokenGetter = [
             function() {
                 return 'mock-token';
                 //return localStorage.getItem('id_token');
             }
-        ];
-        $httpProvider.interceptors.push('jwtInterceptor');
+        ];        
+		$httpProvider.interceptors.push('jwtInterceptor');		
 		$locationProvider.html5Mode({enabled:true,requireBase: false});
+		$logProvider.debugEnabled(false);
     }
 ]);

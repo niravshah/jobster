@@ -6,7 +6,12 @@
     Purpose of the stylesheet follows.
     To change this template use Tools | Templates.
 */
- .ml-10 {
+ .ml-20 {
     margin-left : 20px;
 }
+
+.mt-20 {
+    margin-top : 20px;
+}
+
 

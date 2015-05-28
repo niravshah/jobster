@@ -1,6 +1,6 @@
 module.exports = function(app, passport) {
     // normal routes ===============================================================
-    app.get('/', function(req, res) {
+    app.get('/spec/*', function(req, res) {
         res.render('index.ejs');
     });
     app.get('/invite/*', function(req, res) {

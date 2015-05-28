@@ -21,8 +21,11 @@
         "qtip2": "",
         "angular-jwt":"",
 		"magnific-popup":"",
-		"angular-pageslide-directive":""
-		
+		"angular-pageslide-directive":"",
+		"ouibounce":"",
+		"ifvisible.js":"1.0.4",
+		"ng-file-upload":"4.2.4",
+		"angular-bootstrap-checkbox":"0.3.1"
     },
     "repository": {
         "type": "git",
