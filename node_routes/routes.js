@@ -4,10 +4,10 @@ module.exports = function(app, passport) {
     app.get('/', function(req, res) {
         res.render('main.ejs');
     });
-    app.get('/spec/*', function(req, res) {
+    app.get('/spec*', function(req, res) {
         res.render('index.ejs');
     });
-    app.get('/invite/*', function(req, res) {
+    app.get('/invite*', function(req, res) {
 		res.render('invitation.ejs');
     });
 	

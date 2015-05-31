@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="specky-invite">
 
 <head>
     <meta charset="UTF-8">
@@ -7,78 +7,80 @@
 
     <title>Specky</title>
     <!-- STYLES -->
+    <!-- build:css lib/css/main.min.css -->
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/invite-css/custom.css" />
     <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/bower_components/rdash-ui/dist/css/rdash.min.css">
-    <link rel="stylesheet" type="text/css" href="/manual_components/animate-css/animate.css">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/bower_components/ladda-bootstrap/dist/ladda.min.css" />
+    <link rel="stylesheet" type="text/css" href="/manual_components/animate-css/animate.css" />
+    <link rel="stylesheet" href="/bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css" />
+    <link href="/bower_components/angular-tooltips/dist/angular-tooltips.min.css" rel="stylesheet" type="text/css" />
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:600italic,400|Roboto:400,300' rel='stylesheet' type='text/css'>
+
     <!-- endbuild -->
     <!-- SCRIPTS -->
+    <!-- build:js lib/js/main.min.js -->
     <script type="text/javascript" src="/bower_components/jquery/jquery.js"></script>
-    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="/bower_components/jquery.inview/jquery.inview.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-pageslide-directive/dist/angular-pageslide-directive.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
+
+    <script type="text/javascript" src="/bower_components/moment/moment.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+
+
+    <script type="text/javascript" src="/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <script type="text/javascript" src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="/bower_components/ladda-bootstrap/dist/spin.min.js"></script>
+    <script type="text/javascript" src="/bower_components/ladda-bootstrap/dist/ladda.js"></script>
+    <script type="text/javascript" src="/bower_components/ouibounce/build/ouibounce.js"></script>
+    <script type="text/javascript" src="/bower_components/ifvisible.js/src/ifvisible.js"></script>
+
+    <script type="text/javascript" src="/manual_components/time-me/dist/TImeMe.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-tooltips/dist/angular-tooltips.min.js"></script>
+
+    <script type="text/javascript" src="/manual_components/socket.io/dist/1.3.5/socket.io-1.3.5.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-socket-io/socket.js"></script>
+
+
+
     <!-- endbuild -->
     <!-- Custom Scripts -->
-    <script type="text/javascript" src="/main-js/main.js"></script>
+    <script type="text/javascript" src="/invite-js/module.js"></script>
+    <script type="text/javascript" src="/invite-js/routes.js"></script>
+    <script type="text/javascript" src="/invite-js/controller/master-ctrl.js"></script>
+    <script type="text/javascript" src="/invite-js/controller/invite-ctrl.js"></script>
 </head>
 
-<body>
-    <div id="content-wrapper" style="background:url('/main-img/black_mamba.png');background-repeat:repeat;">
-        <nav class="navbar navbar-default navbar-fixed-top" style="background-color:#2C2B2B;border-color:#515151;min-height:80px;display:none;">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">
-                        <img alt="Specky" src="/main-img/specky.png" style="position: absolute;top:0;left:0;">
-                    </a>
-                </div>
-                <!--div style="float:right;padding:20px;">
-		<button class="btn" type="submit" style="background: url('/main-img/specky-button-3.png') no-repeat scroll 0 0 transparent;width:205px;height:76px;"></button>	
-		</div-->
-
-            </div>
-        </nav>
-        <div id="page-wrapper" style="padding-right:50px;padding-left:50px;padding-top:70px;box-shadow: 10px 10px 5px #2C2B2B;">
-            <div class="specky-yellow-wrap" style="background-color:#FFEE3F;box-shadow: 10px 10px #2F2E2E;">
-                <div id="hero" class="row" style="padding:20px 50px;">
-                    <div class="col-md-3">
-                        <img src="/main-img/ninja.png">
-                    </div>
-                    <div class="col-md-8" style="float:right;padding-top:20px;">
-                        <div class="row">
-                            <img alt="Specky" src="/main-img/specky-42.png">
-                        </div>
-
-                        <div class="row" style="font-family:Open Sans;font-size:25px;color:rgb(68, 67, 67);;padding-top:30px;">
-                            <p>Have live discussions with candidates over specs and address their concerns in real-time.Get upto date analytics on who's viewing your specs!</p>
-                        </div>
-                        <div class="row" style="padding-top:30px;">
-
-                        </div>
-                    </div>
-                </div>
-                <div id="break" class="row" style="background:url('/main-img/pw_maze_black.png');background-repeat:repeat;padding:30px;">
-                    <div class="col-md-2">
-                        <img src="http://api.randomuser.me/portraits/med/women/39.jpg" class="img-circle" alt="Cinque Terre" width="150" height="150">
-                    </div>
-                    <div class="col-md-6" style="padding-top:20px;color:white;font-family: Open Sans;font-style: Italic;font-size: 20px;">
-                        <p>"With Specky we've seen the prospect response rate go up by atleast 60%. Its very effective and extremely simple to use"</p>
-                        <p style="font-size:15px;">Melanie Simmons, HR, Netdev Sys</p>
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn" type="submit" style="background: url('/main-img/specky-button-2.png') no-repeat scroll 0 0 transparent;width:344px;height:142px;float:right;"></button>
-                    </div>
-                </div>
-                <div id="features" class="row" style="background-color:black;height:500px;">
-                    <div class="col-md-12">
-
-                    </div>
-                </div>
-                <div id="features" class="row" style="background-color:black;height:500px;">
-                    <div class="col-md-12">
-
+<body ng-controller="MasterCtrl">
+    <div style="background:url('/img/padded.png');background-repeat:repeat;">
+        <!--nav class="navbar navbar-default navbar-fixed-top">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <a class="navbar-brand" href="#">
+				<img alt="Brand">
+			  </a>
+			</div>
+		  </div>
+		</nav-->
+        <div id="content-wrapper">
+            <div class="page-content" style="padding-right:80px; padding-left:80px;padding-top:100px;padding-bottom:50px;">
+                <!-- Main Content -->
+                <div class="row" style="background:url('/img/white_paperboard.png');background-repeat:repeat;;box-shadow: 10px 10px #2F2E2E;">
+                    <div ui-view></div>
+                    <div class="row">
+                        <img src="/img/made-with.png" style="float:right;">
                     </div>
                 </div>
             </div>
+            <!-- End Page Content -->
         </div>
         <!-- End Content Wrapper -->
     </div>
