@@ -1,5 +1,9 @@
 module.exports = function(app, passport) {
     // normal routes ===============================================================
+    // 
+    app.get('/', function(req, res) {
+        res.render('main.ejs');
+    });
     app.get('/spec/*', function(req, res) {
         res.render('index.ejs');
     });

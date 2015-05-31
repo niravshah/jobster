@@ -15,8 +15,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 var multer  = require('multer');
-
 var configDB = require('./node_config/database.js');
+
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
@@ -52,5 +52,8 @@ require('./node_routes/spec.js')(app, passport);
 require('./node_routes/invite-routes.js')(app, passport); 
 
 // launch ======================================================================
-app.listen(port);
+var pp = app.listen(port);
+var io = require('socket.io').listen(pp);
+var socketio = require('./node_config/socket.js')(io);
+
 console.log('The magic happens on port ' + port);

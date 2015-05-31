@@ -1,14 +1,14 @@
 /**
  * Spec Controller
  */
-angular.module('specky-invite').controller('InviteCtrl', ['$scope', '$http', '$stateParams', '$log', '$window', InviteCtrl]);
+angular.module('specky-invite').controller('InviteCtrl', ['$scope', '$http', '$stateParams', '$log', '$window', 'socket', InviteCtrl]);
 angular.module('specky-invite').controller('SideBarCtrl', ['$scope', '$http', '$stateParams', '$window', '$document', '$log', SideBarCtrl]);
 angular.module('specky-invite').controller('ModalCtrl', ['$scope', '$http', '$stateParams', '$log', '$modal', ModalCtrl]);
 angular.module('specky-invite').controller('ModalInstanceCtrl', ['$scope', '$http', '$stateParams', '$log', '$modalInstance', ModalInstanceCtrl]);
 angular.module('specky-invite').controller('ResumeUploadCtrl', ['$scope', '$http', '$stateParams', '$log', '$window', 'Upload', ResumeUploadCtrl]);
 angular.module('specky-invite').controller('MeetingCtrl', ['$scope', '$http', '$stateParams', '$log', '$window', MeetingCtrl]);
 
-function InviteCtrl($scope, $http, $stateParams, $log, $window) {
+function InviteCtrl($scope, $http, $stateParams, $log, $window, socket) {
     $scope.initInviteCtrl = function() {
         $scope.data = {};
         $scope.getInvite();
@@ -27,20 +27,34 @@ function InviteCtrl($scope, $http, $stateParams, $log, $window) {
             var docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
             windowBottom = windowHeight + window.pageYOffset;
             xmlhttp.send(JSON.stringify({
-                time: timeSpentOnPage,
-                percentScrolled: windowBottom * 100 / docHeight
+                data: {
+                    time: timeSpentOnPage,
+                    percentScrolled: windowBottom * 100 / docHeight
+                }
             }));
         });
     }
     $scope.getInvite = function() {
         $http.get('/api/invite/' + $scope.code).success(function(data, status, headers, config) {
             $log.debug(data.spec)
-            $scope.data = data;
+            console.log(data);
+            $scope.mainSpec = data;
         }).
         error(function(data, status, headers, config) {
             console.log('Error', data);
         });
     }
+	
+	
+    $scope.$on('socket:error', function(ev, data) {
+        console.log('Socket Error', ev, data);
+    });
+    $scope.$on('socket:error', function(ev, data) {
+        console.log('Socket Error', ev, data);
+    });
+	$scope.$on('socket:message', function(ev, data) {
+        console.log('Socket Message', ev, data);
+    });
 }
 
 function ModalCtrl($scope, $http, $stateParams, $log, $modal) {
@@ -89,16 +103,12 @@ function SideBarCtrl($scope, $http, $stateParams, $window, $document, $log) {
 }
 
 function ResumeUploadCtrl($scope, $http, $stateParams, $log, $window, Upload) {
-    
-	$scope.showpass=true;
-	
-	$scope.alerts = [];
-	$scope.progress=0;
-	
-	$scope.showPassword = function(){
-		$scope.showpass = !$scope.showpass;
-	}
-	
+    $scope.showpass = true;
+    $scope.alerts = [];
+    $scope.progress = 0;
+    $scope.showPassword = function() {
+        $scope.showpass = !$scope.showpass;
+    }
     $scope.$watch('files', function() {
         $scope.upload($scope.files);
     });
@@ -118,7 +128,7 @@ function ResumeUploadCtrl($scope, $http, $stateParams, $log, $window, Upload) {
                 }).progress(function(evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-					$scope.progress = progressPercentage;
+                    $scope.progress = progressPercentage;
                 }).success(function(data, status, headers, config) {
                     console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
                     $scope.alerts.push({
@@ -129,14 +139,37 @@ function ResumeUploadCtrl($scope, $http, $stateParams, $log, $window, Upload) {
             }
         }
     };
+    $scope.quickreg = function() {
+        var url = '/api/invite/' + $scope.code + '/quickreg';
+        var invites = $scope.mainSpec.invites;
+        var email = '';
+        for(var i in invites) {
+            if(invites[i].code == $scope.code) {
+                email = invites[i].email;
+            }
+        }
+        var eventData = {
+            password: $scope.password,
+            email: email
+        }
+        $http.post(url, {
+            data: eventData
+        }).success(function(data, status, headers, config) {
+            $scope.alerts.push({
+                type: 'success',
+                msg: 'Registration Successful!'
+            });
+        }).error(function(data, status, headers, config) {});
+    }
 }
 
 function MeetingCtrl($scope, $http, $stateParams, $log, $window) {
+    $scope.alerts = [];
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
     $scope.hstep = 1;
     $scope.mstep = 15;
-	$scope.ismeridian = true;
+    $scope.ismeridian = true;
     $scope.open = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
@@ -150,4 +183,18 @@ function MeetingCtrl($scope, $http, $stateParams, $log, $window) {
         $scope.minDate = $scope.minDate ? null : new Date();
     };
     $scope.toggleMin();
+    $scope.sendMeetingEvent = function() {
+        var url = '/api/invite/' + $scope.code + '/meeting';
+        var eventData = {
+            meetingTime: $scope.data.dateDropDownInput.toJSON()
+        }
+        $http.post(url, {
+            data: eventData
+        }).success(function(data, status, headers, config) {
+            $scope.alerts.push({
+                type: 'success',
+                msg: 'Meeting Requested!'
+            });
+        }).error(function(data, status, headers, config) {});
+    }
 }

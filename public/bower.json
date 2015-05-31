@@ -25,7 +25,11 @@
 		"ouibounce":"",
 		"ifvisible.js":"1.0.4",
 		"ng-file-upload":"4.2.4",
-		"angular-bootstrap-checkbox":"0.3.1"
+		"angular-bootstrap-checkbox":"0.3.1",
+		"angular-bootstrap-datetimepicker": "latest",
+		"angular-tooltips": "latest",
+		"angular-socket-io":"latest",
+		"jquery.inview":"latest"
     },
     "repository": {
         "type": "git",

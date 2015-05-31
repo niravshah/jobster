@@ -11,28 +11,7 @@ module.exports = function(app, passport) {
             if(spec) res.send(spec);
         })
     });
-    app.post('/api/invite/:code/destroy', function(req, res) {
-        SpecAnalytics.findOne({
-            'invite': req.param('code')
-        }, function(err, spec) {
-            if(err) res.send('Error');
-            if(spec == null) {
-                spec = new SpecAnalytics();
-                spec.invite = req.param('code');
-                spec.sid = spec.sid;
-            }
-            spec.analytics.push({
-                timestamp: new Date().toJSON(),
-                time: req.body.time,
-                percentScrolled: req.body.percentScrolled,
-				event:'view'
-            });
-            spec.save(function(err, saved) {
-                if(err) console.log('Error Saving Analytics');
-                if(saved) console.log('Spec Analysis Saved!');
-            });
-        });
-    });
+  
     app.post('/api/invite/:code/resume', function(req, res) {         
 		SpecAnalytics.findOne({
             'invite': req.param('code')
@@ -55,4 +34,30 @@ module.exports = function(app, passport) {
         });
 		res.send('Done!');
     });
+	
+	
+	 app.post('/api/invite/:code/:event', function(req, res) {         
+		SpecAnalytics.findOne({
+            'invite': req.param('code')
+        }, function(err, spec) {
+            if(err) res.send('Error');
+            if(spec == null) {
+                spec = new SpecAnalytics();
+                spec.invite = req.param('code');
+                spec.sid = spec.sid;
+            }
+            spec.analytics.push({
+                timestamp: new Date().toJSON(),
+				event:req.param('event'),
+                data:req.body.data                
+            });
+            spec.save(function(err, saved) {
+                if(err) console.log('Error Saving Analytics');
+                if(saved) console.log('Spec Analysis Saved!');
+            });
+        });
+		res.send('Done!');
+    });
+	
+	
 }
