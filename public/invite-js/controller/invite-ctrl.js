@@ -1,14 +1,33 @@
 /**
  * Spec Controller
  */
-angular.module('specky-invite').controller('InviteCtrl', ['$scope', '$http', '$stateParams', '$log', '$window', 'socket', InviteCtrl]);
-angular.module('specky-invite').controller('SideBarCtrl', ['$scope', '$http', '$stateParams', '$window', '$document', '$log', SideBarCtrl]);
+angular.module('specky-invite').controller('SidebarCtrl', ['$scope', '$http', '$stateParams', '$log', '$window', SidebarCtrl]);
+angular.module('specky-invite').controller('InviteCtrl', ['$scope', '$http', '$stateParams', '$log', '$window', InviteCtrl]);
 angular.module('specky-invite').controller('ModalCtrl', ['$scope', '$http', '$stateParams', '$log', '$modal', ModalCtrl]);
 angular.module('specky-invite').controller('ModalInstanceCtrl', ['$scope', '$http', '$stateParams', '$log', '$modalInstance', ModalInstanceCtrl]);
 angular.module('specky-invite').controller('ResumeUploadCtrl', ['$scope', '$http', '$stateParams', '$log', '$window', 'Upload', ResumeUploadCtrl]);
 angular.module('specky-invite').controller('MeetingCtrl', ['$scope', '$http', '$stateParams', '$log', '$window', MeetingCtrl]);
 
-function InviteCtrl($scope, $http, $stateParams, $log, $window, socket) {
+function SidebarCtrl($scope, $http, $stateParams, $log, $window) {
+	var isClosed = true;
+    angular.element($window).bind("scroll", function() {
+        var windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+        var body = document.body,
+            html = document.documentElement;
+        var docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+        windowBottom = windowHeight + window.pageYOffset;
+        if(windowBottom >= docHeight - 1000) {
+            $log.debug('bottom reached');
+			if(isClosed){
+            	$('#wrapper').toggleClass('toggled');
+				isClosed = false;
+			}
+        }
+    });
+	
+}
+
+function InviteCtrl($scope, $http, $stateParams, $log, $window) {
     $scope.initInviteCtrl = function() {
         $scope.data = {};
         $scope.getInvite();
@@ -44,16 +63,10 @@ function InviteCtrl($scope, $http, $stateParams, $log, $window, socket) {
             console.log('Error', data);
         });
     }
-	
-	
-    $scope.$on('socket:error', function(ev, data) {
-        console.log('Socket Error', ev, data);
-    });
-    $scope.$on('socket:error', function(ev, data) {
-        console.log('Socket Error', ev, data);
-    });
-	$scope.$on('socket:message', function(ev, data) {
-        console.log('Socket Message', ev, data);
+    $scope.chatSocket = io('http://truck-aloha.codio.io:8080/' + $scope.code, {
+        transports: ['polling']
+    }).on('hi', function(ev, data) {
+        console.log('Message Receieved!', ev);
     });
 }
 
@@ -81,25 +94,6 @@ function ModalInstanceCtrl($scope, $http, $stateParams, $log, $modalInstance) {
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
-}
-
-function SideBarCtrl($scope, $http, $stateParams, $window, $document, $log) {
-    $scope.checked = false;
-    $scope.toggle = function() {
-        $scope.checked = false;
-    }
-    angular.element($window).bind("scroll", function() {
-        var windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
-        var body = document.body,
-            html = document.documentElement;
-        var docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-        windowBottom = windowHeight + window.pageYOffset;
-        if(windowBottom >= docHeight - 1000) {
-            $log.debug('bottom reached');
-            $scope.checked = true;
-            $scope.$apply();
-        }
-    });
 }
 
 function ResumeUploadCtrl($scope, $http, $stateParams, $log, $window, Upload) {

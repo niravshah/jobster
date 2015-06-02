@@ -3,28 +3,38 @@
  * Route configuration for the specky-invite module.
  */
 angular.module('specky-invite').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'jwtInterceptorProvider', '$locationProvider', '$logProvider',
-    function($stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider,$locationProvider,$logProvider) {
-        
-		// For unmatched routes
+    function($stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $locationProvider, $logProvider) {
+        // For unmatched routes
         $urlRouterProvider.otherwise('/');
-        
-		// Application routes
+        // Application routes
         $stateProvider.state('invite', {
+            views: {
+                'spec': {
+                    templateUrl: '/invite-templates/invite.html',
+                    controller: function($scope, $stateParams) {
+                        $scope.code = $stateParams.code;
+                    }
+                },
+                'sidebar': {
+                    templateUrl: '/invite-templates/sidebar.html',
+                    controller: function($scope, $stateParams) {
+                        $scope.code = $stateParams.code;
+                    }
+                }
+            },
             url: '/invite/:code',
-            templateUrl: '/invite-templates/invite.html',
-            controller: function($scope, $stateParams) {
-                $scope.code = $stateParams.code;
-            }
         });
-        
-		jwtInterceptorProvider.tokenGetter = [
+        jwtInterceptorProvider.tokenGetter = [
             function() {
                 return 'mock-token';
                 //return localStorage.getItem('id_token');
             }
-        ];        
-		$httpProvider.interceptors.push('jwtInterceptor');		
-		$locationProvider.html5Mode({enabled:true,requireBase: false});
-		$logProvider.debugEnabled(false);
+        ];
+        $httpProvider.interceptors.push('jwtInterceptor');
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false
+        });
+        $logProvider.debugEnabled(false);
     }
 ]);

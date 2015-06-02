@@ -20,8 +20,7 @@
         "ladda-bootstrap": "0.1.0",
         "qtip2": "",
         "angular-jwt":"",
-		"magnific-popup":"",
-		"angular-pageslide-directive":"",
+		"magnific-popup":"",		
 		"ouibounce":"",
 		"ifvisible.js":"1.0.4",
 		"ng-file-upload":"4.2.4",
@@ -30,6 +29,7 @@
 		"angular-tooltips": "latest",
 		"angular-socket-io":"latest",
 		"jquery.inview":"latest"
+
     },
     "repository": {
         "type": "git",

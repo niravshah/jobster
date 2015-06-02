@@ -1,0 +1,86 @@
+<nav ng-controller="SidebarCtrl" class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+    <div style="background:#FFFFFF;box-shadow: -5px -5px 5px 0px #F5F5F5;">
+        <div class="row" style="padding:20px;height:100px;background:#00796B">
+            <div class="col-md-10">
+                <p style="font-family:Open Sans;font-weight:600;font-size:18px;color:#FFFFFF">Like What You See?</p>
+            </div>
+            <div class="col-md-2">
+                <a ng-click="toggle()" class="button" style="color:#FFFFFF;font-family:Open Sans;font-weight:600;font-size:18px;">X</a>	
+            </div>
+        </div>
+        <div style="padding:50px;">
+            <div ng-controller="ResumeUploadCtrl">
+                <!-- START ResumeUploadCtrl -->
+                <div class="row mt-20">
+                    <div class="col-md-4" style="height:50px;width:50px;border-radius:50%;background:#00796B;text-align:center;vertical-align:middle;line-height:50px;font-family:Roboto;font-size:20px;color:#FFFFFF;">
+                        1
+                    </div>
+                    <div class="col-md-8" style="vertical-align:middle;line-height:50px">
+                        <p>Upload Resume</p>
+                    </div>
+                </div>
+                <hr style="margin-top:5px;margin-bottom:30px;height: 12px;border: 0;box-shadow: inset 0 12px 12px -12px #80CBC4;">
+                <div class="row mt-20">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary" ngf-select ng-model="files">Upload Resume</button>
+                        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                    </div>
+                    <div class="col-md-1">
+                        <checkbox ng-model="register" ng-change="showPassword()"></checkbox>
+                    </div>
+                    <div class="col-md-4">QuickApply
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>	
+                    </div>
+                </div>
+                <div class="row mt-20" ng-show="showpass">
+                    <div class="col-md-9">
+                        <input placeholder="Enter Password" type="text" class="form-control" id="usr" ng-model="password">
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-success btn-sm" ng-click=quickreg()>Save</button>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-12">
+                        <progressbar class="progress-striped" value="progress" type="warning">{{progress}}%</progressbar>
+                    </div>
+                </div>
+            </div>
+            <!-- END ResumeUploadCtrl -->
+            <div ng-controller="MeetingCtrl">
+                <!-- START MeetingCtrl -->
+                <div class="row" style="padding-top:50px;">
+                    <div class="col-md-4" style="height:50px;width:50px;border-radius:50%;background:#00796B;text-align:center;vertical-align:middle;line-height:50px;font-family:Roboto;font-size:20px;color:#FFFFFF;">
+                        2
+                    </div>
+                    <div class="col-md-8" style="vertical-align:middle;line-height:50px">
+                        <p>Arrange Meeting</p>
+                    </div>
+                </div>
+                <hr style="margin-top:5px;margin-bottom:30px;height: 12px;border: 0;box-shadow: inset 0 12px 12px -12px #80CBC4;">
+
+                <div class="row mt-20">
+                    <div class="col-md-8">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="data.dateDropDownInput"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <datetimepicker data-ng-model="data.dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }" />
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary" ng-click="sendMeetingEvent()">Meet</button>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                </div>
+            </div>
+            <!-- END MeetingCtrl -->
+        </div>
+    </div>
+</nav>

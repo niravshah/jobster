@@ -2,18 +2,26 @@ var Spec = require('../node_models/spec-model');
 var SpecAnalytics = require('../node_models/spec-analytics');
 var multipart = require('connect-multiparty');
 //var multiparty = multipart({uploadDir:'/home/codio/workspace/specky/tmp'});
-module.exports = function(app, passport) {
+module.exports = function(app, passport, io) {
     app.get('/api/invite/:code', function(req, res) {
         Spec.findOne({
             'invites.code': req.param('code')
         }, function(err, spec) {
             if(err) res.send('Error');
-            if(spec) res.send(spec);
+            if(spec) {
+                var socketUrl = '/' + req.param('code');
+                var nsp = io.of(socketUrl);
+                nsp.on('connection', function(socket) {
+                    console.log('someone connected to room', nsp.name);
+					nsp.emit('hi', 'everyone!');
+                });
+                
+                res.send(spec);
+            }
         })
     });
-  
-    app.post('/api/invite/:code/resume', function(req, res) {         
-		SpecAnalytics.findOne({
+    app.post('/api/invite/:code/resume', function(req, res) {
+        SpecAnalytics.findOne({
             'invite': req.param('code')
         }, function(err, spec) {
             if(err) res.send('Error');
@@ -24,20 +32,18 @@ module.exports = function(app, passport) {
             }
             spec.analytics.push({
                 timestamp: new Date().toJSON(),
-                filename:req.files.file.path,
-                event:'resume'
+                filename: req.files.file.path,
+                event: 'resume'
             });
             spec.save(function(err, saved) {
                 if(err) console.log('Error Saving Analytics');
                 if(saved) console.log('Spec Analysis Saved!');
             });
         });
-		res.send('Done!');
+        res.send('Done!');
     });
-	
-	
-	 app.post('/api/invite/:code/:event', function(req, res) {         
-		SpecAnalytics.findOne({
+    app.post('/api/invite/:code/:event', function(req, res) {
+        SpecAnalytics.findOne({
             'invite': req.param('code')
         }, function(err, spec) {
             if(err) res.send('Error');
@@ -48,16 +54,14 @@ module.exports = function(app, passport) {
             }
             spec.analytics.push({
                 timestamp: new Date().toJSON(),
-				event:req.param('event'),
-                data:req.body.data                
+                event: req.param('event'),
+                data: req.body.data
             });
             spec.save(function(err, saved) {
                 if(err) console.log('Error Saving Analytics');
                 if(saved) console.log('Spec Analysis Saved!');
             });
         });
-		res.send('Done!');
+        res.send('Done!');
     });
-	
-	
 }

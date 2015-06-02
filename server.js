@@ -46,14 +46,17 @@ app.use(multer({
   }
 }));
 
+
+var pp = app.listen(port);
+
+// socket ======================================================================
+var io = require('socket.io').listen(pp);
+var socketio = require('./node_config/socket.js')(io);
+
 // routes ======================================================================
 require('./node_routes/routes.js')(app, passport);
 require('./node_routes/spec.js')(app, passport); 
-require('./node_routes/invite-routes.js')(app, passport); 
+require('./node_routes/invite-routes.js')(app, passport,io); 
 
-// launch ======================================================================
-var pp = app.listen(port);
-var io = require('socket.io').listen(pp);
-var socketio = require('./node_config/socket.js')(io);
 
 console.log('The magic happens on port ' + port);
