@@ -20,7 +20,19 @@ angular.module('specky-invite').config(['$stateProvider', '$urlRouterProvider', 
                     controller: function($scope, $stateParams) {
                         $scope.code = $stateParams.code;
                     }
-                }
+                },
+				'modal': {
+                    templateUrl: '/invite-templates/modal.html',
+                    controller: function($scope, $stateParams) {
+                        $scope.code = $stateParams.code;
+                    }
+                },
+				'chat':{
+					templateUrl: '/invite-templates/chat.html',
+					controller: function($scope, $stateParams) {
+                        $scope.code = $stateParams.code;
+                    }
+				}
             },
             url: '/invite/:code',
         });

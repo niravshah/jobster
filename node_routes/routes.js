@@ -4,12 +4,24 @@ module.exports = function(app, passport) {
     app.get('/', function(req, res) {
         res.render('main.ejs');
     });
-    app.get('/spec*', function(req, res) {
-        res.render('index.ejs');
+    app.get('/speck*', function(req, res) {
+        res.render('speck.ejs');
     });
     app.get('/invite*', function(req, res) {
-		res.render('invitation.ejs');
+		res.render('invite.ejs');
     });
+	
+    app.get('/api/onlineusers', function(req, res) {
+		console.log(global.onlineUsers);
+		var toSend = []
+		for(var i in global.onlineUsers){
+			if(global.onlineUsers[i]['rec'] == req.param('email')){
+				toSend.push(global.onlineUsers[i]);
+			}
+		}
+        res.send(toSend);
+    });
+	
 	
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {

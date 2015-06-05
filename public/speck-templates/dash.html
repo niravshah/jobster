@@ -1,0 +1,20 @@
+<div class="container">
+    <div ng-controller="SpecsCtrl" ng-init="initSpecs()">
+        <div class="row">
+            <div ng-repeat="spc in specs" class="col-md-3">
+                <div class="card">
+                    <div class="card-image">
+                        <img class="img-responsive" src="http://material-design.storage.googleapis.com/publish/v_2/material_ext_publish/0Bx4BSt6jniD7TDlCYzRROE84YWM/materialdesign_introduction.png">
+                        <span class="card-title">{{spc.sid}}</span>
+                    </div>
+                    <div class="card-content">
+                        <a href="/speck/{{spc.sid}}" target="new_blank">{{spc.sid}}</a>
+                    </div>
+                    <div class="card-action">                       
+						<a href="#" ng-repeat="inv in spc.invites">{{inv.code}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

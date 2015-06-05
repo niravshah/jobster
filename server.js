@@ -16,7 +16,7 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 var multer  = require('multer');
 var configDB = require('./node_config/database.js');
-
+global.onlineUsers = [];
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
@@ -55,7 +55,7 @@ var socketio = require('./node_config/socket.js')(io);
 
 // routes ======================================================================
 require('./node_routes/routes.js')(app, passport);
-require('./node_routes/spec.js')(app, passport); 
+require('./node_routes/spec-routes.js')(app, passport); 
 require('./node_routes/invite-routes.js')(app, passport,io); 
 
 

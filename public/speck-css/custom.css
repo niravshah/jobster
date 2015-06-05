@@ -1,0 +1,167 @@
+#rsidebar {
+    padding-top:40px;
+}
+#rsidebar-wrapper .panel-title {
+    font-size:12px;
+    font-family:Open Sans;
+}
+#rsidebar-wrapper .panel-group .panel {
+    border-radius:0px;
+	border-color:#FFFFFF
+}
+#rsidebar-wrapper .panel-default>.panel-heading {
+    background-color:#FFFFFF;
+    color:#558B2F;
+    border-radius:0px;
+}
+#rmenu-toggle {
+    background-color:#558B2F;
+    color:#FFFFFF
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+}
+/*Cards*/
+ .card {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.card {
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    background-clip: padding-box;
+}
+.card span.card-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+.card .card-image {
+    position: relative;
+    overflow: hidden;
+}
+.card .card-image img {
+    border-radius: 2px 2px 0 0;
+    background-clip: padding-box;
+    position: relative;
+    z-index: -1;
+}
+.card .card-image span.card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 16px;
+}
+.card .card-content {
+    padding: 16px;
+    border-radius: 0 0 2px 2px;
+    background-clip: padding-box;
+    box-sizing: border-box;
+}
+.card .card-content p {
+    margin: 0;
+    color: inherit;
+}
+.card .card-content span.card-title {
+    line-height: 48px;
+}
+.card .card-action {
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    padding: 16px;
+}
+.card .card-action a {
+    color: #ffab40;
+    margin-right: 16px;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+}
+.card .card-action a:hover {
+    color: #ffd8a6;
+    text-decoration: none;
+}
+/* Chat Widget*/
+ .chat {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.chat li {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+    font-size:10px;
+}
+.chat li .chat-body p {
+    margin: 0;
+    color: #777777;
+}
+.panel .slidedown .glyphicon, .chat .glyphicon {
+    margin-right: 5px;
+}
+.panel-body {
+    overflow-y: scroll;
+    height: 250px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+}
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #555;
+}
+.csidebar {
+    top:0;
+    bottom:0;
+    right:0;
+    position:absolute;
+    z-index=1234;
+    background-color:#CE93D8;
+    width:30px;
+    height:100%;
+}
+.csidebar.copen {
+    right:0;
+}
+/*Right Sidebar*/
+ #rsidebar-wrapper {
+    margin-right: -300px;
+    right: 0;
+    top:0;
+    width: 300px;
+    background: #FFFFFF;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 1000;
+    transition: all 0.5s ease-in 0s;
+    -webkit-transition: all 0.5s ease-in 0s;
+    -moz-transition: all 0.5s ease-in 0s;
+    -ms-transition: all 0.5s ease-in 0s;
+    -o-transition: all 0.5s ease-in 0s;
+}
+#rmenu-toggle {
+    top: 0;
+    right: 0;
+    position: fixed;
+    z-index: 1;
+}
+#rsidebar-wrapper.active {
+    right: 300px;
+    width: 300px;
+    transition: all 0.5s ease-out 0s;
+    -webkit-transition: all 0.5s ease-out 0s;
+    -moz-transition: all 0.5s ease-out 0s;
+    -ms-transition: all 0.5s ease-out 0s;
+    -o-transition: all 0.5s ease-out 0s;
+}
+.toggle {
+    margin: 5px 5px 0 0;
+}

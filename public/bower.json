@@ -28,7 +28,8 @@
 		"angular-bootstrap-datetimepicker": "latest",
 		"angular-tooltips": "latest",
 		"angular-socket-io":"latest",
-		"jquery.inview":"latest"
+		"jquery.inview":"latest",
+		"angular-google-maps":"latest"
 
     },
     "repository": {

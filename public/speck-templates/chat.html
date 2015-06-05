@@ -1,0 +1,53 @@
+<div ng-controller="ChatCtrl">
+    <a id="rmenu-toggle" ng-click="toggleChatPanel()" href="#" class="btn btn-lg toggle"><i class="glyphicon glyphicon-comment"></i></a>
+    <div id="rsidebar-wrapper">
+        <div class="row" style="color:#FFFFFF;background:#558B2F;height:60px;">
+            <div class="col-md-4 vcenter">
+                <a ng-click="toggleChatPanel()">
+                    <span style="line-height:60px;color:white;font-size:16px;" class="menu-icon glyphicon glyphicon-transfer"></span>
+                </a>
+            </div>
+            <div class="col-md-8 vcenter" style="line-height:60px;color:white;font-size:20px;">
+                Chat
+            </div>
+        </div>
+        <div id="rsidebar">
+            <accordion>
+                <accordion-group heading="{{on.name}} - {{on.email}}" ng-repeat="on in online">
+                    <a ng-click="connectToChat(on.nsp)">
+                        <span style="line-height:60px;color:black;font-size:10px;" class="menu-icon glyphicon glyphicon-transfer"></span>
+                    </a>
+                    <ul class="chat">
+                        <li ng-repeat="msg in msgs[on.nsp]" ng-class="{'left clearfix':msg.src == 'self','right clearfix':msg.src=='other'}">
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <div ng-if="msg.src=='other'">
+                                        <strong class="primary-font">{{msg.fromName}}</strong>  <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>{{msg.time}}</small>	
+                                    </div>
+                                    <div ng-if="msg.src=='self'">
+                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>{{msg.time}}</small>
+                                        <strong class="pull-right primary-font">{{msg.fromName}}</strong>
+
+                                    </div>
+                                </div>
+                                <p>
+                                    {{msg.message}}
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input id="btn-input" type="text" ng-model="on.nspMsgToSend" class="form-control input-sm" placeholder="Type your message here..." />
+                            <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="sendMessage(on)">
+                                Send</button>
+                        </span>
+                        </div>
+                    </div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+</div>

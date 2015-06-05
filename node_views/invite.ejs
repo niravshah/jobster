@@ -47,27 +47,29 @@
     <script type="text/javascript" src="/invite-js/routes.js"></script>
     <script type="text/javascript" src="/invite-js/controller/master-ctrl.js"></script>
     <script type="text/javascript" src="/invite-js/controller/invite-ctrl.js"></script>
+	<script type="text/javascript" src="/invite-js/controller/chat-ctrl.js"></script>
+	<script type="text/javascript" src="/invite-js/controller/modal-ctrl.js"></script>
+	<script type="text/javascript" src="/invite-js/controller/sidebar-ctrl.js"></script>
 </head>
 
 <body ng-controller="MasterCtrl">
-    <div>
-        <div id="wrapper">
-            <div ui-view="sidebar"></div>
-            <div id="page-content-wrapper" style="background:#009688">
-                <div id="page-content">
-                    <!-- Main Content -->
-                    <div class="row" style="background:#FFFFFF;box-shadow: 10px 10px #80CBC4;">
-                        <div ui-view="spec"></div>
-                    </div>
-                    <div class="row" style="padding-top:40px;">
-                        <img src="/img/made-with.png" style="display:block;margin:auto">
-                    </div>
-                </div>
-            </div>
-            <!-- End Page Content -->
-        </div>
-    </div>
-    <!-- End Page Wrapper -->
+	<div id="wrapper">
+		<div ui-view="sidebar"></div>
+		<div ui-view="modal"></div>
+		<div id="page-content-wrapper" style="background:#009688">
+			<div id="page-content">                    
+				<div class="row" style="background:#FFFFFF;box-shadow: 10px 10px #80CBC4;">
+					<div ui-view="spec"></div>
+				</div>
+				<div class="row" style="padding-top:40px;">
+					<img src="/img/made-with.png" style="display:block;margin:auto">
+				</div>
+			</div>			
+		</div>
+		<!-- End Page Content -->
+	</div>
+	<!-- End Page Wrapper -->
+	<div ui-view="chat" style="width:400px;z-index:56;position: fixed;bottom:10px;right:20px;"></div>    
 </body>
 
 </html>
