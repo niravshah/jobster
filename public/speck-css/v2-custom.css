@@ -1,0 +1,78 @@
+// Rules for sizing the icon. .material-icons.md-18 {
+    font-size: 18px;
+}
+.material-icons.md-24 {
+    font-size: 24px;
+}
+.material-icons.md-36 {
+    font-size: 36px;
+}
+.material-icons.md-48 {
+    font-size: 48px;
+}
+// Rules for using icons as black on a light background. .material-icons.md-dark {
+    color: rgba(0, 0, 0, 0.54);
+}
+.material-icons.md-dark.md-inactive {
+    color: rgba(0, 0, 0, 0.26);
+}
+// Rules for using icons as white on a dark background. .material-icons.md-light {
+    color: rgba(255, 255, 255, 1);
+}
+.material-icons.md-light.md-inactive {
+    color: rgba(255, 255, 255, 0.3);
+}
+body {
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100%;
+}
+.fab-float-top {
+    position:absolute;
+    top:75px;
+    right:50px;
+    z-index:500;
+}
+.fab-float-bottom {
+    position:absolute;
+    bottom:30px;
+    right:30px;
+    z-index:500;
+}
+md-input-container.big {
+    font-size: 20px;
+}
+md-input-container.md-icon-float > label.custom {
+    color:black;
+}
+#slider {
+    background:#E0E0E0;
+    width:1px;
+    margin-right:80px;
+    margin-left:10px;
+}
+#slider #line {
+    margin-left:-2px;
+    background:rgb(255, 82, 82);
+    width:5px;
+    height:54px;
+}
+#slider #line.one {
+    margin-top:5px;
+}
+#slider #line.two {
+    margin-top:75px;
+}
+#slider #line.three {
+    margin-top:145px;
+}
+#slider #line.four {
+    margin-top:215px;
+}
+#slider-titles div {
+    height:70px;
+}
+
+#slider-titles div:focus {
+    outline: none;
+}

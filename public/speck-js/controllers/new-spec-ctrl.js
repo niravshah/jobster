@@ -3,6 +3,7 @@
  */
 angular.module('RDash').controller('EditorCtrl', ['$scope', '$http', '$location', EditorCtrl]);
 
+
 function EditorCtrl($scope, $http, $location) {
     $scope.initEditor = function() {
         var configs = {
@@ -30,3 +31,5 @@ function EditorCtrl($scope, $http, $location) {
         });
     }
 }
+
+

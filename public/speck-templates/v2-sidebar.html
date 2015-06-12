@@ -1,0 +1,13 @@
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-is-open="mdIsOpen" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+    <md-toolbar layout="row" class="md-whiteframe-z2">
+        <div hide-gt-sm class="md-toolbar-tools">
+            <i ng-click="toggleSideBar()" class="material-icons md-light md-36">clear</i>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+    <div layout-padding>
+        <p hide-md show-gt-md>
+            This sidenav is locked open on your device. To go back to the default behavior, narrow your display.
+        </p>
+    </div>
+</md-sidenav>

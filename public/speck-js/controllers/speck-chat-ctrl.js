@@ -1,6 +1,6 @@
-angular.module('RDash').controller('ChatCtrl', ['$scope', '$rootScope', '$http', '$stateParams', '$log', '$window', 'SocketService', ChatCtrl]);
+angular.module('RDash').controller('ChatCtrl', ['$scope', '$rootScope', 'SocketService', ChatCtrl]);
 
-function ChatCtrl($scope, $rootScope, $http, $stateParams, $log, $window, SocketService) {
+function ChatCtrl($scope, $rootScope, SocketService) {
     
 	$scope.showBadge = true;
     $scope.showPanel = false;
@@ -10,6 +10,7 @@ function ChatCtrl($scope, $rootScope, $http, $stateParams, $log, $window, Socket
 	
     $scope.sendMessage = function(on) {
         SocketService.send(on);
+		on.nspMsgToSend = '';
     }
     $scope.toggleChatPanel = function() {
         $("#rsidebar-wrapper").toggleClass("active");
@@ -20,9 +21,7 @@ function ChatCtrl($scope, $rootScope, $http, $stateParams, $log, $window, Socket
         SocketService.connect(nsp);
     }
 	$scope.$on('updated',function(){
-		console.log('updated event');
 		$scope.msgs = SocketService.getMessage();
-		console.log($scope.msgs);
 		$scope.$apply();
 	})
 }

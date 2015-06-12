@@ -1,42 +1,55 @@
 {
-    "name": "rdash-angular",
-    "version": "0.0.1",
-    "description": "An AngularJS implementation of the responsive dashboard",
-    "homepage": "https://github.com/Ehesp/Responsive-Dashboard",
-    "authors": ["Elliot Hesp <elliot.hesp@gmail.com>"],
-    "contributors": ["Ricardo Pascua Jr <rdpascua@outlook.com>", "Leonel Samayoa <leonel.e.samayoa@gmail.com>"],
-    "main": "index.html",
-    "license": "MIT",
-    "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"],
-    "dependencies": {
-        "rdash-ui": "1.0.*",
-        "angular": "~1.2.21",
-        "angular-cookies": "~1.2.21",
-        "angular-bootstrap": "~0.11.0",
-        "angular-ui-router": "^0.2.10",
-		"angular-sanitize": "",
-        "bootstrap": "~3.2.0",
-        "font-awesome": "~4.1.0",
-        "ladda-bootstrap": "0.1.0",
-        "qtip2": "",
-        "angular-jwt":"",
-		"magnific-popup":"",		
-		"ouibounce":"",
-		"ifvisible.js":"1.0.4",
-		"ng-file-upload":"4.2.4",
-		"angular-bootstrap-checkbox":"0.3.1",
-		"angular-bootstrap-datetimepicker": "latest",
-		"angular-tooltips": "latest",
-		"angular-socket-io":"latest",
-		"jquery.inview":"latest",
-		"angular-google-maps":"latest"
-
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/rdash/rdash-angular"
-    },
-    "resolutions": {
-        "spin.js": "~2.0.2"
-    }
+  "name": "rdash-angular",
+  "version": "0.0.1",
+  "description": "An AngularJS implementation of the responsive dashboard",
+  "homepage": "https://github.com/Ehesp/Responsive-Dashboard",
+  "authors": [
+    "Elliot Hesp <elliot.hesp@gmail.com>"
+  ],
+  "contributors": [
+    "Ricardo Pascua Jr <rdpascua@outlook.com>",
+    "Leonel Samayoa <leonel.e.samayoa@gmail.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "rdash-ui": "1.0.*",
+    "angular": "~1.2.21",
+    "angular-cookies": "~1.2.21",
+    "angular-bootstrap": "~0.11.0",
+    "angular-ui-router": "^0.2.10",
+    "angular-sanitize": "",
+    "bootstrap": "~3.2.0",
+    "font-awesome": "~4.1.0",
+    "ladda-bootstrap": "0.1.0",
+    "qtip2": "",
+    "angular-jwt": "",
+    "magnific-popup": "",
+    "ouibounce": "",
+    "ifvisible.js": "1.0.4",
+    "ng-file-upload": "4.2.4",
+    "angular-bootstrap-checkbox": "0.3.1",
+    "angular-bootstrap-datetimepicker": "latest",
+    "angular-tooltips": "latest",
+    "angular-socket-io": "latest",
+    "jquery.inview": "latest",
+    "angular-google-maps": "latest",
+    "bootstrap-material-design": "latest",
+    "angular-material": "latest",
+    "ng-mfb": "~0.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rdash/rdash-angular"
+  },
+  "resolutions": {
+    "spin.js": "~2.0.2"
+  }
 }

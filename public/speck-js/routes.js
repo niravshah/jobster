@@ -2,12 +2,26 @@
 /**
  * Route configuration for the RDash module.
  */
-angular.module('RDash').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'jwtInterceptorProvider', '$locationProvider',
-    function($stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $locationProvider) {
+angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'jwtInterceptorProvider', '$locationProvider', '$mdThemingProvider',
+    function($stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $locationProvider, $mdThemingProvider) {
         // For unmatched routes
         $urlRouterProvider.otherwise('/');
         // Application routes
-        $stateProvider.state('home', {
+        $stateProvider.state('v2', {
+            url: '/v2',
+            'views': {
+                'main': {
+                    templateUrl: '/speck-templates/v2-dash.html'
+                }
+            }
+        }).state('v2add', {
+            url: '/v2/add',
+            'views': {
+                'main': {
+                    templateUrl: '/speck-templates/v2-add.html'
+                }
+            }
+        }).state('home', {
             url: '/speck/home',
             'views': {
                 'main': {
@@ -19,16 +33,26 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider', '$httpPr
                 'header': {
                     templateUrl: '/speck-templates/header.html'
                 },
-				'chat':{
-					templateUrl: '/speck-templates/chat.html'
-				}
+                'chat': {
+                    templateUrl: '/speck-templates/chat.html'
+                }
             }
         }).state('tables', {
             url: '/tables',
             templateUrl: '/speck-templates/tables.html'
         }).state('new-spec', {
             url: '/speck/new',
-            templateUrl: '/speck-templates/new-spec.html'
+            'views': {
+                'main': {
+                    templateUrl: '/speck-templates/new-spec.html'
+                },
+                'sidebar': {
+                    templateUrl: '/speck-templates/sidebar.html'
+                },
+                'header': {
+                    templateUrl: '/speck-templates/header.html'
+                }
+            }
         }).state('spec', {
             url: '/speck/:specId',
             templateUrl: '/speck-templates/spec.html',
@@ -53,5 +77,6 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider', '$httpPr
             enabled: true,
             requireBase: false
         });
+        $mdThemingProvider.theme('default').primaryPalette('brown').accentPalette('red');
     }
 ]);

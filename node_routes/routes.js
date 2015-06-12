@@ -7,29 +7,31 @@ module.exports = function(app, passport) {
     app.get('/speck*', function(req, res) {
         res.render('speck.ejs');
     });
-    app.get('/invite*', function(req, res) {
-		res.render('invite.ejs');
+    app.get('/v2*', function(req, res) {
+        res.render('speck2.ejs');
     });
-	
+    app.get('/invite*', function(req, res) {
+        res.render('invite2.ejs');
+    });
+    app.get('/test', function(req, res) {
+        res.render('invite2.ejs');
+    });
     app.get('/api/onlineusers', function(req, res) {
-		console.log(global.onlineUsers);
-		var toSend = []
-		for(var i in global.onlineUsers){
-			if(global.onlineUsers[i]['rec'] == req.param('email')){
-				toSend.push(global.onlineUsers[i]);
-			}
-		}
+        console.log(global.onlineUsers);
+        var toSend = []
+        for(var i in global.onlineUsers) {
+            if(global.onlineUsers[i]['rec'] == req.param('email')) {
+                toSend.push(global.onlineUsers[i]);
+            }
+        }
         res.send(toSend);
     });
-	
-	
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile.ejs', {
             user: req.user
         });
     });
-   
     // LOGOUT ==============================
     app.get('/logout', function(req, res) {
         req.logout();
@@ -194,5 +196,5 @@ module.exports = function(app, passport) {
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()) return next();
     console.log('Request Not Authenticated!');
-	res.redirect('#/login');
+    res.redirect('#/login');
 }

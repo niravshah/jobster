@@ -1,8 +1,9 @@
-angular.module('RDash').controller('SpecsCtrl', ['$scope','$rootScope', '$http', '$stateParams', SpecsCtrl]);
+angular.module('Speck').controller('SpecsCtrl', ['$scope', '$rootScope', '$http', '$stateParams', SpecsCtrl]);
 
-function SpecsCtrl($scope,$rootScope, $http, $stateParams) {
+
+function SpecsCtrl($scope, $rootScope, $http, $stateParams) {
     $scope.specs = [];
-    $scope.initSpecs = function() {
+    $scope.initSpecs = function() {        
         $http({
             url: '/api/user-specs',
             method: 'GET',
@@ -22,10 +23,11 @@ function SpecsCtrl($scope,$rootScope, $http, $stateParams) {
                 'email': 'nirav.shah83@gmail.com'
             }
         }).success(function(data, status, headers, config) {
-			$rootScope.onlineUsers = data;
+            $rootScope.onlineUsers = data;
             console.log('Online Users: ', data);
         }).error(function(data, status, headers, config) {
             console.log('Error: ', data);
         })
     }
 }
+

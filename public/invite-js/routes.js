@@ -8,7 +8,7 @@ angular.module('specky-invite').config(['$stateProvider', '$urlRouterProvider', 
         $urlRouterProvider.otherwise('/');
         // Application routes
         $stateProvider.state('invite', {
-            views: {
+            /* views: {
                 'spec': {
                     templateUrl: '/invite-templates/invite.html',
                     controller: function($scope, $stateParams) {
@@ -33,8 +33,12 @@ angular.module('specky-invite').config(['$stateProvider', '$urlRouterProvider', 
                         $scope.code = $stateParams.code;
                     }
 				}
-            },
+            },*/
             url: '/invite/:code',
+            templateUrl: '/invite-templates/invite.html',
+            controller: function($scope, $stateParams) {
+                $scope.code = $stateParams.code;
+            }
         });
         jwtInterceptorProvider.tokenGetter = [
             function() {

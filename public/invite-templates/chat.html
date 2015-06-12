@@ -12,21 +12,17 @@
         </div>
         <div class="panel-body">
             <ul class="chat">
-                <li ng-repeat="msg in msgs" ng-class-odd="'left clearfix'" ng-class-even="'right clearfix'">
-                    <span ng-class-odd="'chat-img pull-left'" ng-class-even="'chat-img pull-right'">
+                <li ng-repeat="msg in msgs" ng-class="{'left clearfix':msg.src == 'self','right clearfix':msg.src=='other'}">
+                    <span ng-class="{'chat-img pull-left':msg.src == 'self','chat-img pull-right':msg.src=='other'}">
                             <img ng-src={{msg.imgSrc}} alt="User Avatar" class="img-circle" />
                         </span>
                     <div class="chat-body clearfix">
-                        <div ng-if="$even" class="header">
-                            <strong class="primary-font">{{msg.uname}}</strong>  <small class="pull-left text-muted">
-                                        <span class="glyphicon glyphicon-time"></span>{{msg.time}}</small>
+                        <div ng-if="msg.src == 'self'" class="header">
+                            <strong class="primary-font">{{msg.fromName}}</strong> 
                         </div>
-                        <div ng-if="$odd" class="header">
-                            <small class="text-muted">
-                         <span class="glyphicon glyphicon-time">{{msg.time}}</span></small>
-                            <strong class="pull-right primary-font">{{msg.uname}}</strong>
+                        <div ng-if="msg.src == 'other'" class="header">
+                            <strong class="pull-right primary-font">{{msg.fromName}}</strong>
                         </div>
-
                         <p>
                             {{msg.message}}
                         </p>
@@ -36,7 +32,7 @@
         </div>
         <div class="panel-footer">
             <div class="input-group">
-                <input id="btn-input" type="text" ng-model="msgToSend" class="form-control input-sm" placeholder="Type your message here..." />
+                <input id="btn-input" type="text" ng-model="msgToSend" ng-keyup="$event.keyCode == 13 ? sendMessage() : null" class="form-control input-sm" placeholder="Type your message here..." />
                 <span class="input-group-btn">
                             <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="sendMessage();">
                                 Send</button>

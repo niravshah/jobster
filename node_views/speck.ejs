@@ -10,64 +10,76 @@
     <!-- build:css lib/css/main.min.css -->
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/bower_components/rdash-ui/dist/css/rdash.min.css">	
-	<link rel="stylesheet" type="text/css" href="/speck-css/custom.css">	
-	<link rel="stylesheet" href="/bower_components/ladda-bootstrap/dist/ladda.min.css"/>
-	<link rel="stylesheet" href="//cdn.quilljs.com/0.19.12/quill.snow.css" />
-	<link href='http://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:600italic,400|Roboto:400,300' rel='stylesheet' type='text/css'>
-	
+    <link rel="stylesheet" type="text/css" href="/bower_components/rdash-ui/dist/css/rdash.min.css">
+
+    <link type="text/css" href="/bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css" rel="stylesheet">
+    <link type="text/css" href="/bower_components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/speck-css/custom.css">
+    <link rel="stylesheet" href="/bower_components/ladda-bootstrap/dist/ladda.min.css" />
+    <link rel="stylesheet" href="//cdn.quilljs.com/0.19.12/quill.snow.css" />
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:600italic,400|Roboto:400,300' rel='stylesheet' type='text/css'>
+
     <!-- endbuild -->
     <!-- SCRIPTS -->
     <!-- build:js lib/js/main.min.js -->
-	<script type="text/javascript" src="/bower_components/jquery/jquery.js"></script>
-	<script type="text/javascript" src="/bower_components/lodash/lodash.js"></script>
-	
-	<script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/bower_components/lodash/lodash.js"></script>
+
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
-	<script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+    <script src="/bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+    <script src="/bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
+
+
     <script type="text/javascript" src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-	<script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-	<script type="text/javascript" src="/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>	
-	<script type="text/javascript" src="/bower_components/ladda-bootstrap/dist/spin.min.js"></script>
-	<script type="text/javascript" src="/bower_components/ladda-bootstrap/dist/ladda.js"></script>
-	<script type="text/javascript" src="/manual_components/socket.io/dist/1.3.5/socket.io-1.3.5.js"></script>
-	
+    <script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
+    <script type="text/javascript" src="/bower_components/ladda-bootstrap/dist/spin.min.js"></script>
+    <script type="text/javascript" src="/bower_components/ladda-bootstrap/dist/ladda.js"></script>
+    <script type="text/javascript" src="/manual_components/socket.io/dist/1.3.5/socket.io-1.3.5.js"></script>
+
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBtmNbS12IoXUSMQoYsYmOWw_u6JCuf99E"></script>
+    <script type="text/javascript" src="/bower_components/lodash/lodash.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-google-maps/dist/angular-google-maps.min.js"></script>
+
     <!-- endbuild -->
     <!-- Custom Scripts -->
+    <script type="text/javascript" src="/common-services-js/socket-service.js"></script>
+	<script type="text/javascript" src="/speck-js/custom.js"></script>
     <script type="text/javascript" src="/speck-js/module.js"></script>
-    
-	<script type="text/javascript" src="/speck-js/services/socket-service.js"></script>
-	
-	<script type="text/javascript" src="/speck-js/routes.js"></script>
+    <script type="text/javascript" src="/speck-js/routes.js"></script>
     <script type="text/javascript" src="/speck-js/controllers/alert-ctrl.js"></script>
-	<script type="text/javascript" src="/speck-js/controllers/master-ctrl.js"></script>
-	<script type="text/javascript" src="/speck-js/controllers/new-spec-ctrl.js"></script>
-	<script type="text/javascript" src="/speck-js/controllers/spec-ctrl.js"></script>
-	<script type="text/javascript" src="/speck-js/controllers/speck-chat-ctrl.js"></script>
-	<script type="text/javascript" src="/speck-js/controllers/specs-ctrl.js"></script>
-	
-	<script type="text/javascript" src="/speck-js/directives/widget.js"></script>
-	<script type="text/javascript" src="/speck-js/directives/widget-header.js"></script>
-	<script type="text/javascript" src="/speck-js/directives/widget-body.js"></script>
-	<script type="text/javascript" src="/speck-js/directives/widget-footer.js"></script>
-	<script type="text/javascript" src="/speck-js/directives/loading.js"></script>
-	<script src="//cdn.quilljs.com/0.19.12/quill.js"></script>
+    <script type="text/javascript" src="/speck-js/controllers/master-ctrl.js"></script>
+    <script type="text/javascript" src="/speck-js/controllers/new-spec-ctrl.js"></script>
+    <script type="text/javascript" src="/speck-js/controllers/spec-ctrl.js"></script>
+    <script type="text/javascript" src="/speck-js/controllers/speck-chat-ctrl.js"></script>
+    <script type="text/javascript" src="/speck-js/controllers/specs-ctrl.js"></script>
+
+
+    <script src="//cdn.quilljs.com/0.19.12/quill.js"></script>
 
 </head>
+
 <body ng-controller="MasterCtrl">
     <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
-		<div ui-view="sidebar"></div>       
+        <div ui-view="sidebar"></div>
         <div id="content-wrapper">
             <div class="page-content">
-                <div ui-view="header"></div>			     
+                <div ui-view="header"></div>
                 <div ui-view="main"></div>
             </div>
             <!-- End Page Content -->
-			<div ui-view="chat"> <!--style="width:400px;z-index:56;position: fixed;bottom:10px;right:20px;">--></div>
+            <div ui-view="chat">
+                <!--style="width:400px;z-index:56;position: fixed;bottom:10px;right:20px;">-->
+            </div>
         </div>
         <!-- End Content Wrapper -->
     </div>
     <!-- End Page Wrapper -->
 </body>
+
 </html>

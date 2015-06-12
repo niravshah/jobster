@@ -2,13 +2,16 @@
  * Master Controller
  */
 
-angular.module('RDash')
-    .controller('MasterCtrl', ['$scope', '$cookieStore', MasterCtrl]);
+angular.module('Speck')
+    .controller('MasterCtrl', ['$scope', '$cookieStore', '$mdSidenav', '$log',MasterCtrl]);
 
-function MasterCtrl($scope, $cookieStore) {
+function MasterCtrl($scope, $cookieStore,$mdSidenav, $log) {
     /**
      * Sidebar Toggle & Cookie Control
      */
+	
+	$scope.mdIsOpen = false;
+	
     var mobileView = 992;
 
     $scope.getWidth = function() {
@@ -28,12 +31,20 @@ function MasterCtrl($scope, $cookieStore) {
 
     });
 
-    $scope.toggleSidebar = function() {
+    /*$scope.toggleSidebar = function() {
         $scope.toggle = !$scope.toggle;
         $cookieStore.put('toggle', $scope.toggle);
-    };
+    };*/
 
     window.onresize = function() {
         $scope.$apply();
     };
+	
+	
+	$scope.toggleSideBar = function(){
+		 $mdSidenav('left').toggle()
+        .then(function () {
+          $log.debug("toggle LEFT is done");
+        });
+	}
 }

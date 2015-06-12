@@ -10,6 +10,8 @@ function MasterCtrl($scope, $cookieStore) {
      * Sidebar Toggle & Cookie Control
      */
     var mobileView = 992;
+	
+	$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
 
     $scope.getWidth = function() {
         return window.innerWidth;
