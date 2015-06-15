@@ -1,0 +1,46 @@
+<div id="section-1" layout="column">
+    <div layout="row">
+        <md-input-container class="big">
+            <label>Company Name</label>
+            <input name="companyName" ng-model="companyName" ng-blur="companyNameChange()" required md-maxlength="10" minlength="4">
+            <div ng-messages="companyName.$error" ng-show="companyName.$dirty">
+                <div ng-message="required">This is required!</div>
+                <div ng-message="md-maxlength">That's too long!</div>
+                <div ng-message="minlength">That's too short!</div>
+            </div>
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container class="big">
+            <label>Role</label>
+            <input name="role" ng-model="role" required md-maxlength="10" minlength="4">
+            <div ng-messages="role.$error" ng-show="role.$dirty">
+                <div ng-message="required">This is required!</div>
+                <div ng-message="md-maxlength">That's too long!</div>
+                <div ng-message="minlength">That's too short!</div>
+            </div>
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container class="big">
+            <label>Corporate Title</label>
+            <input name="ct" ng-model="ct" required md-maxlength="10" minlength="4">
+            <div ng-messages="ct.$error" ng-show="ct.$dirty">
+                <div ng-message="required">This is required!</div>
+                <div ng-message="md-maxlength">That's too long!</div>
+                <div ng-message="minlength">That's too short!</div>
+            </div>
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container class="big">
+            <label>Compensation</label>
+            <input name="ct" ng-model="ct" required md-maxlength="10" minlength="4">
+            <div ng-messages="ct.$error" ng-show="ct.$dirty">
+                <div ng-message="required">This is required!</div>
+                <div ng-message="md-maxlength">That's too long!</div>
+                <div ng-message="minlength">That's too short!</div>
+            </div>
+        </md-input-container>
+    </div>
+</div>

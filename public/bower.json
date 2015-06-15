@@ -43,7 +43,9 @@
     "angular-google-maps": "latest",
     "bootstrap-material-design": "latest",
     "angular-material": "latest",
-    "ng-mfb": "~0.6.1"
+    "ng-mfb": "~0.6.1",
+    "gmaps": "~0.4.18",
+    "dropzone": "~4.0.1"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,5 @@
 <div ng-controller="SpecsCtrl" ng-init="initSpecs()">
- 
-<div id="float-action" fab-float>	
+    <div id="float-action" fab-float>
         <a ui-sref="v2add">
             <md-button class="md-fab md-accent" aria-label="Add Spec">
                 <md-icon md-svg-src="/img/note_add.svg" style="color: greenyellow;"></md-icon>
@@ -9,21 +8,31 @@
     </div>
     <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="my specs">
-            <md-content class="md-padding">
-                <div flex layout="row" layout-align="center center" layout-sm="column" layout-wrap>
-                    <md-card ng-repeat="spc in specs" flex-gt-sm="20">
-                        <img ng-src="/img/md-card-img.png" class="md-card-image" alt="Washed Out">
-                        <md-card-content>
-                            <h2 class="md-title">{{spc.sid}}</h2>
-                            <p>
-                                {{spc.sid}}
-                            </p>
-                        </md-card-content>
-                        <div class="md-actions" layout="row" layout-align="end center">
-                            <md-button>{{inv.code}}</md-button>
+            <md-content flex class="md-padding">
+                <div flex layout="row" layout-sm="column">
+                    <div flex-gt-sm="75" layout="column">
+                        <div layout="row" layout-sm="column" layout-wrap>
+                            <md-card ng-repeat="spc in specs" flex-gt-sm="20">
+                                <img ng-src="/img/md-card-img.png" class="md-card-image" alt="Washed Out">
+                                <md-card-content>
+                                    <h2 class="md-title">{{spc.sid}}</h2>
+                                    <p>
+                                        {{spc.sid}}
+                                    </p>
+                                </md-card-content>
+                                <div class="md-actions" layout="row" layout-align="end center">
+                                    <md-button>{{inv.code}}</md-button>
+                                </div>
+                            </md-card>
                         </div>
-                    </md-card>
+                    </div>
+                    <md-whiteframe class="md-whiteframe-z3" flex="25" layout="column" layout-align="center center" hide-sm ng-init="initMultiDropzone()">
+                        <div flex style="width:100%;height:500px;overflow-y:auto;" layout-wrap layout="row" id="multidropzone" class="dropzone">
+                            <div class="dz-message"></div>
+                        </div>
+                    </md-whiteframe>
                 </div>
+
             </md-content>
         </md-tab>
         <md-tab label="inbox">

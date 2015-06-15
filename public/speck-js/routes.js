@@ -21,6 +21,34 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
                     templateUrl: '/speck-templates/v2-add.html'
                 }
             }
+        }).state('v2add.desg', {
+            url: '/desg',
+            'views': {
+                'subView': {
+                    templateUrl: '/speck-templates/v2-add-desg.html'
+                }
+            }
+        }).state('v2add.loc', {
+            url: '/loc',
+            'views': {
+                'subView': {
+                    templateUrl: '/speck-templates/v2-add-loc.html'
+                }
+            }
+        }).state('v2add.spec', {
+            url: '/spec',
+            'views': {
+                'subView': {
+                    templateUrl: '/speck-templates/v2-add-spec.html'
+                }
+            }
+        }).state('v2add.comments', {
+            url: '/comments',
+            'views': {
+                'subView': {
+                    templateUrl: '/speck-templates/v2-add-comments.html'
+                }
+            }
         }).state('home', {
             url: '/speck/home',
             'views': {
