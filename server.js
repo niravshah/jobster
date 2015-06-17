@@ -56,6 +56,8 @@ var socketio = require('./node_config/socket.js')(io);
 // routes ======================================================================
 require('./node_routes/routes.js')(app, passport);
 require('./node_routes/spec-routes.js')(app, passport); 
+require('./node_routes/v2-spec-routes.js')(app, passport); 
+require('./node_routes/v2-mandrill-routes.js')(app, passport); 
 require('./node_routes/invite-routes.js')(app, passport,io); 
 
 

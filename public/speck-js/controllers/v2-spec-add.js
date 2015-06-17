@@ -27,6 +27,6 @@ function AddSpec($scope, $http, $location, $state) {
             acceptedFiles: ".docx",
             dictDefaultMessage: "Drop Specs here or click to Upload! Specky currently works only with Docx Files",
 			maxFiles:1
-        });
+        });				
     }
 }

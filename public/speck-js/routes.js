@@ -15,10 +15,13 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
                 }
             }
         }).state('v2add', {
-            url: '/v2/add',
+            url: '/v2/specify/:specId',
             'views': {
                 'main': {
-                    templateUrl: '/speck-templates/v2-add.html'
+                    templateUrl: '/speck-templates/v2-add.html',
+                    controller: function($scope, $stateParams) {
+                        $scope.specid = $stateParams.specId;
+                    }
                 }
             }
         }).state('v2add.desg', {
