@@ -8,7 +8,7 @@
     </div>
     <md-tabs flex layout="column" md-dynamic-height md-border-bottom>
         <md-tab md-on-select="tabSelected('live')">
-            <md-tab-label><span>live </span><span ng-if="currLiveDelta!=0" class="badge badge-error">{{currLiveDelta}}</span>
+            <md-tab-label><span>live </span><span ng-if="currLiveDelta>0 && draftLoaded" class="badge badge-error">{{currLiveDelta}}</span>
             </md-tab-label>
             <md-tab-body>
                 <md-content flex class="md-padding">
@@ -16,6 +16,55 @@
                         <div flex-gt-sm="75" layout="column">
                             <div layout="row" layout-sm="column" layout-wrap>
                                 <md-card ng-repeat="spc in specs|filter:{status:'live'}" flex-gt-sm="20">
+                                    <img class="md-card-image" alt="/img/md-card-img.png" ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{spc.location.lat}},{{spc.location.lng}}&amp;size=197x106&amp;sensor=true&amp;zoom=15&amp;scale=1">
+                                    <md-card-content>
+                                        <h2 class="md-title">{{spc.designation.role}}</h2>
+                                        <h2 class="md-subhead">{{spc.designation.companyName}}</h2>
+                                    </md-card-content>
+                                    <div class="md-actions" layout="row" layout-align="end center">
+                                        <a ui-sref='v2add({specId:spc.sid})'>
+                                            <md-button class="md-accent md-icon-button" aria-label="delete">
+                                                <md-icon md-font-library="material-icons" class="md-18">email</md-icon>
+                                            </md-button>
+                                        </a>
+
+                                        <md-button ng-click="makeDraft(spc.sid)" class="md-icon-button" aria-label="delete">
+                                            <md-icon md-font-library="material-icons" class="md-18">edit</md-icon>
+                                        </md-button>
+
+                                        <md-button ng-click="deleteSpec(spc.sid)" class="md-icon-button" aria-label="delete">
+                                            <md-icon md-font-library="material-icons" class="md-18">delete</md-icon>
+                                        </md-button>
+                                    </div>
+                                </md-card>
+                            </div>
+                        </div>
+                        <md-whiteframe class="md-whiteframe-z3" flex="25" layout="column" layout-align="center center" hide-sm ng-init="initMultiDropzone()">
+                            <div flex style="min-height:500px;width:100%;overflow-y:auto;border:none;" layout-wrap layout="row" id="multidropzone" class="dropzone">
+                                <div class="dz-message" style="margin:auto;">
+                                    <h2 class="md-subhead">Drop your Word Specs here <br> or Click to Upload</h2>
+                                    <a class="md-clicker" href="#">
+                                        <md-icon style="height:60px;width:60px;" md-font-library="material-icons" class="md-dark md-48">cloud_upload</md-icon>
+                                    </a>
+                                    <p class="md-body-1" style="padding:10px;">(only *.docx format supported)
+                                        <md-icon ng-click="showDocxHelp($event)" md-font-library="material-icons" class="md-dark md-18">help_outline</md-icon>
+                                    </p>
+                                </div>
+                            </div>
+                        </md-whiteframe>
+                    </div>
+                </md-content>
+            </md-tab-body>
+        </md-tab>
+        <md-tab md-on-select="tabSelected('draft')">
+            <md-tab-label><span>draft </span><span ng-if="currDraftDelta>0" class="badge badge-error">{{currDraftDelta}}</span>
+            </md-tab-label>
+            <md-tab-body>
+                <md-content flex class="md-padding">
+                    <div flex layout="row" layout-sm="column">
+                        <div flex-gt-sm="75" layout="column">
+                            <div layout="row" layout-sm="column" layout-wrap>
+                                <md-card ng-repeat="spc in specs|filter:{status:'draft'}" flex-gt-sm="20">
                                     <img ng-src="/img/md-card-img.png" class="md-card-image" alt="Washed Out">
                                     <md-card-content>
                                         <h2 class="md-title">{{spc.sid}}</h2>
@@ -24,52 +73,29 @@
                                         </p>
                                     </md-card-content>
                                     <div class="md-actions" layout="row" layout-align="end center">
+                                        <a ui-sref='v2add({specId:spc.sid})'>
+                                            <md-button class="md-primary md-accent">Specify</md-button>
+                                        </a>
                                         <md-button ng-click="deleteSpec(spc.sid)">Delete</md-button>
                                     </div>
                                 </md-card>
                             </div>
                         </div>
-                        <md-whiteframe class="md-whiteframe-z3" flex="25" layout="column" layout-align="center center" hide-sm ng-init="initMultiDropzone()">
-                            <div flex style="min-height:500px;width:100%;overflow-y:auto;" layout-wrap layout="row" id="multidropzone" class="dropzone">
-                                <div class="dz-message"></div>
+                        <md-whiteframe class="md-whiteframe-z3" flex="25" layout="column" layout-align="center center" hide-sm ng-init="initMultiDropzone2()">
+                            <div flex style="min-height:500px;width:100%;overflow-y:auto;border:none;" layout-wrap layout="row" id="multidropzone-2" class="dropzone">
+                                <div class="dz-message" style="margin:auto;">
+                                    <h2 class="md-subhead">Drop your Word Specs here <br> or Click to Upload</h2>
+                                    <a class="md-clicker" href="#">
+                                        <md-icon style="height:60px;width:60px;" md-font-library="material-icons" class="md-dark md-48">cloud_upload</md-icon>
+                                    </a>
+                                    <p class="md-body-1" style="padding:10px;">(only *.docx format supported)
+                                        <md-icon ng-click="showDocxHelp($event)" md-font-library="material-icons" class="md-dark md-18">help_outline</md-icon>
+                                    </p>
+                                </div>
                             </div>
                         </md-whiteframe>
                     </div>
                 </md-content>
-            </md-tab-body>
-        </md-tab>
-        <md-tab md-on-select="tabSelected('draft')">
-            <md-tab-label><span>draft </span><span ng-if="currDraftDelta!=0" class="badge badge-error">{{currDraftDelta}}</span>
-            </md-tab-label>
-            <md-tab-body>           
-            <md-content flex class="md-padding">
-                <div flex layout="row" layout-sm="column">
-                    <div flex-gt-sm="75" layout="column">
-                        <div layout="row" layout-sm="column" layout-wrap>
-                            <md-card ng-repeat="spc in specs|filter:{status:'draft'}" flex-gt-sm="20">
-                                <img ng-src="/img/md-card-img.png" class="md-card-image" alt="Washed Out">
-                                <md-card-content>
-                                    <h2 class="md-title">{{spc.sid}}</h2>
-                                    <p>
-                                        {{spc.sid}}
-                                    </p>
-                                </md-card-content>
-                                <div class="md-actions" layout="row" layout-align="end center">
-                                    <md-button ng-click="deleteSpec(spc.sid)">Delete</md-button>
-                                    <a ui-sref='v2add({specId:spc.sid})'>
-                                        <md-button class="md-primary">Specify</md-button>
-                                    </a>
-                                </div>
-                            </md-card>
-                        </div>
-                    </div>
-                    <md-whiteframe class="md-whiteframe-z3" flex="25" layout="column" layout-align="center center" hide-sm ng-init="initMultiDropzone2()">
-                        <div flex style="min-height:500px;width:100%;overflow-y:auto;" layout-wrap layout="row" id="multidropzone-2" class="dropzone">
-                            <div class="dz-message"></div>
-                        </div>
-                    </md-whiteframe>
-                </div>
-            </md-content>
             </md-tab-body>
         </md-tab>
         <md-tab label="inbox">

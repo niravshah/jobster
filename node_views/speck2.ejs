@@ -3,11 +3,36 @@
 
 <head>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+        
+    
+    
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" type="text/css" href="/speck-css/v2-custom.css">
     <link rel="stylesheet" href="/bower_components/dropzone/dist/dropzone.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:600italic,400|Roboto:400,300' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 	
     <title>Specky</title>
     <script src="/bower_components/angular/angular.js"></script>
@@ -28,21 +53,17 @@
     </md-sidenav>
     <div flex layout="column"style="overflow-y:auto;">
         <md-toolbar layout="row" class="md-whiteframe-z2">
-            <div class="md-toolbar-tools">
+            <div id="logo" class="md-toolbar-tools">
                 <md-button ng-click="toggleSideBar()" class="md-icon-button" aria-label="Settings">
-                    <md-icon md-svg-icon="/img/menu.svg"></md-icon>
+                     <img ng-src="/img/speck-hdpi.png" class="logo"/>
                 </md-button>
-                <h2>
-					
-          <span>Specky</span>
-						
-        </h2>
+                <a ui-sref="v2"><h2><span>SPECKY</span></h2></a>
                 <span flex></span> 
-                <md-button class="md-icon-button" aria-label="Favorite">
-					<md-icon md-font-library="material-icons" class="md-light md-18">notifications</md-icon>
+                <md-button class="md-right-tools md-icon-button" aria-label="Notifications">
+					<md-icon md-font-library="material-icons" class="md-white md-18">notifications</md-icon>
                 </md-button>
-                <md-button class="md-icon-button" aria-label="Favorite">
-					<md-icon md-font-library="material-icons" class="md-light md-18">email</md-icon>
+                <md-button class="md-right-tools md-icon-button" aria-label="Emails">
+					<md-icon md-font-library="material-icons" class="md-white md-18">email</md-icon>
                 </md-button>
             </div>
         </md-toolbar>
@@ -55,6 +76,7 @@
     <script type="text/javascript" src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-contenteditable/angular-contenteditable.js"></script>   
 	
     <script src="/bower_components/angular-aria/angular-aria.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
@@ -68,8 +90,7 @@
     <script type="text/javascript" src="/speck-js/routes.js"></script>
     <script type="text/javascript" src="/speck-js/controllers/master-ctrl.js"></script>
     <script type="text/javascript" src="/speck-js/controllers/specs-ctrl.js"></script>
-	<script type="text/javascript" src="/speck-js/controllers/v2-spec-add.js"></script>
-	<script type="text/javascript" src="/speck-js/controllers/v2-spec-add-loc.js"></script>
+	<script type="text/javascript" src="/speck-js/controllers/v2-spec-add.js"></script>    
 </body>
 
 </html>

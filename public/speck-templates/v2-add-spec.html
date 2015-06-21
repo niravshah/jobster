@@ -1,3 +1,12 @@
-<div ng-controller="AddSpec" ng-init="initAddSpecDropzone()" layout="column">
-    <div layout="row" id="dropzone" class="dropzone" style="height:200px;width:500px;"></div>
+<div layout="column" ng-init="initSpec()">
+    <span contenteditable="true" ng-model="data.speck" strip-br="true" select-non-editable="true">
+  </span>
+    <div class="tab-toolbar" flex layout="row">
+        <a ui-sref="v2add.loc">
+            <md-button class="md-raised">Previous</md-button>
+        </a>
+        <a ui-sref="v2add.comments">
+            <md-button class="md-raised">Next</md-button>
+        </a>
+    </div>
 </div>

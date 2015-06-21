@@ -1,2 +1,9 @@
-<div id="section-1" layout="column">
+<div id="section-1" layout="column" ng-init="initComment()">
+    <div class="tab-toolbar" flex layout="row">
+        <a ui-sref="v2add.spec">
+            <md-button class="md-raised">Previous</md-button>
+        </a>
+        <md-button ng-click="saveSpec()" class="md-raised">Save</md-button>
+        <md-button ng-click="specLive()" class="md-raised md-accent md-white">Go Live!</md-button>
+    </div>
 </div>

@@ -1,6 +1,5 @@
 var Spec = require('../node_models/spec-model');
 var shortid = require('shortid');
-var supagent = require('superagent');
 var mammoth = require("mammoth");
 module.exports = function(app, passport) {
     app.post('/api/spec/incoming', function(req, res) {
@@ -14,17 +13,9 @@ module.exports = function(app, passport) {
                     mammoth.convertToHtml({
                         buffer: new Buffer(att[key].content, "base64")
                     }).then(function(result) {
-                        var html = result.value;
-                        //var messages = result.messages;
-                        //console.log(messages);
-                        var newSpec = new Spec();
-                        newSpec.email = ev.msg.from_email;
-                        newSpec.spec = html;
-                        newSpec.sid = shortid.generate();
-                        newSpec.status = 'draft';
-                        newSpec.save(function(err) {
-                            console.log('Done', err)
-                        })
+                        Spec.newSpec(new Spec(), ev.msg.from_email, result.value, shortid.generate(), 'draft', function(spec) {
+                            res.send(spec);
+                        });
                     }).done();
                 }
             })

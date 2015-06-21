@@ -108,6 +108,6 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
             enabled: true,
             requireBase: false
         });
-        $mdThemingProvider.theme('default').primaryPalette('brown').accentPalette('red');
+        $mdThemingProvider.theme('default').primaryPalette('indigo').accentPalette('deep-orange');
     }
 ]);

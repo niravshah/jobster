@@ -31,16 +31,10 @@ module.exports = function(app, passport) {
         }).then(function(result) {
             var html = result.value;
             //var messages = result.messages;
-            //console.log(messages);
-            var newSpec = new Spec();
-            newSpec.email = req.body.email;
-            newSpec.spec = html;
-            newSpec.sid = shortid.generate();
-			newSpec.status = 'draft';
-            newSpec.save(function(err) {
-                if(err) res.json(err);
-                res.json(newSpec);
-            })
+            //console.log(messages);            
+            Spec.newSpec(new Spec(), req.body.email, html, shortid.generate(), 'draft', function(spec) {
+                res.send(spec);
+            });
         }).done();
     });
     app.post('/api/specs/:specId/delete', function(req, res) {
@@ -51,6 +45,46 @@ module.exports = function(app, passport) {
             if(spec) {
                 spec.remove();
                 res.send('Spec Deleted');
+            }
+        });
+    });
+    app.post('/api/specs/:specId/makedraft', function(req, res) {
+        Spec.findOne({
+            'sid': req.param('specId')
+        }, function(err, spec) {
+            if(err) res.send('Error');
+            if(spec) {
+                spec.status = 'draft';
+                spec.save();
+                res.send('Spec Updated to Draft');
+            }
+        });
+    });
+    app.get('/api/specs/:specId', function(req, res) {
+        Spec.findOne({
+            'sid': req.param('specId')
+        }, function(err, spec) {
+            if(err) res.send('Error');
+            if(spec) res.send(spec);
+        });
+    });
+    app.get('/api/user-specs', function(req, res) {
+        Spec.find({
+            'email': req.param('email')
+        }, function(err, specs) {
+            if(err) res.send('Error');
+            if(specs) res.send(specs);
+        });
+    });
+    app.post('/api/specs/:specId/save', function(req, res) {
+        Spec.findOne({
+            'sid': req.param('specId')
+        }, function(err, spec) {
+            if(err) res.send('Error');
+            if(spec) {
+                Spec.saveSpec(spec, req.body.speck, req.body.status, req.body.location, req.body.lat, req.body.lng, req.body.comp, req.body.company, req.body.ct, req.body.role, function(spec) {
+                    res.send('Spec Save', spec);
+                });
             }
         });
     });

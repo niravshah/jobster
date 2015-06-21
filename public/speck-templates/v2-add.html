@@ -12,45 +12,44 @@
                 <div layout="row" layout-align="center center" style="padding-top: 30px;">
                     <md-whiteframe layout="row" flex-sm="85" flex-gt-sm="66" class="md-whiteframe-z3 md-accent" layout="row" style="padding:40px;c">
                         <div id="slider-titles" hide-sm flex="20" layout="column">
-                            <div layout="row md-icon-float" ng-click="oneClicked()">
-                                <a ui-sref="v2add.desg">
-								<md-input-container class="md-icon-float">
-                                    <label class="md-subhead custom">Designation</label>
-                                    <md-icon md-font-library="material-icons" class="md-accent md-24">perm_contact_calendar</md-icon>
-                                </md-input-container>
-								</a>
-                            </div>
-                            <div layout="row md-icon-float" ng-click="twoClicked()">
-                                <a ui-sref="v2add.loc">
+                            <a ui-sref="v2add.desg">
+                                <div layout="row">
+                                    <md-input-container class="md-icon-float">
+                                        <label class="md-subhead custom">Designation</label>
+                                        <md-icon md-font-library="material-icons" class="md-accent md-24">perm_contact_calendar</md-icon>
+                                    </md-input-container>
+                                </div>
+                            </a>
+                            <a ui-sref="v2add.loc">
+                                <div layout="row">
                                     <md-input-container class="md-icon-float">
                                         <label class="md-subhead custom">Location</label>
                                         <md-icon md-font-library="material-icons" class="md-accent md-24">pin_drop</md-icon>
                                     </md-input-container>
-                                </a>
-                            </div>
-                            <div layout="row md-icon-float" ng-click="threeClicked()">
-								<a ui-sref="v2add.spec">
-                                <md-input-container class="md-icon-float">
-                                    <label class="md-subhead custom">Spec</label>
-                                    <md-icon md-font-library="material-icons" class="md-accent md-24">assignment</md-icon>
-                                </md-input-container>
-								</a>
-                            </div>
-                            <div layout="row md-icon-float" ng-click="fourClicked()">
-                                <a ui-sref="v2add.comments">
-								<md-input-container class="md-icon-float">
-                                    <label class="md-subhead custom">Comments</label>
-                                    <md-icon md-font-library="material-icons" class="md-accent md-24">comment</md-icon>
-                                </md-input-container>
-								</a>
-                            </div>
-
+                                </div>
+                            </a>
+                            <a ui-sref="v2add.spec">
+                                <div layout="row">
+                                    <md-input-container class="md-icon-float">
+                                        <label class="md-subhead custom">Spec</label>
+                                        <md-icon md-font-library="material-icons" class="md-accent md-24">assignment</md-icon>
+                                    </md-input-container>
+                                </div>
+                            </a>
+                            <a ui-sref="v2add.comments">
+                                <div layout="row">
+                                    <md-input-container class="md-icon-float">
+                                        <label class="md-subhead custom">Your Brand</label>
+                                        <md-icon md-font-library="material-icons" class="md-accent md-24">favorite</md-icon>
+                                    </md-input-container>
+                                </div>
+                            </a>
                         </div>
                         <div layout="column" id="slider">
                             <div id="line" class={{lineClass}}>
                             </div>
                         </div>
-                        <div ui-view="subView"></div>
+                        <div ui-view="subView" style="width:100%;position:relative;"></div>
                     </md-whiteframe>
                 </div>
             </md-content>

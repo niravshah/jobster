@@ -1,12 +1,20 @@
-<div ng-controller="AddSpecLoc" ng-init="initAddSpecLoc()" layout="column">
+<div ng-init="initLoc()" layout="column">
     <div layout="row">
         <md-input-container class="big">
             <label>Location</label>
-            <input name="location" ng-model="location" ng-blur="locationChange()" required>
+            <input name="location" ng-model="data.location" ng-blur="locationChange()" required>
             <div ng-messages="companyName.$error" ng-show="companyName.$dirty">
                 <div ng-message="required">This is required!</div>
             </div>
         </md-input-container>
     </div>
     <div layout="row" id="map" style="height:200px;width:500px;"></div>
+    <div class="tab-toolbar" flex layout="row">
+        <a ui-sref="v2add.desg">
+            <md-button class="md-raised">Previous</md-button>
+        </a>
+        <a ui-sref="v2add.spec">
+            <md-button class="md-raised">Next</md-button>
+        </a>
+    </div>
 </div>

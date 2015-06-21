@@ -1,0 +1,32 @@
+{
+    "id": "dataviz-ui-2",
+    "title": "dataviz-ui-2",
+    "description": "",
+    "version": "1.0",
+    "revision": 1,
+    "apis": [{
+        "path": "/gs-radar-sample-site-2",
+        "remapPath": "/debug.html",
+        "title": "GWE AngularJS UI",
+        "description": "",
+        "version": "1.0",
+        "dmzRoutable": false,
+        "maxLength": 10485760,
+        "endpoints": [{
+            "title": "GWE AngularJS UI",
+            "description": "",
+            "protocol": "http",
+            "path": "{+resource}",
+            "method": "GET",
+            "pathSchema": {},
+            "requests": [],
+            "response": {
+                "contentTypes": ["*/*"]
+            },
+            "responses": []
+        }]
+    }]
+}
+
+
+putinst dataviz-ui-2 http://nds7770662.firmwide.corp.gs.com:3333

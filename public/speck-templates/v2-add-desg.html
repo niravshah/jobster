@@ -1,8 +1,8 @@
-<div id="section-1" layout="column">
+<div id="section-1" layout="column" ng-init="initDesg()">
     <div layout="row">
         <md-input-container class="big">
             <label>Company Name</label>
-            <input name="companyName" ng-model="companyName" ng-blur="companyNameChange()" required md-maxlength="10" minlength="4">
+            <input name="data.company" ng-model="data.company" ng-blur="companyNameChange()" required md-maxlength="10" minlength="4">
             <div ng-messages="companyName.$error" ng-show="companyName.$dirty">
                 <div ng-message="required">This is required!</div>
                 <div ng-message="md-maxlength">That's too long!</div>
@@ -13,7 +13,7 @@
     <div layout="row">
         <md-input-container class="big">
             <label>Role</label>
-            <input name="role" ng-model="role" required md-maxlength="10" minlength="4">
+            <input name="data.role" ng-model="data.role" required md-maxlength="10" minlength="4">
             <div ng-messages="role.$error" ng-show="role.$dirty">
                 <div ng-message="required">This is required!</div>
                 <div ng-message="md-maxlength">That's too long!</div>
@@ -24,7 +24,7 @@
     <div layout="row">
         <md-input-container class="big">
             <label>Corporate Title</label>
-            <input name="ct" ng-model="ct" required md-maxlength="10" minlength="4">
+            <input name="data.ct" ng-model="data.ct" required md-maxlength="10" minlength="4">
             <div ng-messages="ct.$error" ng-show="ct.$dirty">
                 <div ng-message="required">This is required!</div>
                 <div ng-message="md-maxlength">That's too long!</div>
@@ -35,7 +35,7 @@
     <div layout="row">
         <md-input-container class="big">
             <label>Compensation</label>
-            <input name="ct" ng-model="ct" required md-maxlength="10" minlength="4">
+            <input name="data.comp" ng-model="data.comp" required md-maxlength="10" minlength="4">
             <div ng-messages="ct.$error" ng-show="ct.$dirty">
                 <div ng-message="required">This is required!</div>
                 <div ng-message="md-maxlength">That's too long!</div>
@@ -43,4 +43,10 @@
             </div>
         </md-input-container>
     </div>
+    <div class="tab-toolbar" flex layout="row">
+        <a ui-sref="v2add.loc">
+            <md-button class="md-raised">Next</md-button>
+        </a>
+    </div>
+
 </div>
