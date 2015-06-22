@@ -1,0 +1,33 @@
+<md-dialog aria-label="Send Spec" style="max-width:50%;">
+    <form style="overflow-y:hidden;">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Send Spec</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="answer('not applicable')" aria-label="Close">
+                    <md-icon md-svg-icon="/img/clear.svg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+
+            <md-input-container flex>
+                <label>Name</label>
+                <input ng-model="ddata.name" type="text" />
+            </md-input-container>
+            <md-input-container flex>
+                <label>Email</label>
+                <input ng-model="ddata.email" type="text" />
+            </md-input-container>
+            <br/>
+        </md-dialog-content>
+        <div class="md-actions" layout="row">
+            <md-button ng-click="answer('cancel')" class="md-primary">
+                Cancel
+            </md-button>
+            <md-button ng-click="answer('send')" class="md-primary">
+                Send
+            </md-button>
+        </div>
+    </form>
+</md-dialog>

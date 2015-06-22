@@ -1,4 +1,5 @@
 angular.module('Speck').controller('SpecsCtrl', ['$scope', '$rootScope', '$http', '$stateParams', '$q', '$mdDialog', '$state', SpecsCtrl]);
+angular.module('Speck').controller('SendSpecCtrl', ['$scope', '$mdDialog', SendSpecCtrl]);
 
 function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $state) {
     $scope.specs = [];
@@ -7,6 +8,7 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
     $scope.currLive = 0;
     $scope.currLiveDelta = 0;
     $scope.initSpecs = function() {
+        $state.go('v2.live');
         var promise = $scope.getUserSpecs();
         promise.then(function(size) {
             $scope.currDraftDelta = 0;
@@ -101,7 +103,9 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
             url: urlz,
             method: 'POST'
         }).success(function(data, status, headers, config) {
-            $state.go('v2add',{specId:sid});
+            $state.go('v2add', {
+                specId: sid
+            });
         }).error(function(data, status, headers, config) {
             console.log('makedraft Error', sid, data);
         });
@@ -109,11 +113,45 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
     $scope.tabSelected = function(idx) {
         if(idx == 'live') {
             $scope.currLiveDelta = 0;
+            $state.go('v2.live');
         } else if(idx == 'draft') {
             $scope.currDraftDelta = 0;
+            $state.go('v2.draft')
         }
     }
     $scope.showDocxHelp = function(ev) {
         $mdDialog.show($mdDialog.alert().parent(angular.element(document.body)).title('How to convert .doc files to .docx format?').content('Older versions of Microsoft Word used the .doc format. From Microsoft 2007 onwards, the .docx version was introduced. Microsoft 2007 and above can read/write .doc and also .docx formats. The easiest way to convert to .docx format is to Open the file Word and Save As .docx').ariaLabel('How to convert .doc files to .docx format?').ok('Got it!').targetEvent(ev));
+    };
+    $scope.sendSpec = function(ev, sid) {
+        $mdDialog.show({
+            controller: SendSpecCtrl,
+            templateUrl: '/speck-templates/v2-dash-live-send.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            scope: $scope
+        }).then(function(answer) {
+            if(answer == 'send') {
+                var urlz = '/api/specs/' + sid + '/send'
+                $http({
+                    url: urlz,
+                    method: 'POST',
+                    data: {
+                        'details': $scope.ddata
+                    }
+                }).success(function(data, status, headers, config) {
+                    console.log('Success', data);
+                }).error(function(data, status, headers, config) {
+                    console.log('Error', data);
+                });
+            }
+        }, function() {
+            console.log('You cancelled the dialog.');
+        });
+    }
+}
+
+function SendSpecCtrl($scope, $mdDialog) {
+    $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
     };
 }

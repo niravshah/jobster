@@ -14,6 +14,20 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
                     templateUrl: '/speck-templates/v2-dash.html'
                 }
             }
+        }).state('v2.live', {
+            url: '/live',
+            'views': {
+                'live': {
+                    templateUrl: '/speck-templates/v2-dash-live.html'
+                }
+            }
+        }).state('v2.draft', {
+            url: '/draft',
+            'views': {
+                'draft': {
+                    templateUrl: '/speck-templates/v2-dash-draft.html'
+                }
+            }
         }).state('v2add', {
             url: '/v2/specify/:specId',
             'views': {

@@ -54,10 +54,12 @@ var io = require('socket.io').listen(pp);
 var socketio = require('./node_config/socket.js')(io);
 
 // routes ======================================================================
-require('./node_routes/routes.js')(app, passport);
-require('./node_routes/spec-routes.js')(app, passport); 
-require('./node_routes/v2-spec-routes.js')(app, passport); 
-require('./node_routes/v2-mandrill-routes.js')(app, passport); 
+require('./node_routes/nr-core-routes.v2.js')(app, passport);
+require('./node_routes/nr-passport.v2.js')(app, passport); 
+require('./node_routes/nr-spec-routes.v2.js')(app, passport); 
+require('./node_routes/nr-mandrill-inbound.v2.js')(app, passport); 
+require('./node_routes/nr-mandrill-outbound.v2.js')(app, passport); 
+require('./node_routes/nr-glassdoor.v2.js')(app, passport); 
 require('./node_routes/invite-routes.js')(app, passport,io); 
 
 

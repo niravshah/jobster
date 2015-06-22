@@ -1,29 +1,7 @@
 var Spec = require('../node_models/spec-model');
 var shortid = require('shortid');
-var supagent = require('superagent');
-var mammoth = require("mammoth");
+var mammoth = require('mammoth');
 module.exports = function(app, passport) {
-    app.get('/api/v2/companydetails', function(req, res) {
-        supagent.get('http://api.glassdoor.com/api/api.htm').query({
-            't.p': '37059'
-        }).query({
-            't.k': 'emO6bwRqU9u'
-        }).query({
-            'format': 'json'
-        }).query({
-            'v': 1
-        }).query({
-            'action': 'employers'
-        }).query({
-            'q': req.param('q')
-        }).query({
-            'userip': '172.17.42.1'
-        }).query({
-            'useragent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36'
-        }).end(function(err, resp) {
-            res.send(resp.text);
-        });
-    });
     app.post('/specs/post', function(req, res) {
         console.log(req.files['file'].path);
         mammoth.convertToHtml({
@@ -85,6 +63,25 @@ module.exports = function(app, passport) {
                 Spec.saveSpec(spec, req.body.speck, req.body.status, req.body.location, req.body.lat, req.body.lng, req.body.comp, req.body.company, req.body.ct, req.body.role, function(spec) {
                     res.send('Spec Save', spec);
                 });
+            }
+        });
+    });
+    app.post('/api/specs/:specId/send', function(req, res) {
+        Spec.findOne({
+            'sid': req.param('specId')
+        }, function(err, spec) {
+            if(err) res.send('Error');
+            if(spec) {
+                if(typeof spec.invites == 'undefined') {
+                    spec.invites = []
+                }
+                req.body.details['code'] = shortid.generate();
+                spec.invites.push(req.body.details);
+                spec.save(function(err) {
+                    if(err) res.json(err);
+                    res.json(spec);
+                });
+                res.send(spec);
             }
         });
     });

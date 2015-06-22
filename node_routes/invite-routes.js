@@ -1,7 +1,6 @@
 var Spec = require('../node_models/spec-model');
 var SpecAnalytics = require('../node_models/spec-analytics');
 var multipart = require('connect-multiparty');
-//var multiparty = multipart({uploadDir:'/home/codio/workspace/specky/tmp'});
 module.exports = function(app, passport, io) {
     app.get('/api/invite/:code', function(req, res) {
         Spec.findOne({

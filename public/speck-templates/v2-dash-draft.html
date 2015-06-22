@@ -1,0 +1,34 @@
+<div flex layout="row" layout-sm="column">
+    <div flex-gt-sm="75" layout="column">
+        <div layout="row" layout-sm="column" layout-wrap>
+            <md-card ng-repeat="spc in specs|filter:{status:'draft'}" flex-gt-sm="20">
+                <img ng-src="/img/md-card-img.png" class="md-card-image" alt="Washed Out">
+                <md-card-content>
+                    <h2 class="md-title">{{spc.sid}}</h2>
+                    <p>
+                        {{spc.sid}}
+                    </p>
+                </md-card-content>
+                <div class="md-actions" layout="row" layout-align="end center">
+                    <a ui-sref='v2add({specId:spc.sid})'>
+                        <md-button class="md-primary md-accent">Specify</md-button>
+                    </a>
+                    <md-button ng-click="deleteSpec(spc.sid)">Delete</md-button>
+                </div>
+            </md-card>
+        </div>
+    </div>
+    <md-whiteframe class="md-whiteframe-z3" flex="25" layout="column" layout-align="center center" hide-sm ng-init="initMultiDropzone2()">
+        <div flex style="min-height:500px;width:100%;overflow-y:auto;border:none;" layout-wrap layout="row" id="multidropzone-2" class="dropzone">
+            <div class="dz-message" style="margin:auto;">
+                <h2 class="md-subhead">Drop your Word Specs here <br> or Click to Upload</h2>
+                <a class="md-clicker" href="#">
+                    <md-icon style="height:60px;width:60px;" md-font-library="material-icons" class="md-dark md-48">cloud_upload</md-icon>
+                </a>
+                <p class="md-body-1" style="padding:10px;">(only *.docx format supported)
+                    <md-icon ng-click="showDocxHelp($event)" md-font-library="material-icons" class="md-dark md-18">help_outline</md-icon>
+                </p>
+            </div>
+        </div>
+    </md-whiteframe>
+</div>
