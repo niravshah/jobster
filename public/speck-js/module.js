@@ -1,6 +1,6 @@
-angular.module('Speck', ['ui.router', 'ngCookies', 'angular-jwt', 'ngSanitize', 'ngMaterial','contenteditable']);
-
+angular.module('Speck', ['ui.router', 'ngCookies','ngStorage', 'angular-jwt', 'ngSanitize', 'ngMaterial', 'contenteditable']);
 angular.module('Speck').directive('fabFloat', ['$mdMedia', FabFloat]);
+
 function FabFloat($mdMedia) {
     return {
         restrict: 'A',

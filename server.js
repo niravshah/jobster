@@ -9,6 +9,8 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var shortid = require('shortid');
+var jwt = require('express-jwt');
+
 
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -29,15 +31,16 @@ app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set('jwt-secret','shhhhhhared-secret');
+app.use('/api', jwt({ secret: app.get('jwt-secret'),credentialsRequired: true}));
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.send(401, 'invalid token...');
+  }
+});
 
 app.set('views', __dirname + '/node_views');
 app.set('view engine', 'ejs'); // set up ejs for templating
-
-// required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
 
 app.use(multer({
   dest: '/home/codio/workspace/specky/tmp',
@@ -58,7 +61,7 @@ require('./node_routes/nr-core-routes.v2.js')(app, passport);
 require('./node_routes/nr-passport.v2.js')(app, passport); 
 require('./node_routes/nr-spec-routes.v2.js')(app, passport); 
 require('./node_routes/nr-mandrill-inbound.v2.js')(app, passport); 
-require('./node_routes/nr-mandrill-outbound.v2.js')(app, passport); 
+require('./node_routes/nr-mandrill-outbound.v2.js'); 
 require('./node_routes/nr-glassdoor.v2.js')(app, passport); 
 require('./node_routes/invite-routes.js')(app, passport,io); 
 

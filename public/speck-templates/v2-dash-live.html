@@ -1,5 +1,8 @@
 <div flex layout="row" layout-sm="column">
     <div flex-gt-sm="75" layout="column">
+        <div ng-if="currentUser == null" layout="row">
+            <span>You're Specs are currently Public as you're not Logged In!</span>
+        </div>
         <div layout="row" layout-sm="column" layout-wrap>
             <md-card ng-repeat="spc in specs|filter:{status:'live'}" flex-gt-sm="20">
                 <img class="md-card-image" alt="/img/md-card-img.png" ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{spc.location.lat}},{{spc.location.lng}}&amp;size=197x106&amp;sensor=true&amp;zoom=15&amp;scale=1">

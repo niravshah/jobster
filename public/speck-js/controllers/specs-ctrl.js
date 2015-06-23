@@ -16,18 +16,6 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
             $scope.currDraft = size;
             $scope.currLive = size;
         }, function() {});
-        $http({
-            url: '/api/onlineusers',
-            method: 'GET',
-            params: {
-                'email': 'nirav.shah83@gmail.com'
-            }
-        }).success(function(data, status, headers, config) {
-            $rootScope.onlineUsers = data;
-            console.log('Online Users: ', data);
-        }).error(function(data, status, headers, config) {
-            console.log('Error: ', data);
-        });
     }
     $scope.initMultiDropzone = function() {
         $scope.multidropzone = new Dropzone("div#multidropzone", {
@@ -36,7 +24,11 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
             clickable: ".md-clicker"
         });
         $scope.multidropzone.on("sending", function(file, xhr, formdata) {
-            formdata.append("email", "nirav.shah83@gmail.com")
+            if($scope.currentUser) {
+                formdata.append("email", $scope.currentUser)
+            } else {
+                formdata.append("email", $scope.guest)
+            }
         });
         $scope.multidropzone.on("success", function(xhr, resp) {
             $scope.updateUserSpecs();
@@ -70,11 +62,13 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
     }
     $scope.getUserSpecs = function() {
         return $q(function(resolve, reject) {
+            var user = $scope.currentUser != null ? $scope.currentUser : $scope.guest;
+            console.log(user);
             $http({
                 url: '/api/user-specs',
                 method: 'GET',
                 params: {
-                    'email': 'nirav.shah83@gmail.com'
+                    'email': user
                 }
             }).success(function(data, status, headers, config) {
                 console.log('Success', data);

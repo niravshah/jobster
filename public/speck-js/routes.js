@@ -113,8 +113,10 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
         });
         jwtInterceptorProvider.tokenGetter = [
             function() {
-                return 'mock-token';
-                //return localStorage.getItem('id_token');
+                if(localStorage.getItem('id_token') != null) {
+                    return localStorage.getItem('id_token')
+                } else return localStorage.getItem('guest_token')
+                
             }
         ];
         $httpProvider.interceptors.push('jwtInterceptor');

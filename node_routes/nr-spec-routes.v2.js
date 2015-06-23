@@ -1,6 +1,8 @@
 var Spec = require('../node_models/spec-model');
 var shortid = require('shortid');
 var mammoth = require('mammoth');
+var mandrill = require('../node_routes/nr-mandrill-outbound.v2.js');
+
 module.exports = function(app, passport) {
     app.post('/specs/post', function(req, res) {
         console.log(req.files['file'].path);
@@ -78,7 +80,8 @@ module.exports = function(app, passport) {
                 req.body.details['code'] = shortid.generate();
                 spec.invites.push(req.body.details);
                 spec.save(function(err) {
-                    if(err) res.json(err);
+                    if(err) res.json(err);                   
+                    mandrill.sendSpecky1(req.body.details['email'], req.body.details['name'], spec.email, spec.email, spec.email, req.body.details['code'], spec.designation.role, spec.designation.companyName, spec.location.location);
                     res.json(spec);
                 });
                 res.send(spec);

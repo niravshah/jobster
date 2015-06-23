@@ -12,7 +12,7 @@ function AddSpec($scope, $http, $location, $state) {
         sid: '',
         email: '',
         status: '',
-        location:''
+        location: ''
     };
     $scope.data.lat = 51.5073509;
     $scope.data.lng = -0.12775829999998223;
@@ -25,13 +25,17 @@ function AddSpec($scope, $http, $location, $state) {
             $scope.data.speck = data.spec;
             $scope.data.email = data.email;
             $scope.data.status = data.status;
-            $scope.data.company = data.designation.companyName;
-            $scope.data.role = data.designation.role;
-            $scope.data.ct = data.designation.ct;
-            $scope.data.comp = data.designation.comp;
-            $scope.data.lat=data.location.lat;
-            $scope.data.lnd=data.location.lat;
-            $scope.data.location=data.location.location;
+            if(typeof data.designation != 'undefined') {
+                $scope.data.company = data.designation.companyName;
+                $scope.data.role = data.designation.role;
+                $scope.data.ct = data.designation.ct;
+                $scope.data.comp = data.designation.comp;
+            }
+            if(typeof data.location != 'undefined') {
+                $scope.data.lat = data.location.lat;
+                $scope.data.lnd = data.location.lat;
+                $scope.data.location = data.location.location;
+            }
         }).error(function(err) {
             console.log(err)
         });

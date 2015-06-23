@@ -1,3 +1,6 @@
+var shortid = require('shortid');
+var jwt = require('jsonwebtoken');
+
 module.exports = function(app, passport) {
     app.get('/', function(req, res) {
         res.render('main.ejs');
@@ -24,4 +27,9 @@ module.exports = function(app, passport) {
         }
         res.send(toSend);
     });
+    
+    app.get('/guest-token',function(req,res){
+        var token = jwt.sign({'token':shortid.generate()}, app.get('jwt-secret'));
+        res.json({'token':token});
+    })
 }
