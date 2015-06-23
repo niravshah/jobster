@@ -39,7 +39,7 @@
     <script src="/bower_components/angular-material/angular-material.js"></script>
 </head>
 
-<body ng-app="Speck" layout="row" ng-controller="MasterCtrl" ng-init="loginUser();">
+<body ng-app="Speck" layout="row" ng-controller="MasterCtrl" ng-init="checkUserLogin()">
 
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-is-open="mdIsOpen" md-component-id="left">
         <md-toolbar layout="row" class="md-whiteframe-z2">
@@ -59,6 +59,9 @@
                 </md-button>
                 <a ui-sref="v2"><h2><span>SPECKY</span></h2></a>
                 <span flex></span> 
+                <md-button ng-click="loginUser()" class="md-right-tools md-icon-button" aria-label="Login">
+					<md-icon md-font-library="material-icons" class="md-white md-18">account_box</md-icon>
+                </md-button>                
                 <md-button class="md-right-tools md-icon-button" aria-label="Notifications">
 					<md-icon md-font-library="material-icons" class="md-white md-18">notifications</md-icon>
                 </md-button>
@@ -89,6 +92,7 @@
     
     <script type="text/javascript" src="/speck-js/module.js"></script>
     <script type="text/javascript" src="/speck-js/routes.js"></script>
+     <script type="text/javascript" src="/speck-js/controllers/login-ctrl.js"></script>
     <script type="text/javascript" src="/speck-js/controllers/master-ctrl.js"></script>
     <script type="text/javascript" src="/speck-js/controllers/specs-ctrl.js"></script>
 	<script type="text/javascript" src="/speck-js/controllers/v2-spec-add.js"></script>    

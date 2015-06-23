@@ -1,9 +1,9 @@
 /**
  * Master Controller
  */
-angular.module('Speck').controller('MasterCtrl', ['$scope', '$cookieStore', '$mdSidenav', '$log', '$localStorage', '$http', 'jwtHelper', MasterCtrl]);
+angular.module('Speck').controller('MasterCtrl', ['$scope', '$cookieStore', '$mdSidenav', '$log', '$localStorage', '$http', 'jwtHelper', '$mdDialog', MasterCtrl]);
 
-function MasterCtrl($scope, $cookieStore, $mdSidenav, $log, $localStorage, $http, jwtHelper) {
+function MasterCtrl($scope, $cookieStore, $mdSidenav, $log, $localStorage, $http, jwtHelper, $mdDialog) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -31,20 +31,35 @@ function MasterCtrl($scope, $cookieStore, $mdSidenav, $log, $localStorage, $http
             $log.debug("toggle LEFT is done");
         });
     }
-    $scope.loginUser = function() {
+    $scope.checkUserLogin = function() {
         if(localStorage.getItem('id_token') == null) {
             console.log('User Not Logged In!');
             if(localStorage.getItem('guest_token') == null) {
                 $http.get('/guest-token').success(function(data, status, headers, config) {
-                    console.log('Guest Token', data);
                     console.log('Guest', jwtHelper.decodeToken(data.token));
                     localStorage.setItem('guest_token', data.token)
-                    $scope.guest = jwtHelper.decodeToken(data.token).token;
+                    $scope.guest = jwtHelper.decodeToken(data.token).user;
                 });
             }else{
                 $scope.guest = jwtHelper.decodeToken(localStorage.getItem('guest_token')).token;
-                console.log('Guest', $scope.guest);
+                console.log('Guest Decoded', $scope.guest);
             }
         } else {}
+    }
+    
+    $scope.loginUser = function(){
+        console.log('Login User');
+        
+         $mdDialog.show({
+            controller: LoginCtrl,
+            templateUrl: '/speck-templates/v2-login.html',
+            parent: angular.element(document.body),
+            scope: $scope
+        }).then(function(token) {
+           
+        }, function() {
+            console.log('You cancelled the dialog.');
+        });
+        
     }
 }

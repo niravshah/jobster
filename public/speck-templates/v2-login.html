@@ -1,0 +1,32 @@
+<md-dialog aria-label="Login" style="max-width:50%;">
+    <form style="overflow-y:hidden;">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Make Specky Private</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="answer('not applicable')" aria-label="Close">
+                    <md-icon md-svg-icon="/img/clear.svg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-input-container flex>
+                <label>Email</label>
+                <input ng-model="ddata.uname" type="text" />
+            </md-input-container>
+            <md-input-container flex>
+                <label>Password</label>
+                <input ng-model="ddata.pword" type="text" />
+            </md-input-container>
+            <br/>
+        </md-dialog-content>
+        <div class="md-actions" layout="row">
+            <md-button ng-click="register()" class="md-primary">
+                Register
+            </md-button>
+            <md-button ng-click="login()" class="md-primary">
+                Login
+            </md-button>
+        </div>
+    </form>
+</md-dialog>
