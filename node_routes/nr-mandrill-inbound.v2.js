@@ -1,11 +1,12 @@
 var Spec = require('../node_models/spec-model');
+var SpecAnalytics = require('../node_models/spec-analytics');
 var shortid = require('shortid');
 var mammoth = require("mammoth");
 module.exports = function(app, passport) {
-    app.post('/api/spec/incoming', function(req, res) {
+    app.post('/incoming/spec/attachment', function(req, res) {
         var events = JSON.parse(req.body.mandrill_events);
         events.forEach(function(ev) {
-            console.log("incoming", ev.event, ev.msg.from_email);
+            console.log("Incoming Attachment Event ", ev.event, ev.msg.from_email);
             var att = ev.msg.attachments;
             Object.keys(att).forEach(function(key) {
                 console.log(key, att[key].type);
@@ -17,6 +18,42 @@ module.exports = function(app, passport) {
                             res.send(spec);
                         });
                     }).done();
+                }
+            })
+        });
+        res.status(200).send('OK');
+    });
+    app.post('/incoming/spec/mandrill-events', function(req, res) {
+        var events = JSON.parse(req.body.mandrill_events);
+        events.forEach(function(ev) {
+            var invite = ev.msg.metadata['invite'];
+            var uid = ev.msg.metadata['user'];
+            var spec = ev.msg.metadata['spec'];
+            console.log("Incoming Message Event for: ", invite, uid);
+            Spec.findOne({
+                'sid': spec
+            }, function(err, spec) {
+                if(spec) {
+                    SpecAnalytics.findOne({
+                        'invite': invite
+                    }, function(err, spc) {
+                        if(err) res.send('Error');
+                        if(spc == null) {
+                            spc = new SpecAnalytics();
+                            spc.invite = invite;
+                            spc.uid = uid;
+                            spc.sid = spec._id;
+                        }
+                        spc.analytics.push({
+                            timestamp: new Date().toJSON(),
+                            event: ev.event,
+                            data: ev
+                        });
+                        spc.save(function(err, saved) {
+                            if(err) console.log('Error Saving Analytics');
+                            if(saved) console.log('Spec Analysis Saved!');
+                        });
+                    });
                 }
             })
         });

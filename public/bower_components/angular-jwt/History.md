@@ -1,4 +1,12 @@
 
+0.0.9 / 2015-06-02
+==================
+
+  * Merge pull request #31 from doshprompt/access-token
+  * Add config option to allow token to be set as a url param instead of a header
+  * Merge pull request #35 from ackerdev/master
+  * Fix unix epoch expiration
+
 0.0.8 / 2015-05-18
 ==================
 

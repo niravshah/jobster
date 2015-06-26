@@ -3,12 +3,13 @@ angular.module('Speck').controller('SendSpecCtrl', ['$scope', '$mdDialog', SendS
 
 function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $state) {
     $scope.specs = [];
+    $scope.analytics=[]
     $scope.currDraft = 0;
     $scope.currDraftDelta = 0;
     $scope.currLive = 0;
     $scope.currLiveDelta = 0;
     $scope.initSpecs = function() {
-        $state.go('v2.live');
+        //$state.go('v2.live');
         var promise = $scope.getUserSpecs();
         promise.then(function(size) {
             $scope.currDraftDelta = 0;
@@ -16,6 +17,11 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
             $scope.currDraft = size;
             $scope.currLive = size;
         }, function() {});
+        
+        var promise2 = $scope.getUserSpecAnalytics();
+        promise2.then(function(data){
+            $scope.analytics=data;
+        },function(){});
     }
     $scope.initMultiDropzone = function() {
         $scope.multidropzone = new Dropzone("div#multidropzone", {
@@ -34,20 +40,7 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
             $scope.updateUserSpecs();
         });
     }
-    $scope.initMultiDropzone2 = function() {
-        $scope.multidropzone = new Dropzone("div#multidropzone-2", {
-            url: "/specs/post",
-            acceptedFiles: ".docx"
-        });
-        $scope.multidropzone.on("sending", function(file, xhr, formdata) {
-            formdata.append("email", "nirav.shah83@gmail.com")
-        });
-        $scope.multidropzone.on("success", function(xhr, res) {
-            console.log(xhr, res);
-            $(xhr.previewElement).remove();
-            $scope.updateUserSpecs();
-        });
-    }
+   
     $scope.updateUserSpecs = function() {
         var promise = $scope.getUserSpecs();
         promise.then(function(size) {
@@ -71,11 +64,30 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
                     'email': user
                 }
             }).success(function(data, status, headers, config) {
-                console.log('Success', data);
+                console.log('Success - getUserSpecs - ', data);
                 $scope.specs = data;
                 resolve(data.length);
             }).error(function(data, status, headers, config) {
-                console.log('Error', data);
+                console.log('Error - getUserSpecs - ', data);
+                reject();
+            });
+        });
+    }
+    $scope.getUserSpecAnalytics = function() {
+        return $q(function(resolve, reject) {
+            var user = $rootScope.currentUserUid;
+            console.log(user);
+            $http({
+                url: '/api/user-specs/analytics',
+                method: 'GET',
+                params: {
+                    'uid': user
+                }
+            }).success(function(data, status, headers, config) {
+                console.log('Success - getUserSpecAnalytics ', data);                
+                resolve(data);
+            }).error(function(data, status, headers, config) {
+                console.log('Error - getUserSpecAnalytics ', data);
                 reject();
             });
         });
@@ -108,10 +120,9 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
         if(idx == 'live') {
             $scope.currLiveDelta = 0;
             $state.go('v2.live');
-        } else if(idx == 'draft') {
-            $scope.currDraftDelta = 0;
-            $state.go('v2.draft')
-        }
+        } else if(idx == 'dashboard') {
+            $state.go('v2.dashboard');
+        } 
     }
     $scope.showDocxHelp = function(ev) {
         $mdDialog.show($mdDialog.alert().parent(angular.element(document.body)).title('How to convert .doc files to .docx format?').content('Older versions of Microsoft Word used the .doc format. From Microsoft 2007 onwards, the .docx version was introduced. Microsoft 2007 and above can read/write .doc and also .docx formats. The easiest way to convert to .docx format is to Open the file Word and Save As .docx').ariaLabel('How to convert .doc files to .docx format?').ok('Got it!').targetEvent(ev));
@@ -125,6 +136,7 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
             scope: $scope
         }).then(function(answer) {
             if(answer == 'send') {
+                $scope.ddata['uid'] = $rootScope.currentUserUid;
                 var urlz = '/api/specs/' + sid + '/send'
                 $http({
                     url: urlz,

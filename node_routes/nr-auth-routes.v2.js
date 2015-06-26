@@ -1,6 +1,7 @@
 var shortid = require('shortid');
 var jwt = require('jsonwebtoken');
 var User = require('../node_models/user');
+var Spec = require('../node_models/spec-model');
 module.exports = function(app) {
     app.get('/guest-token', function(req, res) {
         var token = jwt.sign({
@@ -14,25 +15,47 @@ module.exports = function(app) {
         User.findOne({
             'local.email': req.body.uname
         }, function(err, user) {
-            console.log(user);
-            if(user.validPassword(req.body.pword)) {
-                res.send('Valid User!')
+            if(err) res.status(500).send(err);
+            if(user) {
+                if(user.validPassword(req.body.pword)) {
+                    var token = jwt.sign({
+                        'user': user.local.email
+                    }, app.get('jwt-secret'));
+                    res.status(200).send({
+                        'token': token
+                    });
+                } else {
+                    res.status(403).send('Invalid Password');
+                }
             } else {
-                res.send('Invalid User')
+                res.status(403).send('User Not Found');
             }
         })
     });
     app.post('/register-auth', function(req, res) {
         var user = new User();
+        user.uid = shortid.generate();
         user.local.email = req.body.uname;
         user.local.password = user.generateHash(req.body.pword);
-        user.save(function(user, err) {
+        user.save(function(err, user) {
             if(err) res.send('Error!', err)
             else {
+                console.log(req.body.guest);
+                console.log(req.body.uname);
+                Spec.update({
+                    'email': req.body.guest
+                }, {
+                    'email': req.body.uname
+                }, {
+                    multi: true
+                }, function(err, num) {
+                    console.log('Number of Specs Updated: ', num);
+                });
                 var token = jwt.sign({
-                    'user': user.local.email
+                    'user': user.local.email,
+                    'uid': user.uid
                 }, app.get('jwt-secret'));
-                res.json({
+                res.status(200).json({
                     'token': token
                 });
             }

@@ -1,8 +1,9 @@
 var Spec = require('../node_models/spec-model');
+var SpecAnalytics = require('../node_models/spec-analytics');
 var shortid = require('shortid');
 var mammoth = require('mammoth');
+var async = require('async');
 var mandrill = require('../node_routes/nr-mandrill-outbound.v2.js');
-
 module.exports = function(app, passport) {
     app.post('/specs/post', function(req, res) {
         console.log(req.files['file'].path);
@@ -56,6 +57,15 @@ module.exports = function(app, passport) {
             if(specs) res.send(specs);
         });
     });
+    app.get('/api/user-specs/analytics', function(req, res) {
+        var toSend = []
+        console.log('Analytics', req.param('uid'));
+        SpecAnalytics.find({
+            'uid': req.param('uid')
+        }).populate('sid').exec(function(err, analytics) {
+            if(analytics) res.send(analytics);
+        });
+    });
     app.post('/api/specs/:specId/save', function(req, res) {
         Spec.findOne({
             'sid': req.param('specId')
@@ -80,8 +90,8 @@ module.exports = function(app, passport) {
                 req.body.details['code'] = shortid.generate();
                 spec.invites.push(req.body.details);
                 spec.save(function(err) {
-                    if(err) res.json(err);                   
-                    mandrill.sendSpecky1(req.body.details['email'], req.body.details['name'], spec.email, spec.email, spec.email, req.body.details['code'], spec.designation.role, spec.designation.companyName, spec.location.location);
+                    if(err) res.json(err);
+                    mandrill.sendSpecky1(req.body.details['email'], req.body.details['name'], spec.email, spec.email, spec.email, req.body.details['code'], spec.designation.role, spec.designation.companyName, spec.location.location, req.body.details['code'], req.body.details['uid'], spec.sid);
                     res.json(spec);
                 });
                 res.send(spec);

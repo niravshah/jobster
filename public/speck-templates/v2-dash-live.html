@@ -3,7 +3,8 @@
         <div ng-if="currentUser == null" layout="row">
             <span>You're Specs are currently Public as you're not Logged In!</span>
         </div>
-        <div layout="row" layout-sm="column" layout-wrap>
+        <p>Live</p>
+        <div layout="row" layout-sm="column" layout-wrap>            
             <md-card ng-repeat="spc in specs|filter:{status:'live'}" flex-gt-sm="20">
                 <img class="md-card-image" alt="/img/md-card-img.png" ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{spc.location.lat}},{{spc.location.lng}}&amp;size=197x106&amp;sensor=true&amp;zoom=15&amp;scale=1">
                 <md-card-content>
@@ -20,6 +21,25 @@
                     <md-button ng-click="deleteSpec(spc.sid)" class="md-icon-button" aria-label="delete">
                         <md-icon md-font-library="material-icons" class="md-18">delete</md-icon>
                     </md-button>
+                </div>
+            </md-card>
+        </div>
+        <hr/>
+        <p>Draft</p>
+        <div layout="row" layout-sm="column" layout-wrap>            
+            <md-card ng-repeat="spc in specs|filter:{status:'draft'}" flex-gt-sm="20">
+                <img ng-src="/img/md-card-img.png" class="md-card-image" alt="Washed Out">
+                <md-card-content>
+                    <h2 class="md-title">{{spc.sid}}</h2>
+                    <p>
+                        {{spc.sid}}
+                    </p>
+                </md-card-content>
+                <div class="md-actions" layout="row" layout-align="end center">
+                    <a ui-sref='v2add({specId:spc.sid})'>
+                        <md-button class="md-primary md-accent">Specify</md-button>
+                    </a>
+                    <md-button ng-click="deleteSpec(spc.sid)">Delete</md-button>
                 </div>
             </md-card>
         </div>

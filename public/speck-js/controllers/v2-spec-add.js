@@ -39,7 +39,9 @@ function AddSpec($scope, $http, $location, $state) {
         }).error(function(err) {
             console.log(err)
         });
-        $state.go('v2add.desg');
+        if($state.is('v2add')) {
+            $state.go('v2add.desg');
+        }
     }
     $scope.companyNameChange = function() {
         var cname = this.companyName;
@@ -65,6 +67,19 @@ function AddSpec($scope, $http, $location, $state) {
     }
     $scope.initComment = function() {
         $scope.lineClass = 'four';
+        hello.on('auth.login', function(r) {
+            hello('linkedin').api('me').then(function(json) {
+                console.log('auth.login', json)
+            }, function(e) {
+                console.log('Error!', e)
+            })
+        });
+        hello.init({
+            'linkedin': "75lyog427bffea",
+        }, {
+            scope: ['email', 'basic'],
+            redirect_uri: '/redirect.html'
+        });
     }
     $scope.saveSpec = function() {
         var url = '/api/specs/' + $scope.specid + '/save';

@@ -6,9 +6,19 @@
             </md-button>
         </a>
     </div>
-    <md-tabs flex layout="column" md-dynamic-height md-border-bottom>
+    <md-tabs flex layout="column" md-dynamic-height md-border-bottom md-center-tabs=false>
+        <md-tab md-on-select="tabSelected('dashboard')">
+            <md-tab-label><span>dashboard</span><span ng-if="currDraftDelta>0" class="badge badge-error">{{currDraftDelta}}</span>
+            </md-tab-label>
+            <md-tab-body>
+                <md-content flex class="md-padding">
+                    <div ui-view="dashboard">
+                    </div>
+                </md-content>
+            </md-tab-body>
+        </md-tab>
         <md-tab md-on-select="tabSelected('live')">
-            <md-tab-label><span>live </span><span ng-if="currLiveDelta>0 && draftLoaded" class="badge badge-error">{{currLiveDelta}}</span>
+            <md-tab-label><span>specs</span><span ng-if="currLiveDelta>0 && draftLoaded" class="badge badge-error">{{currLiveDelta}}</span>
             </md-tab-label>
             <md-tab-body>
                 <md-content flex class="md-padding">
@@ -17,15 +27,16 @@
                 </md-content>
             </md-tab-body>
         </md-tab>
-        <md-tab md-on-select="tabSelected('draft')">
-            <md-tab-label><span>draft </span><span ng-if="currDraftDelta>0" class="badge badge-error">{{currDraftDelta}}</span>
+        <md-tab md-on-select="tabSelected('leaderboard')">
+            <md-tab-label><span>leaderboard</span><span ng-if="currDraftDelta>0" class="badge badge-error">{{currDraftDelta}}</span>
             </md-tab-label>
             <md-tab-body>
                 <md-content flex class="md-padding">
-                    <div ui-view="draft">
+                    <div ui-view="leaderboard">
                     </div>
                 </md-content>
             </md-tab-body>
         </md-tab>
+
     </md-tabs>
 </div>

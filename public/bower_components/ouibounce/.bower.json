@@ -1,6 +1,6 @@
 {
   "name": "ouibounce",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "homepage": "https://github.com/carlsednaoui/ouibounce",
   "authors": [
     "Carl Sednaoui"
@@ -26,11 +26,11 @@
     "test",
     "tests"
   ],
-  "_release": "0.0.11",
+  "_release": "0.0.12",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.11",
-    "commit": "cb57efa33e65059dcd0a7dd4ce5841f601ed0379"
+    "tag": "v0.0.12",
+    "commit": "be8c60cb555b7b361b6494a94dc4f56767a0228a"
   },
   "_source": "git://github.com/carlsednaoui/ouibounce.git",
   "_target": "*",

@@ -15,6 +15,7 @@ angular.module('angular-jwt',
  angular.module('angular-jwt.interceptor', [])
   .provider('jwtInterceptor', function() {
 
+    this.urlParam = null;
     this.authHeader = 'Authorization';
     this.authPrefix = 'Bearer ';
     this.tokenGetter = function() {
@@ -30,10 +31,18 @@ angular.module('angular-jwt',
             return request;
           }
 
-          request.headers = request.headers || {};
-          // Already has an Authorization header
-          if (request.headers[config.authHeader]) {
-            return request;
+          if (config.urlParam) {
+            request.params = request.params || {};
+            // Already has the token in the url itself
+            if (request.params[config.urlParam]) {
+              return request;
+            }
+          } else {
+            request.headers = request.headers || {};
+            // Already has an Authorization header
+            if (request.headers[config.authHeader]) {
+              return request;
+            }
           }
 
           var tokenPromise = $q.when($injector.invoke(config.tokenGetter, this, {
@@ -42,7 +51,11 @@ angular.module('angular-jwt',
 
           return tokenPromise.then(function(token) {
             if (token) {
-              request.headers[config.authHeader] = config.authPrefix + token;
+              if (config.urlParam) {
+                request.params[config.urlParam] = token;
+              } else {
+                request.headers[config.authHeader] = config.authPrefix + token;
+              }
             }
             return request;
           });
@@ -94,7 +107,7 @@ angular.module('angular-jwt',
       var decoded;
       decoded = this.decodeToken(token);
 
-      if(!decoded.exp) {
+      if(typeof decoded.exp === "undefined") {
         return null;
       }
 
@@ -107,7 +120,7 @@ angular.module('angular-jwt',
     this.isTokenExpired = function(token, offsetSeconds) {
       var d = this.getTokenExpirationDate(token);
       offsetSeconds = offsetSeconds || 0;
-      if (!d) {
+      if (d === null) {
         return false;
       }
 

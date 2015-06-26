@@ -1,9 +1,9 @@
 /**
  * Master Controller
  */
-angular.module('Speck').controller('MasterCtrl', ['$scope', '$cookieStore', '$mdSidenav', '$log', '$localStorage', '$http', 'jwtHelper', '$mdDialog', MasterCtrl]);
+angular.module('Speck').controller('MasterCtrl', ['$scope', '$rootScope', '$cookieStore', '$mdSidenav', '$log', '$localStorage', '$http', 'jwtHelper', '$mdDialog', MasterCtrl]);
 
-function MasterCtrl($scope, $cookieStore, $mdSidenav, $log, $localStorage, $http, jwtHelper, $mdDialog) {
+function MasterCtrl($scope, $rootScope, $cookieStore, $mdSidenav, $log, $localStorage, $http, jwtHelper, $mdDialog) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -38,28 +38,30 @@ function MasterCtrl($scope, $cookieStore, $mdSidenav, $log, $localStorage, $http
                 $http.get('/guest-token').success(function(data, status, headers, config) {
                     console.log('Guest', jwtHelper.decodeToken(data.token));
                     localStorage.setItem('guest_token', data.token)
-                    $scope.guest = jwtHelper.decodeToken(data.token).user;
+                    $rootScope.guest = jwtHelper.decodeToken(data.token).user;
                 });
-            }else{
-                $scope.guest = jwtHelper.decodeToken(localStorage.getItem('guest_token')).token;
-                console.log('Guest Decoded', $scope.guest);
+            } else {
+                $rootScope.guest = jwtHelper.decodeToken(localStorage.getItem('guest_token')).user;
+                console.log('Guest Decoded', $rootScope.guest);
             }
-        } else {}
+        } else {
+            var decoded = jwtHelper.decodeToken(localStorage.getItem('id_token'));
+            $rootScope.currentUser = decoded.user;
+            $rootScope.currentUserUid = decoded.uid;
+        }
     }
-    
-    $scope.loginUser = function(){
-        console.log('Login User');
-        
-         $mdDialog.show({
+    $scope.loginUser = function() {
+        $mdDialog.show({
             controller: LoginCtrl,
             templateUrl: '/speck-templates/v2-login.html',
-            parent: angular.element(document.body),
-            scope: $scope
+            parent: angular.element(document.body)
         }).then(function(token) {
-           
+            localStorage.setItem('id_token', token);
+            var decoded = jwtHelper.decodeToken(token);
+            $rootScope.currentUser = decoded.user;
+            $rootScope.currentUserUid = decoded.uid;
         }, function() {
             console.log('You cancelled the dialog.');
         });
-        
     }
 }
