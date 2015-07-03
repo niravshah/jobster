@@ -1,5 +1,6 @@
 var Spec = require('../node_models/spec-model');
 var SpecAnalytics = require('../node_models/spec-analytics');
+var Invite = require('../node_models/invite');
 var shortid = require('shortid');
 var mammoth = require("mammoth");
 module.exports = function(app, passport) {
@@ -26,37 +27,36 @@ module.exports = function(app, passport) {
     app.post('/incoming/spec/mandrill-events', function(req, res) {
         var events = JSON.parse(req.body.mandrill_events);
         events.forEach(function(ev) {
-            var invite = ev.msg.metadata['invite'];
+            var code = ev.msg.metadata['invite'];
             var uid = ev.msg.metadata['user'];
-            var spec = ev.msg.metadata['spec'];
-            console.log("Incoming Message Event for: ", invite, uid);
-            Spec.findOne({
-                'sid': spec
-            }, function(err, spec) {
-                if(spec) {
-                    SpecAnalytics.findOne({
-                        'invite': invite
-                    }, function(err, spc) {
-                        if(err) res.send('Error');
-                        if(spc == null) {
-                            spc = new SpecAnalytics();
-                            spc.invite = invite;
-                            spc.uid = uid;
-                            spc.sid = spec._id;
-                        }
-                        spc.analytics.push({
-                            timestamp: new Date().toJSON(),
-                            event: ev.event,
-                            data: ev
-                        });
-                        spc.save(function(err, saved) {
-                            if(err) console.log('Error Saving Analytics');
-                            if(saved) console.log('Spec Analysis Saved!');
-                        });
+            var sid = ev.msg.metadata['spec'];
+            console.log("Incoming Message Event for: ", code, uid, sid);
+            Invite.findOne({
+                'code': code
+            }, function(err, invite) {
+                if(invite) {
+                    var sa = new SpecAnalytics();
+                    sa.invite = invite._id;
+                    sa.uid = uid;
+                    sa.sid = sid;
+                    sa.analytics.push({
+                        timestamp: new Date().toJSON(),
+                        event: ev.event,
+                        data: ev
                     });
+                    sa.save(function(err, sa) {
+                        if(err) {
+                            console.log('Error saving SpecAnalytics: ', sa);
+                        }
+                        if(sa) {
+                            invite.analytics.push(sa._id);
+                            invite.save();
+                            console.log('SpecAnalytics saved: ', sa);
+                        }
+                    });
+                    res.status(200).send('OK');
                 }
-            })
+            });
         });
-        res.status(200).send('OK');
     });
 }

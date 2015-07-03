@@ -1,5 +1,6 @@
 var Spec = require('../node_models/spec-model');
 var SpecAnalytics = require('../node_models/spec-analytics');
+var Invite = require('../node_models/invite');
 var shortid = require('shortid');
 var mammoth = require('mammoth');
 var async = require('async');
@@ -52,20 +53,21 @@ module.exports = function(app, passport) {
     app.get('/api/user-specs', function(req, res) {
         Spec.find({
             'email': req.param('email')
-        }, function(err, specs) {
+        }).populate('invites').exec(function(err, specs) {
             if(err) res.send('Error');
-            if(specs) res.send(specs);
+            if(specs) {
+                var options = {
+                    path: 'invites.analytics',
+                    model: 'SpecAnalytics'
+                };
+                Spec.populate(specs, options, function(err, specys) {
+                    res.send(specys);
+                });
+                //res.send(specs);
+            }
         });
     });
-    app.get('/api/user-specs/analytics', function(req, res) {
-        var toSend = []
-        console.log('Analytics', req.param('uid'));
-        SpecAnalytics.find({
-            'uid': req.param('uid')
-        }).populate('sid').exec(function(err, analytics) {
-            if(analytics) res.send(analytics);
-        });
-    });
+   
     app.post('/api/specs/:specId/save', function(req, res) {
         Spec.findOne({
             'sid': req.param('specId')
@@ -84,17 +86,20 @@ module.exports = function(app, passport) {
         }, function(err, spec) {
             if(err) res.send('Error');
             if(spec) {
-                if(typeof spec.invites == 'undefined') {
-                    spec.invites = []
-                }
-                req.body.details['code'] = shortid.generate();
-                spec.invites.push(req.body.details);
-                spec.save(function(err) {
+                var invite = new Invite();
+                invite.sid = spec._id;
+                invite.uid = req.body.details['uid']
+                invite.analytics = [];
+                invite.code = shortid.generate();
+                invite.name = req.body.details['name']
+                invite.email = req.body.details['email'];
+                invite.save(function(err) {
                     if(err) res.json(err);
-                    mandrill.sendSpecky1(req.body.details['email'], req.body.details['name'], spec.email, spec.email, spec.email, req.body.details['code'], spec.designation.role, spec.designation.companyName, spec.location.location, req.body.details['code'], req.body.details['uid'], spec.sid);
-                    res.json(spec);
+                    spec.invites.push(invite._id);
+                    spec.save();
+                    mandrill.sendSpecky1(invite.email, invite.name, spec.email, spec.email, spec.email, invite.code, spec.designation.role, spec.designation.companyName, spec.location.location, invite.code, invite.uid, spec.sid);
+                    res.json(invite);
                 });
-                res.send(spec);
             }
         });
     });

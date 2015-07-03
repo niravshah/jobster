@@ -1,10 +1,12 @@
-// load the things we need
-var mongoose = require('mongoose');
-// define the schema for our user model
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 var specSchema = mongoose.Schema({
     email: String,
     spec: Object,
-    invites: Object,
+    invites: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Invite'
+    }],
     sid: String,
     status: String,
     designation: Object,
@@ -18,7 +20,7 @@ specSchema.statics.newSpec = function newSpec(spec, email, content, sid, status,
     spec.status = status;
     spec.save(cls(spec));
 }
-specSchema.statics.saveSpec = function saveSpec(spec,speck,status, location, lat, lng, comp, companyName, ct, role,cls) {
+specSchema.statics.saveSpec = function saveSpec(spec, speck, status, location, lat, lng, comp, companyName, ct, role, cls) {
     spec.status = status;
     spec.spec = speck;
     spec.designation = {
@@ -30,7 +32,7 @@ specSchema.statics.saveSpec = function saveSpec(spec,speck,status, location, lat
     spec.location = {
         lat: lat,
         lng: lng,
-        location:location
+        location: location
     };
     spec.save(cls(spec));
 }

@@ -9,7 +9,6 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
     $scope.currLive = 0;
     $scope.currLiveDelta = 0;
     $scope.initSpecs = function() {
-        //$state.go('v2.live');
         var promise = $scope.getUserSpecs();
         promise.then(function(size) {
             $scope.currDraftDelta = 0;
@@ -18,10 +17,6 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
             $scope.currLive = size;
         }, function() {});
         
-        var promise2 = $scope.getUserSpecAnalytics();
-        promise2.then(function(data){
-            $scope.analytics=data;
-        },function(){});
     }
     $scope.initMultiDropzone = function() {
         $scope.multidropzone = new Dropzone("div#multidropzone", {
@@ -73,25 +68,7 @@ function SpecsCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $stat
             });
         });
     }
-    $scope.getUserSpecAnalytics = function() {
-        return $q(function(resolve, reject) {
-            var user = $rootScope.currentUserUid;
-            console.log(user);
-            $http({
-                url: '/api/user-specs/analytics',
-                method: 'GET',
-                params: {
-                    'uid': user
-                }
-            }).success(function(data, status, headers, config) {
-                console.log('Success - getUserSpecAnalytics ', data);                
-                resolve(data);
-            }).error(function(data, status, headers, config) {
-                console.log('Error - getUserSpecAnalytics ', data);
-                reject();
-            });
-        });
-    }
+  
     $scope.deleteSpec = function(sid) {
         var urlz = '/api/specs/' + sid + '/delete'
         $http({
