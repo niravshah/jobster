@@ -56,18 +56,42 @@ module.exports = function(app, passport) {
         }).populate('invites').exec(function(err, specs) {
             if(err) res.send('Error');
             if(specs) {
-                var options = {
-                    path: 'invites.analytics',
-                    model: 'SpecAnalytics'
-                };
-                Spec.populate(specs, options, function(err, specys) {
-                    res.send(specys);
-                });
-                //res.send(specs);
+                res.send(specs);
             }
         });
     });
-   
+    app.get('/api/user-invites', function(req, res) {
+        Invite.find({
+            'uid': req.param('uid')
+        }).populate('analytics').exec(function(err, invites) {
+            if(err) res.status(500).send('Error', err);
+            if(invites) {
+                var options = {
+                    path: 'sid',
+                    model: 'Spec',
+                    select: 'designation sid'
+                }
+                Invite.populate(invites, options, function(err, ivts) {
+                    var toSend = [];
+                    for(var index = 0; index < ivts.length; index++) {
+                        var iv = {};
+                        iv['code'] = ivts[index].code;
+                        iv['uid'] = ivts[index].uid;
+                        iv['sid'] = ivts[index].sid.sid;
+                        iv['cname'] = ivts[index].name;
+                        iv['cemail'] = ivts[index].email;
+                        iv['spec'] = ivts[index].sid.designation.role + '-' + ivts[index].sid.designation.companyName;
+                        var al = ivts[index].analytics;
+                        for(var ind2 = 0; ind2 < al.length; ind2++) {
+                            iv[al[ind2].analytics[0].event] = al[ind2].analytics[0].timestamp;
+                        }
+                        toSend.push(iv);
+                    }
+                    res.status(200).send(toSend);
+                });
+            };
+        })
+    });
     app.post('/api/specs/:specId/save', function(req, res) {
         Spec.findOne({
             'sid': req.param('specId')

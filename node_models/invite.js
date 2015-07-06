@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
+
+
 var invite = mongoose.Schema({
     code: String,
     email: String,
@@ -14,4 +16,5 @@ var invite = mongoose.Schema({
     }],
     uid: String
 });
+
 module.exports = mongoose.model('Invite', invite);

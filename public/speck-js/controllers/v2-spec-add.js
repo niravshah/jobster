@@ -67,24 +67,12 @@ function AddSpec($scope, $http, $location, $state) {
     }
     $scope.initComment = function() {
         $scope.lineClass = 'four';
-        hello.on('auth.login', function(r) {
-            hello('linkedin').api('me').then(function(json) {
-                console.log('auth.login', json)
-            }, function(e) {
-                console.log('Error!', e)
-            })
-        });
-        hello.init({
-            'linkedin': "75lyog427bffea",
-        }, {
-            scope: ['email', 'basic'],
-            redirect_uri: '/redirect.html'
-        });
     }
     $scope.saveSpec = function() {
         var url = '/api/specs/' + $scope.specid + '/save';
         $http.post(url, $scope.data).success(function(data, status, headers, config) {
-            console.log(data)
+            console.log('Success - saveSpec - ', data);
+            $state.go('v2.specs');
         }).error(function(err) {
             console.log(err)
         });
@@ -92,7 +80,6 @@ function AddSpec($scope, $http, $location, $state) {
     $scope.specLive = function() {
         $scope.data.status = 'live';
         $scope.saveSpec();
-        $state.go('v2');
     }
     $scope.locationChange = function() {
         GMaps.geocode({

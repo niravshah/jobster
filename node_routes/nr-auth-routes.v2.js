@@ -61,4 +61,24 @@ module.exports = function(app) {
             }
         });
     });
+    app.post('/update-linkedin', function(req, res) {
+        User.findOne({
+            'uid': req.body.uid
+        }, function(err, user) {
+            if(err) res.status(500).send(err);
+            if(user) {
+                user.linkedin = req.body.linkedin;
+                user.save(function(err, user) {
+                    var token = jwt.sign({
+                        'user': user.local.email,
+                        'uid': user.uid,
+                        'linkedin':user.linkedin
+                    }, app.get('jwt-secret'));
+                    res.status(200).json({
+                        'token': token
+                    });
+                })
+            }
+        });
+    });
 }

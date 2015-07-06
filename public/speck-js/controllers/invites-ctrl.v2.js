@@ -1,8 +1,8 @@
-angular.module('Speck').controller('DashboardCtrl', ['$scope', '$rootScope', '$http', '$stateParams', '$q', '$mdDialog', '$state', DashboardCtrl]);
+angular.module('Speck').controller('InvitesCtrl', ['$scope', '$rootScope', '$http', '$stateParams', '$q', '$mdDialog', '$state', 'DataService', InvitesCtrl]);
 
-function DashboardCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $state) {
-    $scope.initDashboard = function() {
-        console.log('Init Dashboard');
+function InvitesCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $state, dS) {
+    $scope.initInvites = function() {
+        console.log('Invite Ctrl', $scope.userSpecInvites);
     }
     $scope.filter = {
         options: {
@@ -11,7 +11,7 @@ function DashboardCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $
     };
     $scope.selected = [];
     $scope.query = {
-        order: 'name',
+        order: 'spec',
         limit: 5,
         page: 1
     };
@@ -19,16 +19,12 @@ function DashboardCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $
         $scope.filter.show = false;
         $scope.filter.value = undefined;
         if($scope.filter.form.$dirty) {
-            //getDesserts();
             $scope.filter.form.$setPristine();
         }
     }
     $scope.filterItems = function(filter) {
         console.log('filterItems ', filter);
     }
-    $http.get('/desserts.js').then(function(desserts) {
-        $scope.desserts = desserts.data;
-    });
     $scope.skip = function(dessert, index) {
         return index >= ($scope.query.limit * ($scope.query.page - 1));
     };

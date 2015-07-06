@@ -1,4 +1,4 @@
-<div flex ng-controller="SpecsCtrl" ng-init="initSpecs()">
+<div flex  ng-controller="DashboardCtrl" ng-init="initDashboard()">
     <div id="float-action" fab-float>
         <a ui-sref="v2add">
             <md-button class="md-fab md-accent" aria-label="Add Spec">
@@ -6,29 +6,31 @@
             </md-button>
         </a>
     </div>
-    <md-tabs flex layout="column" md-dynamic-height md-border-bottom md-center-tabs=false>
-        <md-tab md-on-select="tabSelected('dashboard')">
-            <md-tab-label><span>dashboard</span><span ng-if="currDraftDelta>0" class="badge badge-error">{{currDraftDelta}}</span>
-            </md-tab-label>
-            <md-tab-body>
-                <md-content flex class="md-padding">
-                    <div ui-view="dashboard">
-                    </div>
-                </md-content>
-            </md-tab-body>
-        </md-tab>
-        <md-tab md-on-select="tabSelected('live')">
+    <md-tabs flex layout="column" md-dynamic-height md-border-bottom md-center-tabs=false md-selected="selectedIndex">
+        <md-tab md-on-select="tabSelected('specs')">
             <md-tab-label><span>specs</span><span ng-if="currLiveDelta>0 && draftLoaded" class="badge badge-error">{{currLiveDelta}}</span>
             </md-tab-label>
             <md-tab-body>
                 <md-content flex class="md-padding">
-                    <div ui-view="live">
+                    <div ui-view="specs" ng-controller="SpecsCtrl" ng-init="initSpecs()">
+                    </div>
+                </md-content>
+            </md-tab-body>
+        </md-tab>
+        <md-tab md-on-select="tabSelected('invites')" >
+            <md-tab-label>
+                <span>invites</span>
+            </md-tab-label>
+            <md-tab-body>
+                <md-content flex class="md-padding">
+                    <div ui-view="invites" ng-controller="InvitesCtrl" ng-init="initInvites()">
                     </div>
                 </md-content>
             </md-tab-body>
         </md-tab>
         <md-tab md-on-select="tabSelected('leaderboard')">
-            <md-tab-label><span>leaderboard</span><span ng-if="currDraftDelta>0" class="badge badge-error">{{currDraftDelta}}</span>
+            <md-tab-label>
+                <span>leaderboard</span>
             </md-tab-label>
             <md-tab-body>
                 <md-content flex class="md-padding">

@@ -1,5 +1,9 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
+
+var Invite = require('../node_models/invite');
+var SpecAnalytics = require('../node_models/spec-analytics');
+
 var specSchema = mongoose.Schema({
     email: String,
     spec: Object,
@@ -36,4 +40,11 @@ specSchema.statics.saveSpec = function saveSpec(spec, speck, status, location, l
     };
     spec.save(cls(spec));
 }
+
+
+specSchema.pre('remove', function(next) {
+    Invite.remove({sid: this._id}).exec();
+    SpecAnalytics.remove({sid: this.sid}).exec();
+    next();
+});
 module.exports = mongoose.model('Spec', specSchema);

@@ -1,9 +1,9 @@
 /**
  * Master Controller
  */
-angular.module('Speck').controller('MasterCtrl', ['$scope', '$rootScope', '$cookieStore', '$mdSidenav', '$log', '$localStorage', '$http', 'jwtHelper', '$mdDialog', MasterCtrl]);
+angular.module('Speck').controller('MasterCtrl', ['$scope', '$rootScope', '$cookieStore', '$mdSidenav', '$log', '$localStorage', '$http', 'jwtHelper', '$mdDialog', 'hello', MasterCtrl]);
 
-function MasterCtrl($scope, $rootScope, $cookieStore, $mdSidenav, $log, $localStorage, $http, jwtHelper, $mdDialog) {
+function MasterCtrl($scope, $rootScope, $cookieStore, $mdSidenav, $log, $localStorage, $http, jwtHelper, $mdDialog, hello) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -34,6 +34,7 @@ function MasterCtrl($scope, $rootScope, $cookieStore, $mdSidenav, $log, $localSt
     $scope.checkUserLogin = function() {
         if(localStorage.getItem('id_token') == null) {
             console.log('User Not Logged In!');
+            $scope.initHelloJs();
             if(localStorage.getItem('guest_token') == null) {
                 $http.get('/guest-token').success(function(data, status, headers, config) {
                     console.log('Guest', jwtHelper.decodeToken(data.token));
@@ -48,7 +49,37 @@ function MasterCtrl($scope, $rootScope, $cookieStore, $mdSidenav, $log, $localSt
             var decoded = jwtHelper.decodeToken(localStorage.getItem('id_token'));
             $rootScope.currentUser = decoded.user;
             $rootScope.currentUserUid = decoded.uid;
+            if(typeof decoded.linkedin == 'undefined') {
+                $scope.initHelloJs();
+            } else {
+                $rootScope.currentUserLinkedIn = decoded.linkedin;
+            }
         }
+    }
+    $scope.initHelloJs = function() {
+        hello.init({
+            linkedin: '75lyog427bffea'
+        }, {
+            scope: ['email', 'basic'],
+            redirect_uri: '/redirect.html'
+        });
+        hello.on('auth.login', function(r) {
+            hello('linkedin').api('me').then(function(json) {
+                console.log('auth.login', $rootScope.currentUser, $rootScope.currentUserUid, json)
+                $http.post('/update-linkedin', {
+                    uid: $rootScope.currentUserUid,
+                    linkedin: json
+                }).success(function(data, status) {
+                    localStorage.setItem('id_token',data.token)
+                    var decoded = jwtHelper.decodeToken(data.token);
+                    $rootScope.currentUser = decoded.user;
+                    $rootScope.currentUserUid = decoded.uid;
+                    $rootScope.currentUserLinkedIn = decoded.linkedin;
+                });
+            }, function(e) {
+                console.log('Error - initHelloJs - hello(linkedin).api(me)', e)
+            })
+        });
     }
     $scope.loginUser = function() {
         $mdDialog.show({

@@ -2,44 +2,33 @@
     <div layout="row">
         <md-input-container class="big">
             <label>Company Name</label>
-            <input name="data.company" ng-model="data.company" ng-blur="companyNameChange()" required md-maxlength="10" minlength="4">
+            <input name="data.company" ng-model="data.company" ng-blur="companyNameChange()" required>
             <div ng-messages="companyName.$error" ng-show="companyName.$dirty">
                 <div ng-message="required">This is required!</div>
-                <div ng-message="md-maxlength">That's too long!</div>
-                <div ng-message="minlength">That's too short!</div>
             </div>
         </md-input-container>
     </div>
     <div layout="row">
         <md-input-container class="big">
             <label>Role</label>
-            <input name="data.role" ng-model="data.role" required md-maxlength="10" minlength="4">
+            <input name="data.role" ng-model="data.role" required>
             <div ng-messages="role.$error" ng-show="role.$dirty">
                 <div ng-message="required">This is required!</div>
-                <div ng-message="md-maxlength">That's too long!</div>
-                <div ng-message="minlength">That's too short!</div>
             </div>
         </md-input-container>
     </div>
     <div layout="row">
         <md-input-container class="big">
             <label>Corporate Title</label>
-            <input name="data.ct" ng-model="data.ct" required md-maxlength="10" minlength="4">
-            <div ng-messages="ct.$error" ng-show="ct.$dirty">
-                <div ng-message="required">This is required!</div>
-                <div ng-message="md-maxlength">That's too long!</div>
-                <div ng-message="minlength">That's too short!</div>
-            </div>
+            <input name="data.ct" ng-model="data.ct">
         </md-input-container>
     </div>
     <div layout="row">
         <md-input-container class="big">
             <label>Compensation</label>
-            <input name="data.comp" ng-model="data.comp" required md-maxlength="10" minlength="4">
+            <input name="data.comp" ng-model="data.comp" required>
             <div ng-messages="ct.$error" ng-show="ct.$dirty">
                 <div ng-message="required">This is required!</div>
-                <div ng-message="md-maxlength">That's too long!</div>
-                <div ng-message="minlength">That's too short!</div>
             </div>
         </md-input-container>
     </div>

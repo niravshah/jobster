@@ -4,26 +4,27 @@
  */
 angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'jwtInterceptorProvider', '$locationProvider', '$mdThemingProvider',
     function($stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $locationProvider, $mdThemingProvider) {
+       
         $urlRouterProvider.otherwise('/');
         $stateProvider.state('v2', {
             url: '/v2',
             'views': {
                 'main': {
-                    templateUrl: '/speck-templates/v2-dash.html'
+                    templateUrl: '/speck-templates/v2-dash-0.html'
                 }
             }
-        }).state('v2.live', {
-            url: '/live',
+        }).state('v2.specs', {
+            url: '/specs',
             'views': {
-                'live': {
-                    templateUrl: '/speck-templates/v2-dash-live.html'
+                'specs': {
+                    templateUrl: '/speck-templates/v2-dash-specs.html'
                 }
             }
-        }).state('v2.dashboard', {
-            url: '/dashboard',
+        }).state('v2.invites', {
+            url: '/invites',
             'views': {
-                'dashboard': {
-                    templateUrl: '/speck-templates/v2-dashboard.html'
+                'invites': {
+                    templateUrl: '/speck-templates/v2-dash-dashboard.html'
                 }
             }
         }).state('v2add', {
