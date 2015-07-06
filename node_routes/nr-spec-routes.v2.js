@@ -56,7 +56,7 @@ module.exports = function(app, passport) {
         }).populate('invites').exec(function(err, specs) {
             if(err) res.send('Error');
             if(specs) {
-                res.send(specs);
+                res.status(200).send(specs);
             }
         });
     });

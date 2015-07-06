@@ -19,7 +19,9 @@ module.exports = function(app) {
             if(user) {
                 if(user.validPassword(req.body.pword)) {
                     var token = jwt.sign({
-                        'user': user.local.email
+                        'user': user.local.email,
+                        'uid': user.uid,
+                        'linkedin': user.linkedin
                     }, app.get('jwt-secret'));
                     res.status(200).send({
                         'token': token
@@ -72,7 +74,7 @@ module.exports = function(app) {
                     var token = jwt.sign({
                         'user': user.local.email,
                         'uid': user.uid,
-                        'linkedin':user.linkedin
+                        'linkedin': user.linkedin
                     }, app.get('jwt-secret'));
                     res.status(200).json({
                         'token': token

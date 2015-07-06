@@ -1,14 +1,13 @@
-angular.module('Speck').factory('DataService', ['$http', '$rootScope', DataService]);
+angular.module('Speck').factory('DataService', ['$http', '$rootScope', 'AuthService', DataService]);
 
-function DataService($http, $rootScope) {
+function DataService($http, $rootScope, aS) {
     return {
-        updateUserSpecInvites: function(uid) {
-            console.log('Params - getUserSpecInvites - uid ', uid);
+        updateUserSpecInvites: function() {
             $http({
                 url: '/api/user-invites',
                 method: 'GET',
                 params: {
-                    'uid': uid
+                    'uid': aS.userUid()
                 }
             }).success(function(data, status) {
                 console.log('DataService - Success - updateUserSpecInvites - ', data);
@@ -19,13 +18,13 @@ function DataService($http, $rootScope) {
         },
         updateUserSpecs : function(user) {
             $http({
-                url: '/api/user-specs',
+                url: '/api/user-specs?ts=' + new Date().getTime(),
                 method: 'GET',
                 params: {
-                    'email': user
-                }
+                    'email': aS.userEmail()
+                },
             }).success(function(data, status, headers, config) {
-                console.log('Success - getUserSpecs - ', data);
+                console.log('DataService - Success - updateUserSpecs - ', data);
                 $rootScope.specs = data;
                 $rootScope.currDraftDelta = 0;
                 $rootScope.currLiveDelta = 0;

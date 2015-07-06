@@ -1,6 +1,6 @@
-angular.module('Speck').controller('AddSpec', ['$scope', '$http', '$location', '$state', AddSpec]);
+angular.module('Speck').controller('AddSpec', ['$scope', '$http', '$location', '$state', 'AuthService', AddSpec]);
 
-function AddSpec($scope, $http, $location, $state) {
+function AddSpec($scope, $http, $location, $state, aS) {
     $scope.data = {
         company: '',
         role: '',
@@ -19,6 +19,7 @@ function AddSpec($scope, $http, $location, $state) {
     $scope.lineClass = 'one';
     $scope.initAddSpec = function() {
         $scope.data.sid = $scope.specid;
+        $scope.isLinkedInUser = aS.isLinkedInUser();
         var url = '/api/specs/' + $scope.specid;
         $http.get(url).success(function(data, status, headers, config) {
             console.log(data)

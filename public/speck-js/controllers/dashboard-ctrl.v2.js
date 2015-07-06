@@ -8,8 +8,8 @@ function DashboardCtrl($scope, $state, $location, dS) {
         if(path.indexOf('invites') > 0) {
             $scope.selectedIndex = 1;
         }
-        dS.updateUserSpecs($scope.currentUser != null ? $scope.currentUser : $scope.guest);
-        dS.updateUserSpecInvites($scope.currentUserUid != null ? $scope.currentUserUid : $scope.guest);
+        dS.updateUserSpecs();
+        dS.updateUserSpecInvites();
     }
     $scope.tabSelected = function(idx) {
         if(idx == 'specs') {
