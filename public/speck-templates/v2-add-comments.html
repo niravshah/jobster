@@ -1,5 +1,16 @@
 <div id="section-1" layout="column" ng-init="initComment()">
     <button ng-if="!isLinkedInUser" onclick="hello('linkedin').login()">windows</button>
+
+    <div class="md-warn" ng-if="data.selectedChars.length > 3">You can only select 3 characteristics. Please un-check 1.</div>
+    <div flex="50" ng-repeat="item in specChars">
+        <md-checkbox ng-checked="existsChars(item, data.selectedChars)" ng-click="toggleChars(item, data.selectedChars)">
+            {{ item }}
+        </md-checkbox>        
+    </div>
+    
+    <pre>{{data.selectedChars|json}}</pre>
+
+
     <div class="tab-toolbar" flex layout="row">
         <a ui-sref="v2add.spec">
             <md-button class="md-raised">Previous</md-button>

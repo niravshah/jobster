@@ -98,7 +98,7 @@ module.exports = function(app, passport) {
         }, function(err, spec) {
             if(err) res.send('Error');
             if(spec) {
-                Spec.saveSpec(spec, req.body.speck, req.body.status, req.body.location, req.body.lat, req.body.lng, req.body.comp, req.body.company, req.body.ct, req.body.role, function(spec) {
+                Spec.saveSpec(spec, req.body.speck, req.body.status, req.body.location, req.body.lat, req.body.lng, req.body.comp, req.body.company, req.body.ct, req.body.role, req.body.selectedChars, function(spec) {
                     res.send('Spec Save', spec);
                 });
             }

@@ -12,7 +12,8 @@ function AddSpec($scope, $http, $location, $state, aS) {
         sid: '',
         email: '',
         status: '',
-        location: ''
+        location: '',
+        selectedChars: []
     };
     $scope.data.lat = 51.5073509;
     $scope.data.lng = -0.12775829999998223;
@@ -100,4 +101,15 @@ function AddSpec($scope, $http, $location, $state, aS) {
             }
         });
     }
-}
+    $scope.specChars = ['Compensation', 'Culture', 'Career', 'Training', 'Location', 'Stability'];
+    $scope.toggleChars = function(item, list) {
+        var idx = list.indexOf(item);
+        if(idx > -1) list.splice(idx, 1);
+        else if(!(list.length > 3)) {
+                list.push(item);
+            }
+        };
+        $scope.existsChars = function(item, list) {
+            return list.indexOf(item) > -1;
+        };
+    }

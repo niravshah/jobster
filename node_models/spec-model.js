@@ -15,7 +15,8 @@ var specSchema = mongoose.Schema({
     status: String,
     designation: Object,
     location: Object,
-    comments: Object
+    comments: Object,
+    chars: Object
 });
 specSchema.statics.newSpec = function newSpec(spec, email, content, sid, status, cls) {
     spec.email = email;
@@ -24,7 +25,7 @@ specSchema.statics.newSpec = function newSpec(spec, email, content, sid, status,
     spec.status = status;
     spec.save(cls(spec));
 }
-specSchema.statics.saveSpec = function saveSpec(spec, speck, status, location, lat, lng, comp, companyName, ct, role, cls) {
+specSchema.statics.saveSpec = function saveSpec(spec, speck, status, location, lat, lng, comp, companyName, ct, role, selChars, cls) {
     spec.status = status;
     spec.spec = speck;
     spec.designation = {
@@ -38,6 +39,7 @@ specSchema.statics.saveSpec = function saveSpec(spec, speck, status, location, l
         lng: lng,
         location: location
     };
+    spec.chars = selChars;
     spec.save(cls(spec));
 }
 
