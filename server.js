@@ -64,7 +64,7 @@ require('./node_routes/nr-spec-routes.v2.js')(app, passport);
 require('./node_routes/nr-mandrill-inbound.v2.js')(app, passport); 
 require('./node_routes/nr-mandrill-outbound.v2.js'); 
 require('./node_routes/nr-glassdoor.v2.js')(app, passport); 
-require('./node_routes/invite-routes.js')(app, passport,io); 
+require('./node_routes/nr-invite-routes.v2.js')(app, passport,io); 
 
 
 console.log('The magic happens on port ' + port);

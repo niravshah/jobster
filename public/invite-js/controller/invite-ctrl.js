@@ -1,4 +1,4 @@
-angular.module('specky-invite').controller('InviteCtrl', ['$scope', '$http', '$stateParams', '$log', '$window', InviteCtrl]);
+angular.module('Invite').controller('InviteCtrl', ['$scope', '$http', '$stateParams', '$log', '$window', InviteCtrl]);
 
 function InviteCtrl($scope, $http, $stateParams, $log, $window) {
     $scope.initInviteCtrl = function() {

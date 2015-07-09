@@ -27,7 +27,7 @@ module.exports = function(app, passport) {
     app.post('/incoming/spec/mandrill-events', function(req, res) {
         var events = JSON.parse(req.body.mandrill_events);
         events.forEach(function(ev) {
-            if(typeof ev.msg.metadata != 'undefined') {
+            if(typeof ev.msg != 'undefined') {
                 var code = ev.msg.metadata['invite'];
                 var uid = ev.msg.metadata['user'];
                 var sid = ev.msg.metadata['spec'];
@@ -58,6 +58,14 @@ module.exports = function(app, passport) {
                         res.status(200).send('OK');
                     }
                 });
+            } else {
+                var sa = new SpecAnalytics();
+                sa.analytics.push({
+                    timestamp: new Date().toJSON(),
+                    event: ev.event,
+                    data: ev
+                });
+                sa.save();
             }
         });
     });

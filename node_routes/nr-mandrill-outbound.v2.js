@@ -13,7 +13,7 @@ module.exports = {
         mergeVars['ROLE'] = role;
         mergeVars['COMPANY'] = company;
         mergeVars['LOCATION'] = location;
-        mergeVars['INVITE_URL'] = "http://specky.co/i/" + inviteId;
+        mergeVars['INVITE_URL'] = "http://specky.co/invite/" + inviteId;
         message.subject(subject).to(toField, mergeVars).from(fromField).trackClicks(true).trackOpens(true).metadata('invite', inviteId).metadata('user',userId).metadata('spec',specId).send(function(err, resp) {
             console.log(err, resp);            
         });

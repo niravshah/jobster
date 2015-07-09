@@ -1,14 +1,7 @@
-/**
- * Master Controller
- */
-
-angular.module('specky-invite')
+angular.module('Invite')
     .controller('MasterCtrl', ['$scope', '$cookieStore', MasterCtrl]);
 
 function MasterCtrl($scope, $cookieStore) {
-    /**
-     * Sidebar Toggle & Cookie Control
-     */
     var mobileView = 992;
 	
 	$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
