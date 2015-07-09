@@ -5,7 +5,7 @@
 angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'jwtInterceptorProvider', '$locationProvider', '$mdThemingProvider',
     function($stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $locationProvider, $mdThemingProvider) {
        
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/v2');
         $stateProvider.state('v2', {
             url: '/v2',
             'views': {

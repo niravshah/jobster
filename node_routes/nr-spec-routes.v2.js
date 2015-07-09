@@ -3,7 +3,6 @@ var SpecAnalytics = require('../node_models/spec-analytics');
 var Invite = require('../node_models/invite');
 var shortid = require('shortid');
 var mammoth = require('mammoth');
-var async = require('async');
 var mandrill = require('../node_routes/nr-mandrill-outbound.v2.js');
 module.exports = function(app, passport) {
     app.post('/specs/post', function(req, res) {
