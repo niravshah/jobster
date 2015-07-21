@@ -18,7 +18,7 @@ module.exports = function(app, passport) {
   data['status'] = "subscribed";
   data['merge_fields'] = {}
   data['merge_fields']['FNAME'] = req.body.name;
-  supagent.post(listUrl).send(data).end(function(err, res) {
+  supagent.post(listUrl).auth('specky','fbaf6ff5da88664241e345550b7ab926-us3').send(data).end(function(err, res) {
    if(res.ok) {
     console.log('Got OK from MailChimp', JSON.stringify(res.body));
    } else {
