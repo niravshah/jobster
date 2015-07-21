@@ -12,7 +12,7 @@ module.exports = function(app, passport) {
  });
  app.post('/specky/register', function(req, res) {
   console.log("Specky Register !! ", req.body.email_address);
-  var listUrl = "https://us3.api.mailchimp.com/3.0/lists/9e67587f52/members/";
+  var listUrl = "https://us3.api.mailchimp.com/3.0/lists/abd33d5bf7/members";
   var data = {}
   data['email_address'] = req.body.email_address;
   data['status'] = "subscribed";
