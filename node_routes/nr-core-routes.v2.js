@@ -9,4 +9,7 @@ module.exports = function(app, passport) {
     app.get('/invite*', function(req, res) {
         res.render('invite2.ejs');
     });
+   app.post('/specky/register', function(req, res) {
+        console.log("Specky Register !! ", req.data);    
+    });
 }
