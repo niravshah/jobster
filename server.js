@@ -43,7 +43,7 @@ app.use(function(err, req, res, next) {
 app.set('views', __dirname + '/node_views');
 app.set('view engine', 'ejs'); // set up ejs for templating
 app.use(multer({
- dest: '/home/codio/workspace/specky/tmp',
+ dest: 'specky/tmp',
  rename: function(fieldname, filename) {
   return filename.replace(/\W+/g, '-').toLowerCase() + '-' + Date.now();
  }
