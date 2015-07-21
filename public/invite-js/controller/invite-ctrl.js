@@ -27,6 +27,7 @@ function InviteCtrl($scope, $http, $stateParams, $log, $window) {
         });
     }
     $scope.getInvite = function() {
+           /*
         $http.get('/api/invite/' + $scope.code).success(function(data, status, headers, config) {
             $log.debug(data.spec)
             console.log(data);
@@ -34,6 +35,6 @@ function InviteCtrl($scope, $http, $stateParams, $log, $window) {
         }).
         error(function(data, status, headers, config) {
             console.log('Error', data);
-        });
+        });*/
     }
 }
