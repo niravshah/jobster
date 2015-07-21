@@ -4,7 +4,8 @@
 // get all the tools we need
 var express  = require('express');
 var app      = express();
-var port     = process.env.PORT || 8080;
+
+
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -21,7 +22,14 @@ var configDB = require('./node_config/database.js');
 
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+
+db_name = "specky";
+mongodb_connection_string = 'mongodb://127.0.0.1:27017/' + db_name;
+if(process.env.OPENSHIFT_MONGODB_DB_URL){
+  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + db_name;
+}
+
+mongoose.connect(mongodb_connection_string); // connect to our database
 
 require('./node_config/passport')(passport); // pass passport for configuration
 
@@ -49,8 +57,12 @@ app.use(multer({
   }
 }));
 
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+//var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'truck-aloha.codio.io'
 
-var pp = app.listen(port);
+var pp = app.listen(server_port, function () {
+  console.log( "Listening on "  + ", server_port " + server_port )
+});
 
 // socket ======================================================================
 var io = require('socket.io').listen(pp);
@@ -65,6 +77,3 @@ require('./node_routes/nr-mandrill-inbound.v2.js')(app, passport);
 require('./node_routes/nr-mandrill-outbound.v2.js'); 
 require('./node_routes/nr-glassdoor.v2.js')(app, passport); 
 require('./node_routes/nr-invite-routes.v2.js')(app, passport,io); 
-
-
-console.log('The magic happens on port ' + port);
