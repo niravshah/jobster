@@ -10,6 +10,6 @@ module.exports = function(app, passport) {
         res.render('invite2.ejs');
     });
    app.post('/specky/register', function(req, res) {
-        console.log("Specky Register !! ", req.data);    
+        console.log("Specky Register !! ", req.body.email_address);    
     });
 }
