@@ -8,7 +8,7 @@ module.exports = function(app, passport) {
   res.render('speck2.ejs');
  });
  app.get('/invite*', function(req, res) {
-  res.render('invite2.ejs');
+  res.render('invite.ejs');
  });
  app.post('/specky/register', function(req, res) {
   console.log("Specky Register !! ", req.body.email_address);
