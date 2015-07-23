@@ -20,9 +20,7 @@ $(document).ready(function() {
       }
     }
   });
-  
   $('#header').bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
-    
     if(isInView) {
       console.log('Inview #header: ', visiblePartY);
       if(visiblePartY == 'top' || visiblePartY == 'both') {
@@ -30,6 +28,15 @@ $(document).ready(function() {
         $('#toolbar').removeClass('show').addClass('hide');
       }
     }
-    
   });
+  var url = GMaps.staticMapURL({
+    size: [400, 200],
+    lat: 51.515241,
+    lng: -0.099863,
+    markers: [{
+      lat: 51.515241,
+      lng: -0.099863
+    }]
+  });
+  $('<img/>').attr('src', url).appendTo('#map');
 });
