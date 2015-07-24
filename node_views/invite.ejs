@@ -2,7 +2,6 @@
 
 <head>
   <title>Specky Invite</title>
-
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500,300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/bower_components/angular-material/angular-material.min.css">
@@ -20,7 +19,7 @@
       background-size: 100% 100%;
       margin:10px auto;
     }
-    #curator p{
+    #curator p {
       margin:10px auto;
       text-align:center;
       font-size:14px;
@@ -42,7 +41,7 @@
     }
     .apply.non-sticky {
       position:absolute;
-      top:120px;
+      top:100px;
     }
     .toolbar {
       position:fixed;
@@ -90,16 +89,20 @@
 
 <body layout="row" ng-controller="AppCtrl">
   <div layout="column" style="position:relative;width:100%;height:1200px;" id="content">
-    <div id="header" layout="row" flex="15" style="position:relative;background:url('/img/low_poly_background.jpg'),no-repeat;">
+    <!-- Header -->
+    <div id="header" layout="row" style="height:150px;position:relative;background:url('/img/low_poly_background.jpg'),no-repeat;">
       <div class="desig">
         <h1 style="font-family: 'Roboto', sans-serif;font-weight:500;margin-bottom:5px;">Senior Software Analyst</h1>
         <h3 style="font-family: 'Roboto', sans-serif;font-weight:300;margin-top:0px;">Associate, Goldman Sachs & Co.</h2>
       </div>
     </div>
-    <div layout="row" flex="15" style="position:relative;background:#FFFFFF">
+    <!-- END Header -->
+    
+    <!-- Curator -->
+    <div layout="row" style="height:200px;position:relative;background:#FFFFFF">
       <div id="curator" layout="column" flex="15">
         <div class="circular-image"></div>
-        <p>Speck curated By<br/><span class="md-accent">Beth McGuire</span></p>
+        <p>Speck curated By<br/><span style="color:rgb(255,64,129);font-size:16px;">Beth McGuire</span><br/>Talent Star Recruitment</p>
       </div>
       <div layout="column" flex="60">
         <div id="features" layout="row" flex>
@@ -121,9 +124,48 @@
           </div>            
         </div>
       </div>
-    </div>
+    </div>  
+    <!-- END Curator -->
+    <!-- Curator Comment -->
+    <div id="curatorsComments" layout="row" style="background:rgba(60, 63, 64, 0.9);">    
+      <div flex="60" layout="column" style="padding:20px;"> 
+        <div flex layout="row">
+          <span style="display:block;">
+            <md-icon class="md-accent md-36 icon-office-40"></md-icon>
+          </span>
+        </div>         
+        <div flex layout="row">        
+          <p style="display:block;color:#FFFFFF">This role can be perfect for Sebastian as it would give him the oppurtunity to use his existing web skills and his people skills. - Beth</p>
+        </div>        
+     </div>
+      <div flex="40" layout="column" style="background:#a3a3a3;padding:20x;">
+      </div>
+    </div>    
+    <!-- END Curator Comment -->
+    <!-- Speck -->
     <div layout="row" flex style="background:#c1bfbf;">
+      <div layout="column" flex="60"></div>
+      <div flex="40" layout="column" style="background:#a3a3a3;">
+        <!-- Team Comment -->
+        <div id="teamsComments" layout="row" style="padding:20px;margin-top:100px;background:rgba(60, 63, 64, 0.9);">
+          <div flex layout="column">
+            <div layout="row" style="float:left;width:100%">
+              <span style="clear:left;display:block;">
+                <md-icon style="float:right;" class="md-accent md-36 icon-office-40"></md-icon>
+              </span>
+            </div>
+            <div layout="row">                           
+              <p style="color:#FFFFFF">We're a very closely knit team who like to work hard and play hard. Over the years most team memebrs have grown very close to each other and often go on outings outside work. There is a healthy attitude of collaboration and covering for one another. We would love to see someone who can fit into this culture come onboard in this new role.</p>              
+            </div>
+            <div layout="row" >
+              <p style="font-size:14px;display:block;color:#FFFFFF">- Rob Watson, Hiring Manager</p>  
+            </div>
+          </div>
+        </div>     
+        <!-- END Team Comment -->
+      </div>
     </div>
+    <!-- END Speck -->
     <div id="applyNow" class="apply non-sticky">
       <div layout="row" style="padding-left:20px;color:#FFFFFF">
         <p>£60,000 p.a.</p>
@@ -139,18 +181,18 @@
         <input id="file-input" type="file">
       </div>
     </div>
-    <div id="toolbar" class="toolbar hide">
+    <!--div id="toolbar" class="toolbar hide">
       <md-toolbar style="background:rgba(60, 63, 64,0.98);min-height:50px;height:50px;">
         <div class="md-toolbar-tools">
-          <h2><span>Toolbar with Icon Buttons</span></h2>
+          <h2><span></span></h2>
           <span flex></span>
         </div>
       </md-toolbar>
-    </div>
+    </div-->
     <div id="chatNow" class="chatNow">
       <md-button class="md-fab" aria-label="Chat Now">
             <md-icon class="material-icons">chat</md-icon>
-        </md-button>
+      </md-button>
     </div>
   </div>
   <script src="/bower_components/jquery/jquery.min.js"></script>
@@ -162,7 +204,5 @@
   <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script src="/bower_components/gmaps/gmaps.min.js"></script>  
   <script src="/invite-js/custom-ngmd.js"></script>
-  
 </body>
-
 </html>
