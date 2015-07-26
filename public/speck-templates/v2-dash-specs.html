@@ -6,10 +6,12 @@
         <p>Live</p>
         <div layout="row" layout-sm="column" layout-wrap>            
             <md-card ng-repeat="spc in specs|filter:{status:'live'}" flex-gt-sm="20">
-                <img class="md-card-image" alt="/img/md-card-img.png" ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{spc.location.lat}},{{spc.location.lng}}&amp;size=197x106&amp;sensor=true&amp;zoom=15&amp;scale=1">
+              <p class="location">{{spc.location.location}}</p>    
+              <img class="md-card-image" alt="/img/md-card-img.png" ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{spc.location.lat}},{{spc.location.lng}}&amp;size=197x106&amp;sensor=true&amp;zoom=15&amp;scale=1">
                 <md-card-content>
                     <p class="md-title">{{spc.designation.role}}</p>
-                    <p class="md-subhead">{{spc.designation.companyName}}</p>
+                    <p class="md-subhead">{{spc.designation.ct}} | {{spc.designation.companyName}}</p>
+                    <p class="md-subhead">{{spc.designation.comp}} p.a.</p>
                 </md-card-content>
                 <div class="md-actions" layout="row" layout-align="end center">
                     <md-button ng-click="sendSpec($event, spc.sid)" class="md-accent md-icon-button" aria-label="delete">
@@ -37,7 +39,7 @@
                 </md-card-content>
                 <div class="md-actions" layout="row" layout-align="end center">
                     <a ui-sref='v2add({specId:spc.sid})'>
-                        <md-button class="md-primary md-accent">Specify</md-button>
+                        <md-button class="md-primary md-accent">Speckify</md-button>
                     </a>
                     <md-button ng-click="deleteSpec(spc.sid)">Delete</md-button>
                 </div>

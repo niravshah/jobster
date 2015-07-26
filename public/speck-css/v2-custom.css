@@ -180,3 +180,37 @@ transform: none !important;
 -ms-animation: none !important;
 animation: none !important;
 }
+
+md-card{
+  position:relative;
+}
+
+md-card md-card-content{
+  padding:10px;
+}
+
+md-card md-card-content p {
+  margin-bottom:0.5em;
+  margin-top:0.5em;
+}
+
+md-card md-card-content  p.md-title {
+  font-size:14px;
+}
+
+md-card md-card-content p.md-subhead{
+  font-size:12px;
+  margin-bottom:0em;
+}
+
+md-card p.location{
+  z-index=99;
+  background:rgba(0,0,0,.6);;
+  position:absolute;
+  top:70px;
+  padding:5px 0px;;
+  width:100%;
+  color:white;
+  font-size:12px;
+  text-align:center;
+}
