@@ -1,7 +1,7 @@
 <md-content layout="column">
   <md-card>
     <md-data-table-toolbar ng-show="!filter.show && !selected.length" style="padding-bottom:20px;">
-      <h2 style="font-size:16px;padding-right:20px;" class="md-title">Live Prospects:</h2>
+      <h2 style="font-size:16px;padding-right:20px;" class="md-title">Live Candidate Dashboard:</h2>
       <md-select style="font-size:16px;padding-right:20px" md-accent placeholder="Select Spec" ng-model="userState">
         <md-option ng-repeat="state in states" value="{{state.value}}">{{state.display}}</md-option>
       </md-select>
@@ -40,24 +40,27 @@
             <th order-by="open">Spec Opened</th>
             <th order-by="click">Candidate Response</th>
             <th order-by="click">Candidate Online</th>
-            <th order-by="click">Specky Score</th>
             <th order-by="spam">Next Actions</th>
           </tr>
         </thead>
         <tbody md-auto-select>
           <tr ng-repeat="ivt in userSpecInvites | orderBy: query.order | filter: skip | limitTo: query.limit">
             <td>{{ivt.cname}}</td>
-            <td>{{ivt.send}}</td>
+            <td>{{sentVal(ivt)}} days ago</td>
             <td ng-if='ivt.click == "Not Interested" || ivt.click == "No Response"'>No</td>
             <td ng-if='ivt.click != "Not Interested" && ivt.click != "No Response"'>Yes</td>
             <td>{{ivt.click}}</td>
-            <td ng-if='ivt.click == "Not Interested" || ivt.click == "No Response"'>No</td>
-            <td ng-if='ivt.click != "Not Interested" && ivt.click != "No Response"'>{{ivt.online}}</td>  
+            <td ng-if='ivt.click == "Not Interested" || ivt.click == "No Response"'>
+              <md-icon md-font-icon="material-icons">chat</md-icon>
+            </td>
+            <td ng-if='ivt.click != "Not Interested" && ivt.click != "No Response"'>
+              <md-icon md-font-icon="material-icons" ng-class="{mdAccent:ivt.online=='Online'}">chat</md-icon>
+            </td>  
             <td>  
-              <md-icon md-font-icon="material-icons" ng-class="{mdAccent:ivt.online=='Online' && ivt.click != 'Not Interested' && ivt.click != 'No Response'}">chat</md-icon>
               <md-icon md-font-icon="material-icons" ng-class="{mdAccent:ivt.click=='No Response'}" class="">autorenew</md-icon>
               <md-icon md-font-icon="material-icons" ng-class="{mdAccent:ivt.click=='Call Back Requested'}">backup</md-icon>
               <md-icon md-font-icon="material-icons" ng-class="{mdAccent:ivt.click=='Resume Uploaded'}">bookmark</md-icon>
+              <md-icon md-font-icon="material-icons" ng-class="{mdAccent:ivt.click == 'Scrolled 80%' || ivt.click == 'Scrolled 60%'}">call</md-icon>
             </td>
           </tr>
         </tbody>

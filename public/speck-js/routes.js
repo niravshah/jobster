@@ -21,10 +21,17 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
                 }
             }
         }).state('v2.invites', {
-            url: '/invites',
+            url: '/candidates',
             'views': {
                 'invites': {
                     templateUrl: '/speck-templates/v2-dash-dashboard.html'
+                }
+            }
+        }).state('v2.leaderboard', {
+            url: '/leaderboard',
+            'views': {
+                'leaderboard': {
+                    templateUrl: '/speck-templates/v2-dash-leaderboard.html'
                 }
             }
         }).state('v2add', {

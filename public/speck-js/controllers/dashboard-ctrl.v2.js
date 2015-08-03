@@ -17,6 +17,8 @@ function DashboardCtrl($scope, $state, $location, dS) {
             $state.go('v2.specs');
         } else if(idx == 'invites') {
             $state.go('v2.invites');
+        }else if(idx == 'leaderboard') {
+            $state.go('v2.leaderboard');
         }
     }
 }

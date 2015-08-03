@@ -13,6 +13,13 @@ function InvitesCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $st
       $scope.userSpecInvitesCount = res.data.length;
     });
   }
+  
+  $scope.sentVal = function(d1){
+    var t1 = new Date(d1.send).getTime();
+    var t2 = new Date().getTime();
+    return parseInt((t2-t1)/(24*3600*1000));
+  }
+  
   $scope.filter = {
     options: {
       debounce: 500
@@ -20,7 +27,6 @@ function InvitesCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $st
   };
   $scope.selected = [];
   $scope.query = {
-    order: 'cname',
     limit: 20,
     page: 1
   };
