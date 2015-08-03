@@ -21,7 +21,7 @@ function InvitesCtrl($scope, $rootScope, $http, $stateParams, $q, $mdDialog, $st
   $scope.selected = [];
   $scope.query = {
     order: 'cname',
-    limit: 10,
+    limit: 20,
     page: 1
   };
   $scope.removeFilter = function() {
