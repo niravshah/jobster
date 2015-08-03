@@ -1,56 +1,66 @@
 <md-content layout="column">
-    <md-card>
-        <md-data-table-toolbar ng-show="!filter.show && !selected.length">
-            <h2 class="md-title">Live Invites</h2>
-            <div flex></div>
-            <button class="md-icon-button md-button md-default-theme" ng-click="filter.show=true" tabindex="0">
-                <i class="material-icons md-dark ng-scope">location_searching</i>
-                <div class="md-ripple-container"></div>
-            </button>
-        </md-data-table-toolbar>
+  <md-card>
+    <md-data-table-toolbar ng-show="!filter.show && !selected.length" style="padding-bottom:20px;">
+      <h2 style="font-size:16px;padding-right:20px;" class="md-title">Live Prospects:</h2>
+      <md-select style="font-size:16px;padding-right:15px" md-accent placeholder="Select Spec" ng-model="userState">
+        <md-option ng-repeat="state in states" value="{{state.value}}">{{state.display}}</md-option>
+      </md-select>
+      <md-checkbox style="font-size:12px;" ng-model="data.cb1" aria-label="Online Only">
+        Show Online Candidates Only
+      </md-checkbox>
+      <div flex></div>
+      <button class="md-icon-button md-button md-default-theme" ng-click="filter.show=true" tabindex="0">
+        <i class="material-icons md-dark ng-scope">search</i>
+        <div class="md-ripple-container"></div>
+      </button>
+    </md-data-table-toolbar>
+    <md-data-table-toolbar ng-show="filter.show && !selected.length" class="ng-scope ng-hide" aria-hidden="true">
+      <i class="material-icons md-dark">search</i>
+      <form flex name="filter.form">
+        <input style="width:100%;border:none;" type="text" ng-change="filterItems(filter.value)" ng-model="filter.value" ng-model-options="filter.options" placeholder="search" tabindex="0" aria-invalid="false">
+      </form>
+      <button class="md-icon-button md-button md-default-theme" ng-click="removeFilter()" tabindex="0">
+        <i class="material-icons md-dark ng-scope">close</i>
+        <div class="md-ripple-container"></div>
+      </button>
+    </md-data-table-toolbar>
 
-        <md-data-table-toolbar ng-show="filter.show && !selected.length" class="ng-scope ng-hide" aria-hidden="true">
-            <i class="material-icons md-dark">search</i>
-            <form flex name="filter.form">
-                <input style="width:100%;border:none;" type="text" ng-change="filterItems(filter.value)" ng-model="filter.value" ng-model-options="filter.options" placeholder="search" tabindex="0" aria-invalid="false">
-            </form>
-            <button class="md-icon-button md-button md-default-theme" ng-click="removeFilter()" tabindex="0">
-                <i class="material-icons md-dark ng-scope">close</i>
-                <div class="md-ripple-container"></div>
-            </button>
-        </md-data-table-toolbar>
-
-        <md-data-table-toolbar class="alternate" ng-show="selected.length">
-            <div>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</div>
-        </md-data-table-toolbar>
-        <md-data-table-container>
-            <table md-data-table md-row-select="selected">
-                <thead md-order="query.order">
-                    <tr>
-                        <th order-by="spec">Speck</th>
-                        <th order-by="candidate">Candidate</th>
-                        <th order-by="send">Sent</th>
-                        <th order-by="hard_bounce">Bounced</th>
-                        <th order-by="open">Opened</th>
-                        <th order-by="click">Clicked</th>
-                        <th order-by="spam">Spam</th>
-                    </tr>
-                </thead>
-                <tbody md-auto-select>
-                    <tr ng-repeat="ivt in userSpecInvites | orderBy: query.order | filter: skip | limitTo: query.limit">
-                        <td>{{ivt.spec}}</td>
-                        <td>{{ivt.cname}}</td>
-                        <td>{{ivt.send}}</td>
-                        <td>{{ivt.hard_bounced}}</td>
-                        <td>{{ivt.open}}</td>
-                        <td>{{ivt.click}}</td>
-                        <td>{{ivt.spam}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </md-data-table-container>
-        <md-data-table-toolbar layout-align="end">
-            <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{desserts.count}}"></md-data-table-pagination>
-        </md-data-table-toolbar>
-    </md-card>
+    <md-data-table-toolbar class="alternate" ng-show="selected.length">
+      <div>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</div>
+    </md-data-table-toolbar>
+    <md-data-table-container>
+      <table md-data-table md-row-select="selected">
+        <thead md-order="query.order">
+          <tr>
+            <th order-by="candidate">Candidate</th>
+            <th order-by="send">Spec Sent</th>
+            <th order-by="open">Spec Opened</th>
+            <th order-by="click">Candidate Response</th>
+            <th order-by="click">Candidate Online</th>
+            <th order-by="click">Specky Score</th>
+            <th order-by="spam">Next Actions</th>
+          </tr>
+        </thead>
+        <tbody md-auto-select>
+          <tr ng-repeat="ivt in userSpecInvites | orderBy: query.order | filter: skip | limitTo: query.limit">
+            <td>{{ivt.cname}}</td>
+            <td>{{ivt.send}}</td>
+            <td>{{ivt.open}}</td>
+            <td>{{ivt.click}}</td>
+            <td>{{ivt.online}}</td>
+            <td>""</td>            
+            <td>  
+              <md-icon md-font-icon="material-icons" class="md-accent">chat</md-icon>
+              <md-icon md-font-icon="material-icons" class="">autorenew</md-icon>
+              <md-icon md-font-icon="material-icons" class="">backup</md-icon>
+              <md-icon md-font-icon="material-icons" class="">bookmark</md-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-data-table-container>
+    <md-data-table-toolbar layout-align="end">
+      <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{userSpecInvitesCount}}"></md-data-table-pagination>
+    </md-data-table-toolbar>
+  </md-card>
 </md-content>

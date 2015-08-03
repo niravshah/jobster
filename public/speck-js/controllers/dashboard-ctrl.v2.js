@@ -9,7 +9,7 @@ function DashboardCtrl($scope, $state, $location, dS) {
             $scope.selectedIndex = 1;
         }
         dS.updateUserSpecs();
-        dS.updateUserSpecInvites();
+        //dS.updateUserSpecInvites();
     }
     $scope.tabSelected = function(idx) {
         if(idx == 'specs') {
