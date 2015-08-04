@@ -1,22 +1,41 @@
 <div flex  layout-fill style="padding:20px;">
  <md-whiteframe ng-repeat="leader in leaders" class="md-whiteframe-z1 mt-20 mt-m-10" layout layout-align="center left" style="padding:10px;">
    <div style="background:url({{leader.img}}) no-repeat;background-size:100% 100%;"class="circular-image m-lr-circular-img"></div>
-   <div flex="25">
-     <p class="md-title">{{leader.name}}</p>
-     <p class="md-subhead">{{leader.designation}} | {{leader.cname}}</p>
+   <div flex="20">
+     <p class="md-title" style="margin-bottom:10px;">{{leader.name}}</p>
+     <p class="md-subhead" style="margin-bottom:0px;margin-top:10px;">{{leader.designation}}</p>
+     <p class="md-body-2" style="margin-top:0px;">{{leader.cname}}</p>
    </div>
-   <div class="lboard-stat" flex="10" layout-align="center center">
-     <p class="md-display-2" style="margin:auto;text-align:center">{{leader.specs}}</p>
-     <p class="md-caption" style="margin:auto;text-align:center">SPECS</p>
+   <div class="lboard-stat" flex="10">
+     <p class="md-display-2">{{leader.specs}}</p>
+     <p class="md-caption">SPECS</p>
    </div>
-   <div class="lboard-stat" flex="10" layout-align="center center">
-     <p class="md-display-2" style="margin:auto;text-align:center">{{leader.response}}%</p>
-     <p class="md-caption" style="margin:auto;text-align:center">RESPONSE RATE</p>
+   <div class="lboard-stat" flex="10">
+     <p class="md-display-2">{{leader.response}}%</p>
+     <p class="md-caption">RESPONSE RATE</p>
    </div>
-   <div class="lboard-stat" flex="10" layout-align="center center">
-     <p class="md-display-2 md-accent" style="margin:auto;text-align:center">{{leader.points}}</p>
-     <p class="md-caption md-accent" style="margin:auto;text-align:center">SPECKY POINTS</p>
+   <div class="lboard-stat" flex="10">
+     <p class="md-display-2 md-accent">{{leader.points}}</p>
+     <p class="md-caption md-accent">SPECKY POINTS</p>
    </div>
-   
+   <div class="lboard-stat" flex="5" ></div>
+   <div ng-if="leader.badges && leader.badges.indexOf('advise') != -1" class="lboard-stat" flex="10">
+     <div style="height:64px;">
+     <p><md-icon md-font-icon="material-icons" class="md-36">grade</md-icon></p>  
+     </div>
+     <p class="md-caption">BEST ADVICE</p>      
+   </div>
+   <div ng-if="leader.badges && leader.badges.indexOf('helpful') != -1" class="lboard-stat" flex="10">
+     <div style="height:64px;">
+     <p><md-icon md-font-icon="material-icons" class="md-36">thumb_up</md-icon></p>  
+     </div>
+     <p class="md-caption">MOST HELPFUL</p>      
+   </div>
+   <div ng-if="leader.badges && leader.badges.indexOf('match') != -1" class="lboard-stat" flex="10">
+     <div style="height:64px;">
+     <p><md-icon md-font-icon="material-icons" class="md-36">flight_takeoff</md-icon></p>  
+     </div>
+     <p class="md-caption">GREAT MATCH</p>      
+   </div>   
   </md-whiteframe> 
 </div>

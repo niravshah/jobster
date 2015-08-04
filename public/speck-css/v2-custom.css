@@ -232,6 +232,10 @@ md-card p.location {
 .lboard-stat .md-accent{
   color:rgb(255, 110, 64);
 }
+
+.lboard-stat p{
+  margin:auto;text-align:center
+}
 @media screen and (max-width: 400px) {
   .circular-image {
     width: 50px;
