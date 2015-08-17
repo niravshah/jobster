@@ -32,5 +32,13 @@
     "express-jwt": "~3.0.1",
     "jsonwebtoken": "~5.0.2",
     "connect-multiparty": "~2.0.0"
+  },
+  "devDependencies": {
+    "gulp": "~3.9.0",
+    "gulp-clean": "~0.3.1",
+    "gulp-artoo": "~0.1.0",
+    "run-sequence": "~1.1.2",
+    "gulp-connect": "~2.2.0",
+    "gulp-uglify": "~1.2.0"
   }
 }

@@ -13,6 +13,13 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
                     templateUrl: '/speck-templates/v2-dash-0.html'
                 }
             }
+        }).state('v2.pipeline', {
+            url: '/pipeline',
+            'views': {
+                'pipeline': {
+                    templateUrl: '/speck-templates/v2-dash-pipeline.html'
+                }
+            }
         }).state('v2.specs', {
             url: '/specs',
             'views': {
@@ -21,7 +28,7 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
                 }
             }
         }).state('v2.invites', {
-            url: '/candidates',
+            url: '/live',
             'views': {
                 'invites': {
                     templateUrl: '/speck-templates/v2-dash-dashboard.html'

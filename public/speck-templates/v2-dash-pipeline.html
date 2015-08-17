@@ -1,0 +1,31 @@
+<style>
+ul[dnd-list], ul[dnd-list] > li { 
+    position: relative;
+}
+</style>
+<md-content layout="column">  
+  <div layout="row" layout-wrap>
+    <div dnd-list="sourced" flex="33">
+      <md-card   ng-repeat="item in sourced" 
+                 dnd-draggable="item" dnd-moved="sourced.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.sourced = item" 
+                 flex-gt-sm="20" style="margin:20px;padding:10px;">
+        <div style="background:url({{item.img}}) no-repeat;background-size:100% 100%;" class="circular-image m-lr-circular-img"></div>
+        <p>{{item.first_name}} {{item.last_name}}</p>
+      </md-card>
+    </div>
+    <div dnd-list="engaged" flex="33">
+      <md-card ng-repeat="item in engaged" 
+               dnd-draggable="item" dnd-moved="engaged.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.engaged = item"                
+               flex-gt-sm="20" style="margin:20px;padding:10px;">
+        <p>{{item.first_name}} {{item.last_name}}</p>
+      </md-card>
+    </div>
+    <div dnd-list="triggered" flex="33">
+      <md-card ng-repeat="item in triggered" 
+               dnd-draggable="item" dnd-moved="triggered.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.triggered = item"             
+               flex-gt-sm="20" style="margin:20px;padding:10px;">
+        <p>{{item.first_name}} {{item.last_name}}</p>
+      </md-card>     
+    </div>
+  </div>
+</md-content>

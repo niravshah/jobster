@@ -39,7 +39,8 @@
     "angular-local-storage": "~0.2.2",
     "angular-material-data-table": "*",
     "angular-bootstrap-datetimepicker": "~0.3.13",
-    "bootstrap-datetimepicker": "~0.0.11"
+    "bootstrap-datetimepicker": "~0.0.11",
+    "angular-drag-and-drop-lists": "~1.2.0"
   },
   "repository": {
     "type": "git",
