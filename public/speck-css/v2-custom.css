@@ -214,42 +214,63 @@ md-card p.location {
   background-size: 100% 100%;
   margin:10px auto;
 }
+.circular-image-sm {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  background-size: 100% 100%;
+  margin:5px auto;
+}
 .m-lr-circular-img {
   margin-left:20px;
   margin-right:20px;
 }
+
+.m-lr-10 {
+  margin-left:10px;
+  margin-right:10px;
+}
+
+
 .pad-20 {
   padding:20px;
 }
-.pad-b-20{
+.pad-b-20 {
   padding-bottom:20px;
 }
 .mt-20 {
   margin-top:20px;
 }
-
-.lboard-stat{
+.lboard-stat {
   padding-top:20px;
 }
-
-.lboard-stat .md-accent{
+.lboard-stat .md-accent {
   color:rgb(255, 110, 64);
 }
-
-.lboard-stat p{
-  margin:auto;text-align:center
+.lboard-stat p {
+  margin:auto;
+  text-align:center
 }
-
-.lboard-stat.border-right{
-    border-right-color: rgba(0,0,0,0.2);
-    border-right-style: inset;
-    border-right-width: thin;
+.lboard-stat.border-right {
+  border-right-color: rgba(0, 0, 0, 0.2);
+  border-right-style: inset;
+  border-right-width: thin;
 }
-
 @media screen and (max-width: 400px) {
   .circular-image {
     width: 50px;
     height: 50px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    background-size: 100% 100%;
+    margin:5px auto;
+  }
+  .circular-image-sm {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
