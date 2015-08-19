@@ -2,17 +2,84 @@
   #pipeline h1{
     text-align:center;
   }
+  
+  .font-md-warn{
+    color: rgb(255,110,64)
+  }
+  
+  .m-tb-20{
+    margin: 20px 0px;
+  }
+  
+  .m-t-20{
+    margin-top:20px;
+  }
+  
+  .m-r-20{
+   margin-right:20px; 
+  }
+  
+  .pipeline-toolbar button{
+    float:right;
+    min-width:40px;
+    margin:6px 3px;
+    font-size:12px;
+  }
+  
+  .pipeline-toolbar md-switch{
+    margin:10px;
+    font-size:16px;
+  }
+  
 </style>
 <md-content id="pipeline" layout="column">  
+  <div layout="row" class="m-tb-20">
+    <div flex="35">
+      <md-input-container md-no-float>
+        <md-icon md-font-icon="material-icons" class="md-36">search</md-icon>
+        <input ng-model="searchText" type="text" placeholder="Search by Job Spec or Skills" >
+      </md-input-container>      
+    </div>
+    <div flex="5"></div>
+    <div flex="60" class="pipeline-toolbar">
+      <div layout="row" flex>
+        <span style="margin:auto;font-size:16px;">Trigger Aspiration:</span>
+        <md-switch ng-model="filters.career" aria-label="Career Switch">
+          Career
+        </md-switch>
+        <md-switch ng-model="filters.compensation" aria-label="Compensation Switch">
+          Compensation
+        </md-switch>
+        <md-switch ng-model="filters.culture" aria-label="Culture Switch">
+          Culture
+        </md-switch>
+        <md-switch ng-model="filters.challenge" aria-label="Challenge Switch">
+          Challenge
+        </md-switch>            
+      </div>
+    </div>          
+  </div>
+  <md-divider></md-divider>
   <div layout="row" layout-wrap>
     <div dnd-list="sourced" flex="33">
-      <h1 class="md-title">Sourced</h1>
-      <md-card   ng-repeat="item in sourced" 
+      <div layout="row" flex class="m-t-20 m-r-20">
+        <div flex="30">        
+          <h1 class="md-title font-md-warn">Sourced</h1>
+        </div>        
+        <div flex="70" class="pipeline-toolbar">          
+          <md-button>Share</md-button>          
+          <md-button>Save</md-button>
+          <md-button>Export</md-button>
+        </div>        
+      </div>            
+      <md-divider></md-divider>
+      <md-card   ng-repeat="item in sourced|orderBy:item.first_name|filter:filterFunction(searchText)" 
                  dnd-draggable="item" dnd-moved="sourced.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.sourced = item" 
                  layout="row" style="margin:20px;padding:10px;">
-        <div style="background:url({{item.img}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
+        <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
         <div flex="40">
           <p>{{item.first_name}} {{item.last_name}}</p>  
+          <md-chips ng-model="item.spec" readonly=true></md-chips>
         </div>        
         <div flex>        
         </div>
@@ -21,13 +88,27 @@
         </div>
       </md-card>
     </div>
-    <div dnd-list="engaged" flex="33">
-      <h1 class="md-title">Engaged</h1>
-      <md-card ng-repeat="item in engaged" 
+    <div dnd-list="engaged" flex="33">      
+      <div layout="row" flex class="m-t-20 m-r-20">
+        <div flex="30">        
+          <h1 class="md-title font-md-warn">Screened</h1>
+        </div>        
+        <div flex="70" class="pipeline-toolbar">          
+          <md-button>Share</md-button>          
+          <md-button>Save</md-button>
+          <md-button>Export</md-button>
+        </div>        
+      </div>      
+      
+      <md-divider></md-divider>
+      <md-card ng-repeat="item in engaged|orderBy:item.first_name|filter:filterFunction(searchText)" 
                dnd-draggable="item" dnd-moved="engaged.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.engaged = item"                
                layout="row" style="margin:20px;padding:10px;">
-        <div style="background:url({{item.img}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
-        <div flex="40"><p>{{item.first_name}} {{item.last_name}}</p></div>
+        <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
+        <div flex="40">
+          <p>{{item.first_name}} {{item.last_name}}</p>
+          <md-chips ng-model="item.spec" readonly=true></md-chips>
+        </div>
         <div flex>        
         </div>
         <div flex="10" style="margin-top:15px;">
@@ -36,12 +117,25 @@
       </md-card>
     </div>
     <div dnd-list="triggered" flex="33">
-      <h1 class="md-title">Triggered</h1>
-      <md-card ng-repeat="item in triggered" 
+      <div layout="row" flex class="m-t-20 m-r-20">
+        <div flex="30">        
+          <h1 class="md-title font-md-warn">Interested</h1>
+        </div>        
+        <div flex="70" class="pipeline-toolbar">          
+          <md-button>Share</md-button>          
+          <md-button>Save</md-button>
+          <md-button>Export</md-button>
+        </div>        
+      </div>          
+      <md-divider></md-divider>
+      <md-card ng-repeat="item in triggered|orderBy:item.first_name|filter:filterFunction(searchText)" 
                dnd-draggable="item" dnd-moved="triggered.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.triggered = item"             
                layout="row" style="margin:20px;padding:10px;">
-        <div style="background:url({{item.img}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
-        <div flex="40"><p>{{item.first_name}} {{item.last_name}}</p></div>
+        <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
+        <div flex="40">
+          <p>{{item.first_name}} {{item.last_name}}</p>
+          <md-chips ng-model="item.spec" readonly=true></md-chips>
+        </div>
       </md-card>     
     </div>
   </div>
