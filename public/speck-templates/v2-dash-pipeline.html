@@ -31,6 +31,10 @@
     font-size:16px;
   }
   
+  md-chips .asp .md-chip{
+    background:rgb(249, 225, 225);
+  }
+  
 </style>
 <md-content id="pipeline" layout="column">  
   <div layout="row" class="m-tb-20">
@@ -44,18 +48,22 @@
     <div flex="60" class="pipeline-toolbar">
       <div layout="row" flex>
         <span style="margin:auto;font-size:16px;">Trigger Aspiration:</span>
-        <md-switch ng-model="filters.career" aria-label="Career Switch">
+        <md-switch ng-model="filters.career" aria-label="Career Switch" ng-change="filterChange()">
           Career
         </md-switch>
-        <md-switch ng-model="filters.compensation" aria-label="Compensation Switch">
+        <md-switch ng-model="filters.compensation" aria-label="Compensation Switch" ng-change="filterChange()">
           Compensation
         </md-switch>
-        <md-switch ng-model="filters.culture" aria-label="Culture Switch">
+        <md-switch ng-model="filters.culture" aria-label="Culture Switch" ng-change="filterChange()">
           Culture
         </md-switch>
-        <md-switch ng-model="filters.challenge" aria-label="Challenge Switch">
+        <md-switch ng-model="filters.challenge" aria-label="Challenge Switch" ng-change="filterChange()">
           Challenge
-        </md-switch>            
+        </md-switch>                    
+        <md-radio-group ng-model="filters.anyAll" ng-change="filterChange()">
+          <md-radio-button value="any">Any</md-radio-button>
+          <md-radio-button value="all">All</md-radio-button>
+        </md-radio-group>                        
       </div>
     </div>          
   </div>
@@ -73,13 +81,14 @@
         </div>        
       </div>            
       <md-divider></md-divider>
-      <md-card   ng-repeat="item in sourced|orderBy:item.first_name|pipelineFilter:searchText" 
+      <md-card   ng-repeat="item in sourced|orderBy:item.first_name|pipelineFilter:searchText|aspirationFilter:filters" 
                  dnd-draggable="item" dnd-moved="sourced.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.sourced = item" 
                  layout="row" style="margin:20px;padding:10px;">
         <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
         <div flex="40">
           <p>{{item.first_name}} {{item.last_name}}</p>  
           <md-chips ng-model="item.spec" readonly=true></md-chips>
+          <md-chips class="asp" ng-model="item.asp" readonly=true></md-chips>
         </div>        
         <div flex>        
         </div>
@@ -101,13 +110,14 @@
       </div>      
       
       <md-divider></md-divider>
-      <md-card ng-repeat="item in engaged|orderBy:item.first_name|pipelineFilter:searchText" 
+      <md-card ng-repeat="item in engaged|orderBy:item.first_name|pipelineFilter:searchText|aspirationFilter:filters" 
                dnd-draggable="item" dnd-moved="engaged.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.engaged = item"                
                layout="row" style="margin:20px;padding:10px;">
         <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
         <div flex="40">
           <p>{{item.first_name}} {{item.last_name}}</p>
           <md-chips ng-model="item.spec" readonly=true></md-chips>
+          <md-chips class="asp" ng-model="item.asp" readonly=true></md-chips>
         </div>
         <div flex>        
         </div>
@@ -128,13 +138,14 @@
         </div>        
       </div>          
       <md-divider></md-divider>
-      <md-card ng-repeat="item in triggered|orderBy:item.first_name|pipelineFilter:searchText" 
+      <md-card ng-repeat="item in triggered|orderBy:item.first_name|pipelineFilter:searchText|aspirationFilter:filters" 
                dnd-draggable="item" dnd-moved="triggered.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.triggered = item"             
                layout="row" style="margin:20px;padding:10px;">
         <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
         <div flex="40">
           <p>{{item.first_name}} {{item.last_name}}</p>
           <md-chips ng-model="item.spec" readonly=true></md-chips>
+          <md-chips class="asp" ng-model="item.asp" readonly=true></md-chips>
         </div>
       </md-card>     
     </div>
