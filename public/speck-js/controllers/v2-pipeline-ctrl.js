@@ -1,4 +1,21 @@
 angular.module('Speck').controller('PipelineCtrl', ['$scope', '$http', 'filterFilter', PipelineCtrl]);
+angular.module('Speck').filter('pipelineFilter', function() {
+  return function(input, searchText) {
+    //console.log('pipelineFilter',input, searchText);
+    if(typeof searchText != 'undefined') {
+      var out = []
+      var searchTextLower = searchText.toLowerCase();
+      angular.forEach(input, function(ip, searchText) {
+        if(ip.text.indexOf(searchTextLower) != -1) {
+          out.push(ip);
+        }
+      });
+      console.log('pipelineFilter', searchText, input.length, out.length);
+      return out;
+    }
+    return input;
+  }
+});
 
 function PipelineCtrl($scope, $http, filterFilter) {
   $scope.selected = [];
@@ -15,9 +32,10 @@ function PipelineCtrl($scope, $http, filterFilter) {
         $scope.megalist = $scope.megalist.concat(res.data);
         for(var it in $scope.megalist) {
           var item = $scope.megalist[it]
-          item.spec = []
+          item.text = JSON.stringify(item).toLowerCase();
+          item.spec = [];
           for(var sp in item.specs) {
-            item.spec.push(item.specs[sp].value)
+            item.spec.push(item.specs[sp].value);
           }
         }
         $scope.sourced = filterFilter($scope.megalist, {
@@ -29,18 +47,8 @@ function PipelineCtrl($scope, $http, filterFilter) {
         $scope.triggered = filterFilter($scope.megalist, {
           status: 'interested'
         });
+        //console.log(JSON.stringify($scope.triggered));
       });
     });
-  }
-  
-  $scope.filterFunction = function(searchText) {    
-    if(searchText != undefined){
-    return function(item) {      
-      for(var sp in item.spec){
-        if(item.spec[sp].indexOf(searchText) != -1) return true;
-      }
-       return false;
-      
-    }}
   }
 }

@@ -73,7 +73,7 @@
         </div>        
       </div>            
       <md-divider></md-divider>
-      <md-card   ng-repeat="item in sourced|orderBy:item.first_name|filter:filterFunction(searchText)" 
+      <md-card   ng-repeat="item in sourced|orderBy:item.first_name|pipelineFilter:searchText" 
                  dnd-draggable="item" dnd-moved="sourced.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.sourced = item" 
                  layout="row" style="margin:20px;padding:10px;">
         <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
@@ -101,7 +101,7 @@
       </div>      
       
       <md-divider></md-divider>
-      <md-card ng-repeat="item in engaged|orderBy:item.first_name|filter:filterFunction(searchText)" 
+      <md-card ng-repeat="item in engaged|orderBy:item.first_name|pipelineFilter:searchText" 
                dnd-draggable="item" dnd-moved="engaged.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.engaged = item"                
                layout="row" style="margin:20px;padding:10px;">
         <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
@@ -128,7 +128,7 @@
         </div>        
       </div>          
       <md-divider></md-divider>
-      <md-card ng-repeat="item in triggered|orderBy:item.first_name|filter:filterFunction(searchText)" 
+      <md-card ng-repeat="item in triggered|orderBy:item.first_name|pipelineFilter:searchText" 
                dnd-draggable="item" dnd-moved="triggered.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.triggered = item"             
                layout="row" style="margin:20px;padding:10px;">
         <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
