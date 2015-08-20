@@ -1,10 +1,10 @@
 <div flex  ng-controller="DashboardCtrl" ng-init="initDashboard()">
     <div id="float-action" fab-float>
-        <a ui-sref="v2add">
-            <md-button class="md-fab md-accent" aria-label="Add Spec">
+        
+            <md-button ng-click="toggleSideBarRight()" class="md-fab md-accent" aria-label="Add Spec">
                 <md-icon md-svg-src="/img/note_add.svg" style="color: greenyellow;"></md-icon>
             </md-button>
-        </a>
+        
     </div>
     <md-tabs flex layout="column" md-dynamic-height md-border-bottom md-center-tabs=false md-selected="selectedIndex">
         <md-tab md-on-select="tabSelected('pipeline')">

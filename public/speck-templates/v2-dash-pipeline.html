@@ -1,153 +1,216 @@
 <style>
-  #pipeline h1{
+  #pipeline h1 {
     text-align:center;
   }
-  
-  .font-md-warn{
-    color: rgb(255,110,64)
+  .font-md-warn {
+    color: rgb(255, 110, 64)
   }
-  
-  .m-tb-20{
+  .m-tb-20 {
     margin: 20px 0px;
   }
-  
-  .m-t-20{
+ .m-tb-10 {
+    margin: 10px 0px;
+  }  
+  .m-t-20 {
     margin-top:20px;
   }
-  
-  .m-r-20{
-   margin-right:20px; 
+  .m-t-10 {
+    margin-top:10px;
   }
-  
-  .pipeline-toolbar button{
+  .m-r-20 {
+    margin-right:20px;
+  }
+  .pipeline-toolbar button {
     float:right;
     min-width:40px;
     margin:6px 3px;
     font-size:12px;
   }
-  
-  .pipeline-toolbar md-switch{
+  .pipeline-toolbar md-switch {
     margin:10px;
-    font-size:16px;
+    font-size:14px;
   }
-  
-  md-chips .asp .md-chip{
+  .pipeline-toolbar md-radio-button {
+    margin:10px 0px;
+    font-size:14px;
+    display:inline;
+    
+  }
+  .pipeline-toolbar md-radio-group{
+    padding-top:10px;
+    padding-left:10px;
+  }
+  .pipeline-toolbar-inner{
+    float:right;
+  }
+  md-chips .asp .md-chip {
     background:rgb(249, 225, 225);
+  }
+  #pipelines md-chips .md-chips {
+    box-shadow:none;
+  }
+  #pipelines .md-chips {
+    font-size: 11px;
+  }
+  #pipelines md-chips .md-chip {
+    background:rgb(247, 226, 226);
+  }
+  #pipelines .md-chips .md-chip {
+    height: 20px;
+    line-height: 20px;
+  }
+  #candidate-asp md-icon {
+    float:right;
   }
   
 </style>
-<md-content id="pipeline" layout="column">  
-  <div layout="row" class="m-tb-20">
-    <div flex="35">
+<md-content id="pipeline" layout="column">
+  <div layout="row" class="m-t-10">
+    <div flex="40">
       <md-input-container md-no-float>
         <md-icon md-font-icon="material-icons" class="md-36">search</md-icon>
-        <input ng-model="searchText" type="text" placeholder="Search by Job Spec or Skills" >
-      </md-input-container>      
+        <input ng-model="searchText" type="text" placeholder="Search by Job Spec or Skills">
+      </md-input-container>
     </div>
-    <div flex="5"></div>
     <div flex="60" class="pipeline-toolbar">
-      <div layout="row" flex>
-        <span style="margin:auto;font-size:16px;">Trigger Aspiration:</span>
+      <div class="pipeline-toolbar-inner" layout="row" flex>
         <md-switch ng-model="filters.career" aria-label="Career Switch" ng-change="filterChange()">
           Career
+          <md-icon md-font-icon="material-icons" class="md-24 md-warn">trending_up</md-icon>
         </md-switch>
         <md-switch ng-model="filters.compensation" aria-label="Compensation Switch" ng-change="filterChange()">
           Compensation
+          <md-icon md-font-icon="material-icons" class="md-24 md-warn">attach_money</md-icon>
         </md-switch>
         <md-switch ng-model="filters.culture" aria-label="Culture Switch" ng-change="filterChange()">
           Culture
+          <md-icon md-font-icon="material-icons" class="md-24 md-warn">groupp</md-icon>
         </md-switch>
         <md-switch ng-model="filters.challenge" aria-label="Challenge Switch" ng-change="filterChange()">
           Challenge
-        </md-switch>                    
+          <md-icon md-font-icon="material-icons" class="md-24 md-warn">code</md-icon>
+        </md-switch>
         <md-radio-group ng-model="filters.anyAll" ng-change="filterChange()">
           <md-radio-button value="any">Any</md-radio-button>
           <md-radio-button value="all">All</md-radio-button>
-        </md-radio-group>                        
+        </md-radio-group>
       </div>
-    </div>          
+    </div>
   </div>
   <md-divider></md-divider>
-  <div layout="row" layout-wrap>
+  <div id="pipelines" layout="row" layout-wrap>
     <div dnd-list="sourced" flex="33">
-      <div layout="row" flex class="m-t-20 m-r-20">
-        <div flex="30">        
+      <div layout="row" flex class="m-r-20">
+        <div flex="30">
           <h1 class="md-title font-md-warn">Sourced</h1>
-        </div>        
-        <div flex="70" class="pipeline-toolbar">          
-          <md-button>Share</md-button>          
+        </div>
+        <div flex="70" class="pipeline-toolbar">
+          <md-button>Share</md-button>
           <md-button>Save</md-button>
           <md-button>Export</md-button>
-        </div>        
-      </div>            
-      <md-divider></md-divider>
-      <md-card   ng-repeat="item in sourced|orderBy:item.first_name|pipelineFilter:searchText|aspirationFilter:filters" 
-                 dnd-draggable="item" dnd-moved="sourced.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.sourced = item" 
-                 layout="row" style="margin:20px;padding:10px;">
-        <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
-        <div flex="40">
-          <p>{{item.first_name}} {{item.last_name}}</p>  
-          <md-chips ng-model="item.spec" readonly=true></md-chips>
-          <md-chips class="asp" ng-model="item.asp" readonly=true></md-chips>
-        </div>        
-        <div flex>        
         </div>
-        <div flex="10" style="margin-top:15px;">
-          <md-icon md-font-icon="material-icons" class="md-36">navigate_next</md-icon>
+      </div>
+      <md-divider></md-divider>
+      <md-card ng-repeat="item in sourced|orderBy:item.first_name|pipelineFilter:searchText|aspirationFilter:filters" dnd-draggable="item" dnd-moved="sourced.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.sourced = item" style="margin:20px;padding:10px;">
+
+        <div layout="row">
+          <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
+          <div flex="40">
+            <p>{{item.first_name}} {{item.last_name}}</p>
+          </div>
+          <div flex id="candidate-asp" style="float:left;margin-top:15px;">
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('comp')!=-1}">attach_money</md-icon>
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('career')!=-1}">trending_up</md-icon>
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('culture')!=-1}">group</md-icon>
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('challenge')!=-1}">code</md-icon>
+          </div>
+        </div>
+        <div layout="row">
+          <div flex>
+            <md-chips ng-model="item.spec" readonly=true></md-chips>
+          </div>
+          <div flex="10">
+          </div>
+          <div flex="10">
+            <md-icon md-font-icon="material-icons" class="md-36">navigate_next</md-icon>
+          </div>
         </div>
       </md-card>
     </div>
-    <div dnd-list="engaged" flex="33">      
-      <div layout="row" flex class="m-t-20 m-r-20">
-        <div flex="30">        
+    <div dnd-list="engaged" flex="33">
+      <div layout="row" flex class="m-r-20">
+        <div flex="30">
           <h1 class="md-title font-md-warn">Screened</h1>
-        </div>        
-        <div flex="70" class="pipeline-toolbar">          
-          <md-button>Share</md-button>          
+        </div>
+        <div flex="70" class="pipeline-toolbar">
+          <md-button>Share</md-button>
           <md-button>Save</md-button>
           <md-button>Export</md-button>
-        </div>        
-      </div>      
-      
+        </div>
+      </div>
+
       <md-divider></md-divider>
-      <md-card ng-repeat="item in engaged|orderBy:item.first_name|pipelineFilter:searchText|aspirationFilter:filters" 
-               dnd-draggable="item" dnd-moved="engaged.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.engaged = item"                
-               layout="row" style="margin:20px;padding:10px;">
-        <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
-        <div flex="40">
-          <p>{{item.first_name}} {{item.last_name}}</p>
-          <md-chips ng-model="item.spec" readonly=true></md-chips>
-          <md-chips class="asp" ng-model="item.asp" readonly=true></md-chips>
+      <md-card ng-repeat="item in engaged|orderBy:item.first_name|pipelineFilter:searchText|aspirationFilter:filters" dnd-draggable="item" dnd-moved="engaged.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.engaged = item"  style="margin:20px;padding:10px;">
+        <div layout="row">
+          <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
+          <div flex="40">
+            <p>{{item.first_name}} {{item.last_name}}</p>
+          </div>
+          <div flex id="candidate-asp" style="float:left;margin-top:15px;">
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('comp')!=-1}">attach_money</md-icon>
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('career')!=-1}">trending_up</md-icon>
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('culture')!=-1}">group</md-icon>
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('challenge')!=-1}">code</md-icon>
+          </div>
         </div>
-        <div flex>        
+        <div layout="row">
+          <div flex>
+            <md-chips ng-model="item.spec" readonly=true></md-chips>
+          </div>
+          <div flex="10">
+          </div>
+          <div flex="10">
+            <md-icon md-font-icon="material-icons" class="md-36">navigate_next</md-icon>
+          </div>
         </div>
-        <div flex="10" style="margin-top:15px;">
-          <md-icon md-font-icon="material-icons" class="md-36">navigate_next</md-icon>
-        </div>        
       </md-card>
     </div>
     <div dnd-list="triggered" flex="33">
-      <div layout="row" flex class="m-t-20 m-r-20">
-        <div flex="30">        
+      <div layout="row" flex class="m-r-20">
+        <div flex="30">
           <h1 class="md-title font-md-warn">Interested</h1>
-        </div>        
-        <div flex="70" class="pipeline-toolbar">          
-          <md-button>Share</md-button>          
+        </div>
+        <div flex="70" class="pipeline-toolbar">
+          <md-button>Share</md-button>
           <md-button>Save</md-button>
           <md-button>Export</md-button>
-        </div>        
-      </div>          
-      <md-divider></md-divider>
-      <md-card ng-repeat="item in triggered|orderBy:item.first_name|pipelineFilter:searchText|aspirationFilter:filters" 
-               dnd-draggable="item" dnd-moved="triggered.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.triggered = item"             
-               layout="row" style="margin:20px;padding:10px;">
-        <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
-        <div flex="40">
-          <p>{{item.first_name}} {{item.last_name}}</p>
-          <md-chips ng-model="item.spec" readonly=true></md-chips>
-          <md-chips class="asp" ng-model="item.asp" readonly=true></md-chips>
         </div>
-      </md-card>     
+      </div>
+      <md-divider></md-divider>
+      <md-card ng-repeat="item in triggered|orderBy:item.first_name|pipelineFilter:searchText|aspirationFilter:filters" dnd-draggable="item" dnd-moved="triggered.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="selected.triggered = item" style="margin:20px;padding:10px;">
+        <div layout="row">
+          <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
+          <div flex="40">
+            <p>{{item.first_name}} {{item.last_name}}</p>
+          </div>
+          <div flex id="candidate-asp" style="float:left;margin-top:15px;">
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('comp')!=-1}">attach_money</md-icon>
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('career')!=-1}">trending_up</md-icon>
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('culture')!=-1}">group</md-icon>
+            <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('challenge')!=-1}">code</md-icon>
+          </div>
+        </div>
+        <div layout="row">
+          <div flex>
+            <md-chips ng-model="item.spec" readonly=true></md-chips>
+          </div>
+          <div flex="10">
+          </div>
+          <div flex="10">
+            <md-icon md-font-icon="material-icons" class="md-36">navigate_next</md-icon>
+          </div>
+        </div>
+      </md-card>
     </div>
   </div>
 </md-content>

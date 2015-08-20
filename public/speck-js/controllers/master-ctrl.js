@@ -4,6 +4,7 @@ angular.module('Speck').controller('LoginCtrl', ['$scope', '$rootScope', '$mdDia
 function MasterCtrl($scope, $rootScope, $cookieStore, $mdSidenav, $log, $http, jwtHelper, $mdDialog, hello, aS) {
   
     $scope.mdIsOpen = false;
+    $scope.mdIsOpenR = false;
     var mobileView = 992;
     $scope.getWidth = function() {
         return window.innerWidth;
@@ -26,7 +27,17 @@ function MasterCtrl($scope, $rootScope, $cookieStore, $mdSidenav, $log, $http, j
         $mdSidenav('left').toggle().then(function() {
             $log.debug("toggle LEFT is done");
         });
+      
+      
     }
+    $scope.toggleSideBarRight = function() {
+        $mdSidenav('right').toggle().then(function() {
+            $log.debug("toggle LEFT is done");
+        });
+      
+      
+    }
+    
     $scope.checkUserLogin = function() {
         if(!aS.isLoggedInUser()) {
             console.log('User Not Logged In!');

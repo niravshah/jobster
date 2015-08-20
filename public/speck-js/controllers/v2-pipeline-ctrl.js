@@ -69,10 +69,10 @@ function PipelineCtrl($scope, $http, filterFilter,ngBooleanSearch) {
   $scope.selected = [];
   $scope.filters = {
     'career': true,
-    'culture': true,
-    'compensation': true,
-    'challenge': true,
-    'anyAll':'all'
+    'culture': false,
+    'compensation': false,
+    'challenge': false,
+    'anyAll':'any'
   }
   
   $scope.filterChange = function(){
@@ -93,6 +93,7 @@ function PipelineCtrl($scope, $http, filterFilter,ngBooleanSearch) {
             item.spec.push(item.specs[sp].text);
           }
           item.asp = [];
+          item.aspText = JSON.stringify(item.aspirations).toLowerCase();
           for(var sp in item.aspirations){
             item.asp.push(item.aspirations[sp].text);
           }
