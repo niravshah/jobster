@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    
+  <head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />    
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
@@ -24,107 +23,87 @@
     <meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
     <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
     <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />           
-    
+
     <link rel="stylesheet" type="text/css" href="/bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" type="text/css" href="/speck-css/v2-custom.css">
     <link rel="stylesheet" type="text/css" href="/bower_components/dropzone/dist/dropzone.css"/>    
-	  <link rel="stylesheet" type="text/css" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css"/>
-    
+    <link rel="stylesheet" type="text/css" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css"/>
+
     <link href='http://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:600italic,400|Roboto:400,300' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-    
-	
-    <title>RecruitSys</title>
+    <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>   
+
+    <title>RECRUITSYS</title>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-material/angular-material.js"></script>
-</head>
+  </head>
 
-<body ng-app="Speck" layout="row" ng-controller="MasterCtrl" ng-init="checkUserLogin()">
-
+  <body ng-app="Speck" layout="row" ng-controller="MasterCtrl" ng-init="checkUserLogin()">
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-is-open="mdIsOpen" md-component-id="left">
-        <md-toolbar layout="row" class="md-whiteframe-z2">
-            <div class="md-toolbar-tools">
-                <md-button ng-click="toggleSideBar()" class="md-icon-button" aria-label="Close">
-                    <md-icon md-svg-icon="/img/clear.svg"></md-icon>
-                </md-button>
-                <span flex></span>
-            </div>
-        </md-toolbar>
-    </md-sidenav>
-  
-    <md-sidenav class="md-sidenav-right md-whiteframe-z5" md-is-open="mdIsOpenR" md-component-id="right">
-        <md-toolbar layout="row" class="md-whiteframe-z5">
-            <div class="md-toolbar-tools">
-                <md-button ng-click="toggleSideBarRight()" class="md-icon-button" aria-label="Close">
-                    <md-icon md-svg-icon="/img/clear.svg"></md-icon>
-                </md-button>
-                <span flex></span>
-            </div>
-        </md-toolbar>
-    </md-sidenav>
-  
-  
-    <div flex layout="column"style="overflow-y:auto;">
-        <md-toolbar layout="row" class="md-whiteframe-z2">
-            <div id="logo" class="md-toolbar-tools">
-                <md-button ng-click="toggleSideBar()" class="md-icon-button" aria-label="Settings">
-                     <img ng-src="/img/speck-hdpi.png" class="logo"/>
-                </md-button>
-                <a ui-sref="v2"><h2><span>RECRUITSYS</span></h2></a>
-                <span flex></span> 
-                <md-button ng-click="loginUser()" class="md-right-tools md-icon-button" aria-label="Login">
-					<md-icon md-font-library="material-icons" class="md-accent md-24">account_box</md-icon>
-                </md-button>                
-                <md-button class="md-right-tools md-icon-button" aria-label="Notifications">
-					<md-icon md-font-library="material-icons" class="md-white md-24">notifications</md-icon>
-                </md-button>
-                <md-button class="md-right-tools md-icon-button" aria-label="Emails">
-					<md-icon md-font-library="material-icons" class="md-white md-24">email</md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-        <div flex layout="row">
-            <div flex ui-view="main"></div>
+      <md-toolbar layout="row" class="md-whiteframe-z2">
+        <div class="md-toolbar-tools">
+          <md-button ng-click="toggleSideBar()" class="md-icon-button" aria-label="Close">
+            <md-icon md-svg-icon="/img/clear.svg"></md-icon>
+          </md-button>
+          <span flex></span>
         </div>
+      </md-toolbar>
+    </md-sidenav>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z5" md-is-open="mdIsOpenR" md-component-id="right">  
+      <div ui-view="right">
+      </div>
+    </md-sidenav>      
+    <div flex layout="column"style="overflow-y:auto;">
+      <md-toolbar layout="row" class="md-whiteframe-z2">
+        <div id="logo" class="md-toolbar-tools">
+          <md-button ng-click="toggleSideBar()" class="md-icon-button" aria-label="Settings">
+            <img ng-src="/img/speck-hdpi.png" class="logo"/>
+          </md-button>
+          <a ui-sref="v2"><h2><span>RECRUITSYS</span></h2></a>
+          <span flex></span> 
+          <md-button ng-click="loginUser()" class="md-right-tools md-icon-button" aria-label="Login">
+            <md-icon md-font-library="material-icons" class="md-accent md-24">account_box</md-icon>
+          </md-button>                
+          <md-button class="md-right-tools md-icon-button" aria-label="Notifications">
+            <md-icon md-font-library="material-icons" class="md-white md-24">notifications</md-icon>
+          </md-button>
+          <md-button class="md-right-tools md-icon-button" aria-label="Emails">
+            <md-icon md-font-library="material-icons" class="md-white md-24">email</md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <div flex layout="row">
+        <div flex ui-view="main"></div>
+      </div>
     </div>
-	  <script type="text/javascript" src="/bower_components/jquery/jquery.js"></script>    
+    <script type="text/javascript" src="/bower_components/jquery/jquery.js"></script>    
     <script type="text/javascript" src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular-contenteditable/angular-contenteditable.js"></script>   
     <script type="text/javascript" src="/bower_components/ngstorage/ngStorage.min.js"></script>
-    
     <script type="text/javascript" src="/bower_components/hello/dist/hello.min.js"></script> 
     <script type="text/javascript" src="/speck-js/custom/hello-linkedin.js"></script>      
-  <script type="text/javascript" src="/speck-js/custom/ng-hello.js"></script>      
-  
+    <script type="text/javascript" src="/speck-js/custom/ng-hello.js"></script>      
     <script type="text/javascript" src="/bower_components/ngBooleanSearch/source/ngBooleanSearch.js"></script>
-        
     <script src="/bower_components/angular-aria/angular-aria.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
-	
-	  <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-	  <script type="text/javascript" src="/bower_components/gmaps/gmaps.min.js"></script>
-    
-	  <script type="text/javascript" src="/bower_components/dropzone/dist/dropzone.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="/bower_components/gmaps/gmaps.min.js"></script>
+    <script type="text/javascript" src="/bower_components/dropzone/dist/dropzone.js"></script>
     <script type="text/javascript" src="/bower_components/angular-material-data-table/dist/md-data-table.min.js"></script> 
     <script type="text/javascript" src="/bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
-    
     <script type="text/javascript" src="/speck-js/module.js"></script>
     <script type="text/javascript" src="/speck-js/routes.js"></script>
-
     <script type="text/javascript" src="/speck-js/services/auth-service.v2.js"></script>
     <script type="text/javascript" src="/speck-js/services/data-service.v2.js"></script>
-    
     <script type="text/javascript" src="/speck-js/controllers/master-ctrl.js"></script>
     <script type="text/javascript" src="/speck-js/controllers/dashboard-ctrl.v2.js"></script>
     <script type="text/javascript" src="/speck-js/controllers/specs-ctrl.v2.js"></script>	
     <script type="text/javascript" src="/speck-js/controllers/invites-ctrl.v2.js"></script>
     <script type="text/javascript" src="/speck-js/controllers/v2-spec-add.js"></script>
     <script type="text/javascript" src="/speck-js/controllers/v2-leaderboard.js"></script>
-  <script type="text/javascript" src="/speck-js/controllers/v2-pipeline-ctrl.js"></script>
-</body>
-
+    <script type="text/javascript" src="/speck-js/controllers/v2-pipeline-ctrl.js"></script>
+  </body>
 </html>

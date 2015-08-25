@@ -1,3 +1,9 @@
+.md-sidenav-right{
+ width:404px;
+  max-width:404px;
+}
+
+
 .mdAccent {
   color:rgb(255, 110, 64);
 }

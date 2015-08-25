@@ -1,72 +1,10 @@
-angular.module('Speck').controller('PipelineCtrl', ['$scope', '$http', 'filterFilter', 'ngBooleanSearch',PipelineCtrl]);
-angular.module('Speck').filter('pipelineFilter', function() {
-  return function(input, searchText) {
-    if(typeof searchText != 'undefined') {
-      var out = []
-      var searchTextLower = searchText.toLowerCase();
-      angular.forEach(input, function(ip, searchText) {
-        if(ip.text.indexOf(searchTextLower) != -1) {
-          out.push(ip);
-        }
-      });
-      //console.log('pipelineFilter', searchText, input.length, out.length);
-      return out;
-    }
-    return input;
-  }
-});
-angular.module('Speck').filter('aspirationFilter',['ngBooleanSearch', function(ngBooleanSearch) {
-  return function(input, filters) {
-    if(typeof input != 'undefined') {
-      
-      var srchTxt = 'aspirations: '
-      if(filters['anyAll'] == 'any'){
-        if(filters['career'] == true){
-          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('career') : srchTxt = srchTxt.concat(' OR career');
-        }
-        if(filters['compensation'] == true){
-          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('compensation') : srchTxt = srchTxt.concat(' OR compensation');
-        }
-        if(filters['challenge'] == true){
-          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('compensation') : srchTxt = srchTxt.concat(' OR compensation');
-        }
-        if(filters['culture'] == true){
-          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('culture') : srchTxt = srchTxt.concat(' OR culture');
-        }
-      }else{       
-        if(filters['career'] == true){
-          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('career') : srchTxt = srchTxt.concat(' AND career');
-        }
-        if(filters['compensation'] == true){
-          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('comp') : srchTxt = srchTxt.concat(' AND comp');
-        }
-        if(filters['challenge'] == true){
-          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('challenge') : srchTxt = srchTxt.concat(' AND challenge');
-        }
-        if(filters['culture'] == true){
-          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('culture') : srchTxt = srchTxt.concat(' AND culture');
-        }       
-      }
-      
-      var out = []
-      angular.forEach(input,function(ip){
-        if(ngBooleanSearch.filterBookmark(ip,srchTxt) == true){
-            out.push(ip)
-        }
-      });
-      return out;
-      
-      //console.log('aspirationFilter', input, filters, srchTxt);
-      
-    }
-    return input;
-  }
-}]);
+angular.module('Speck').controller('PipelineCtrl', ['$scope','$rootScope', '$http', '$mdSidenav', '$log','$state', 'filterFilter', 'ngBooleanSearch', 'saveListService', PipelineCtrl]);
+angular.module('Speck').controller('SaveListCtrl', ['$scope','$rootScope', '$http', '$mdSidenav', '$log','$state','saveListService', SaveListCtrl]);
 
-
-
-function PipelineCtrl($scope, $http, filterFilter,ngBooleanSearch) {
+function PipelineCtrl($scope, $rootScope, $http, $mdSidenav, $log, $state, filterFilter,ngBooleanSearch,saveListService) {
   $scope.selected = [];
+  $scope.mdIsOpenR = false;
+  
   $scope.filters = {
     'career': true,
     'culture': false,
@@ -106,25 +44,120 @@ function PipelineCtrl($scope, $http, filterFilter,ngBooleanSearch) {
         });
         $scope.triggered = filterFilter($scope.megalist, {
           status: 'interested'
-        });
-        
-        //console.log(JSON.stringify($scope.triggered));
-        
-        
-        /*var srchTxt = 'tag: tag1 OR tag2';
-        var bookmark = {
-          title: 'title',
-          url: 'http://127:0:0:1',
-          tag:[{text: 'tag1'}, {text: 'tag2'}, {text: 'tag3'}]
-        };*/
-        
-        var srchTxt = 'aspirations: comp OR culture';
-        var bookmark = {"id":2,"first_name":"Paul","last_name":"Reynolds","email":"preynolds1@dot.gov","sex":"men","imgNum":61,"status":"interested","aspirations":[{"text":"comp"}],"specs":[{"text":"Senior Java Developer"}]}
-        
-        console.log('ngBooleanSearch', ngBooleanSearch.filterBookmark(bookmark,srchTxt));        
-        
+        });        
         
       });
     });
   }
+  
+  $scope.saveList = function(listName){
+    if(listName == 'sourced'){      
+      saveListService.setList($scope.sourced);
+      saveListService.setListName('Sourced');      
+    }else if(listName=='screened'){
+      saveListService.setList($scope.engaged);
+      saveListService.setListName('Screened');      
+    }else if(listName=='interested'){
+      saveListService.setList($scope.triggered);
+      saveListService.setListName('Interested');      
+    }   
+    $state.go('v2.pipeline.save');    
+  } 
 }
+
+angular.module('Speck').service('saveListService',function(){
+  var listToSave = [];
+  var listName;
+  var setList = function(list){
+    listToSave =list;
+  };
+  var getList = function(){
+    return listToSave
+  };
+  var getListName = function(){
+    return listName
+  };
+  var setListName = function(listname){
+    listName = listname;
+  };
+  
+  return{   
+    getList : getList,
+    setList : setList,
+    getListName : getListName,
+    setListName : setListName 
+  }
+});
+
+
+function SaveListCtrl($scope, $rootScope, $http, $mdSidenav, $log, $state, saveListService) {  
+  $scope.listName = saveListService.getListName();  
+  $scope.initSaveListCtrl = function(){
+    $mdSidenav('right').toggle().then(function() {        
+      $log.debug('Save List:', saveListService.getList());      
+    });
+  }
+}
+
+
+angular.module('Speck').filter('pipelineFilter', function() {
+  return function(input, searchText) {
+    if(typeof searchText != 'undefined') {
+      var out = []
+      var searchTextLower = searchText.toLowerCase();
+      angular.forEach(input, function(ip, searchText) {
+        if(ip.text.indexOf(searchTextLower) != -1) {
+          out.push(ip);
+        }
+      });
+      return out;
+    }
+    return input;
+  }
+});
+
+
+
+angular.module('Speck').filter('aspirationFilter',['ngBooleanSearch', function(ngBooleanSearch) {
+  return function(input, filters) {
+    if(typeof input != 'undefined') {
+      
+      var srchTxt = 'aspirations: '
+      if(filters['anyAll'] == 'any'){
+        if(filters['career'] == true){
+          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('career') : srchTxt = srchTxt.concat(' OR career');
+        }
+        if(filters['compensation'] == true){
+          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('compensation') : srchTxt = srchTxt.concat(' OR compensation');
+        }
+        if(filters['challenge'] == true){
+          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('compensation') : srchTxt = srchTxt.concat(' OR compensation');
+        }
+        if(filters['culture'] == true){
+          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('culture') : srchTxt = srchTxt.concat(' OR culture');
+        }
+      }else{       
+        if(filters['career'] == true){
+          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('career') : srchTxt = srchTxt.concat(' AND career');
+        }
+        if(filters['compensation'] == true){
+          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('comp') : srchTxt = srchTxt.concat(' AND comp');
+        }
+        if(filters['challenge'] == true){
+          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('challenge') : srchTxt = srchTxt.concat(' AND challenge');
+        }
+        if(filters['culture'] == true){
+          srchTxt == 'aspirations: ' ? srchTxt = srchTxt.concat('culture') : srchTxt = srchTxt.concat(' AND culture');
+        }       
+      }
+      var out = []
+      angular.forEach(input,function(ip){
+        if(ngBooleanSearch.filterBookmark(ip,srchTxt) == true){
+            out.push(ip)
+        }
+      });
+      return out;     
+    }
+    return input;
+  }
+}]);

@@ -10,7 +10,7 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
             url: '/v2',
             'views': {
                 'main': {
-                    templateUrl: '/speck-templates/v2-dash-0.html'
+                    templateUrl: '/speck-templates/v2-main.html'
                 }
             }
         }).state('v2.pipeline', {
@@ -18,6 +18,20 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
             'views': {
                 'pipeline': {
                     templateUrl: '/speck-templates/v2-dash-pipeline.html'
+                }
+            }
+        }).state('v2.pipeline.save', {
+            url: '/save',
+            'views': {
+                'right@': {
+                    templateUrl: '/speck-templates/v2-dash-pipeline-save.html'
+                }
+            }
+        }).state('v2.pipeline.add', {
+            url: '/add',
+            'views': {
+                'right@': {
+                    templateUrl: '/speck-templates/v2-dash-pipeline-add.html'
                 }
             }
         }).state('v2.specs', {

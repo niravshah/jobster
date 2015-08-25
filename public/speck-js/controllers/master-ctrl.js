@@ -3,8 +3,10 @@ angular.module('Speck').controller('LoginCtrl', ['$scope', '$rootScope', '$mdDia
 
 function MasterCtrl($scope, $rootScope, $cookieStore, $mdSidenav, $log, $http, jwtHelper, $mdDialog, hello, aS) {
   
+    $rootScope.rightBarController = '';
     $scope.mdIsOpen = false;
     $scope.mdIsOpenR = false;
+  
     var mobileView = 992;
     $scope.getWidth = function() {
         return window.innerWidth;
