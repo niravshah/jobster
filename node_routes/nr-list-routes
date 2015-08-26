@@ -1,0 +1,1 @@
+var Spec = require('../node_models/spec-model');

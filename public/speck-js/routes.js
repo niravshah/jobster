@@ -34,6 +34,20 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
                     templateUrl: '/speck-templates/v2-dash-pipeline-add.html'
                 }
             }
+        }).state('v2.lists', {
+            url: '/lists',
+            'views': {
+                'lists': {
+                    templateUrl: '/speck-templates/v2-dash-lists.html'
+                }
+            }
+        }).state('v2.lists.details', {
+            url: '/:id',
+            'views': {
+                'lists': {
+                    templateUrl: '/speck-templates/v2-dash-list-details.html'
+                }
+            }
         }).state('v2.specs', {
             url: '/specs',
             'views': {

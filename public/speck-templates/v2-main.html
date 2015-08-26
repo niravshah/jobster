@@ -1,54 +1,62 @@
-<div flex  ng-controller="DashboardCtrl" ng-init="initDashboard()">
-    <div id="float-action" fab-float>
-        
-            <md-button ng-click="toggleSideBarRight()" class="md-fab md-accent" aria-label="Add Spec">
-                <md-icon md-svg-src="/img/note_add.svg" style="color: greenyellow;"></md-icon>
-            </md-button>
-        
-    </div>
-    <md-tabs flex layout="column" md-dynamic-height md-border-bottom md-center-tabs=false md-selected="selectedIndex">
-        <md-tab md-on-select="tabSelected('pipeline')">
-            <md-tab-label><span>pipeline</span></md-tab-label>
-            <md-tab-body>
-                <md-content flex class="md-padding">
-                    <div ui-view="pipeline" ng-controller="PipelineCtrl" ng-init="initPipeline()">
-                    </div>
-                </md-content>
-            </md-tab-body>
-        </md-tab>
-      
-        <md-tab md-on-select="tabSelected('specs')">
-            <md-tab-label><span>job specs</span><span ng-if="currLiveDelta>0 && draftLoaded" class="badge badge-error">{{currLiveDelta}}</span>
-            </md-tab-label>
-            <md-tab-body>
-                <md-content flex class="md-padding">
-                    <div ui-view="specs" ng-controller="SpecsCtrl" ng-init="initSpecs()">
-                    </div>
-                </md-content>
-            </md-tab-body>
-        </md-tab>
-        <md-tab md-on-select="tabSelected('invites')" >
-            <md-tab-label>
-                <span>live candidates</span>
-            </md-tab-label>
-            <md-tab-body>
-                <md-content flex class="md-padding">
-                    <div ui-view="invites" ng-controller="InvitesCtrl" ng-init="initInvites()">
-                    </div>
-                </md-content>
-            </md-tab-body>
-        </md-tab>
-        <md-tab md-on-select="tabSelected('leaderboard')">
-            <md-tab-label>
-                <span>recruiter leaderboard</span>
-            </md-tab-label>
-            <md-tab-body>
-                <md-content flex class="md-padding">
-                    <div ui-view="leaderboard" ng-controller="LBoardCtrl" ng-init="initLBoard()">
-                    </div>
-                </md-content>
-            </md-tab-body>
-        </md-tab>
+<div flex ng-controller="DashboardCtrl" ng-init="initDashboard()">
+  <div id="float-action" fab-float>
+    <md-button ng-click="toggleSideBarRight()" class="md-fab md-accent" aria-label="Add Spec">
+      <md-icon md-svg-src="/img/note_add.svg" style="color: greenyellow;"></md-icon>
+    </md-button>
+  </div>
+  <md-tabs flex layout="column" md-dynamic-height md-border-bottom md-center-tabs=false md-selected="selectedIndex">
+    <md-tab md-on-select="tabSelected('pipeline')">
+      <md-tab-label><span>pipelines</span>
+      </md-tab-label>
+      <md-tab-body>
+        <md-content flex class="md-padding">
+          <div ui-view="pipeline" ng-controller="PipelineCtrl" ng-init="initPipeline()">
+          </div>
+        </md-content>
+      </md-tab-body>
+    </md-tab>
+    <md-tab md-on-select="tabSelected('lists')">
+      <md-tab-label><span>lists</span>
+      </md-tab-label>
+      <md-tab-body>
+        <md-content flex class="md-padding">
+          <div ui-view="lists" ng-controller="ListsCtrl" ng-init="initLists()">
+          </div>
+        </md-content>
+      </md-tab-body>
+    </md-tab>   
+    <md-tab md-on-select="tabSelected('specs')">
+      <md-tab-label><span>job specs</span><span ng-if="currLiveDelta>0 && draftLoaded" class="badge badge-error">{{currLiveDelta}}</span>
+      </md-tab-label>
+      <md-tab-body>
+        <md-content flex class="md-padding">
+          <div ui-view="specs" ng-controller="SpecsCtrl" ng-init="initSpecs()">
+          </div>
+        </md-content>
+      </md-tab-body>
+    </md-tab>
+    <md-tab md-on-select="tabSelected('invites')">
+      <md-tab-label>
+        <span>live candidates</span>
+      </md-tab-label>
+      <md-tab-body>
+        <md-content flex class="md-padding">
+          <div ui-view="invites" ng-controller="InvitesCtrl" ng-init="initInvites()">
+          </div>
+        </md-content>
+      </md-tab-body>
+    </md-tab>
+    <md-tab md-on-select="tabSelected('leaderboard')">
+      <md-tab-label>
+        <span>recruiter leaderboard</span>
+      </md-tab-label>
+      <md-tab-body>
+        <md-content flex class="md-padding">
+          <div ui-view="leaderboard" ng-controller="LBoardCtrl" ng-init="initLBoard()">
+          </div>
+        </md-content>
+      </md-tab-body>
+    </md-tab>
 
-    </md-tabs>
+  </md-tabs>
 </div>

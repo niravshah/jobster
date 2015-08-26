@@ -21,7 +21,7 @@ module.exports = function(app, passport, io) {
                         console.log('User Disconnected', this.id);
                     });
 					
-					 socket.on('reconnect', function() {
+					     socket.on('reconnect', function() {
                         console.log('User Reconnect Request', this.id);
                     });
 					

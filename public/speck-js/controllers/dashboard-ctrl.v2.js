@@ -21,6 +21,10 @@ function DashboardCtrl($scope, $state, $location, dS) {
             $state.go('v2.leaderboard');
         }else if(idx=='pipeline'){
             $state.go('v2.pipeline');
+        }else if(idx=='lists'){
+            $state.go('v2.lists');
         }
+
+      
     }
 }

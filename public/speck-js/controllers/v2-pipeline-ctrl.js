@@ -1,5 +1,5 @@
 angular.module('Speck').controller('PipelineCtrl', ['$scope', '$rootScope', '$http', '$mdSidenav', '$log', '$state', 'filterFilter', 'ngBooleanSearch', 'saveListService', PipelineCtrl]);
-angular.module('Speck').controller('SaveListCtrl', ['$scope', '$rootScope', '$http', '$mdSidenav', '$log', '$state', 'saveListService', SaveListCtrl]);
+angular.module('Speck').controller('SaveListCtrl', ['$scope', '$rootScope', '$http', '$mdSidenav', '$log', '$state', '$mdToast','saveListService', 'AuthService', SaveListCtrl]);
 
 function PipelineCtrl($scope, $rootScope, $http, $mdSidenav, $log, $state, filterFilter, ngBooleanSearch, saveListService) {
   $scope.selected = [];
@@ -83,21 +83,22 @@ angular.module('Speck').service('saveListService', function() {
   }
 });
 
-function SaveListCtrl($scope, $rootScope, $http, $mdSidenav, $log, $state, saveListService) {
+function SaveListCtrl($scope, $rootScope, $http, $mdSidenav, $log, $state, $mdToast, saveListService, authService) {
+  
   $scope.listName = saveListService.getListName();
+  $scope.list = saveListService.getList();
+  
   $scope.initSaveListCtrl = function() {
     $mdSidenav('right').toggle().then(function() {
       $log.debug('Save List:', saveListService.getList());
     });
-    angular.element("<md-backdrop>").bind("click", function() {
-      console.log('md backdrop click')
-      $state.go('^');
-    })
   }
+
   $scope.toggleSideBarRight = function() {
     $mdSidenav('right').close();
     $state.go('^');
   }
+  
   $scope.$watch(function() {
     return $mdSidenav('right').isOpen();
   }, function(newValue, oldValue) {
@@ -105,6 +106,21 @@ function SaveListCtrl($scope, $rootScope, $http, $mdSidenav, $log, $state, saveL
       $state.go('^');
     }
   });
+  
+  $scope.saveList = function(){
+    $scope.data.list = $scope.list;
+    $scope.data.listType = $scope.listName;
+    $scope.data.email = authService.userEmail();
+    console.log('SaveList',$scope.data)
+
+    $http.post('/api/list/save',$scope.data).
+    then(function(response) {
+      $scope.toggleSideBarRight();
+      $mdToast.show($mdToast.simple().content('List Saved: ' + response.data.sid));
+    }, function(error) {
+    });;
+    
+  }
 }
 angular.module('Speck').filter('pipelineFilter', function() {
   return function(input, searchText) {

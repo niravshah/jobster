@@ -71,3 +71,4 @@ require('./node_routes/nr-mandrill-inbound.v2.js')(app, passport);
 require('./node_routes/nr-mandrill-outbound.v2.js');
 require('./node_routes/nr-glassdoor.v2.js')(app, passport);
 require('./node_routes/nr-invite-routes.v2.js')(app, passport, io);
+require('./node_routes/nr-list-routes.js')(app);

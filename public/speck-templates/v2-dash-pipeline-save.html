@@ -1,11 +1,32 @@
-<div ng-controller="SaveListCtrl" ng-init="initSaveListCtrl()"> 
-<md-toolbar layout="row" class="md-whiteframe-z5">
-  <div class="md-toolbar-tools">
-    <md-button ng-click="toggleSideBarRight()" class="md-icon-button" aria-label="Close">
-      <md-icon md-svg-icon="/img/clear.svg"></md-icon>
-    </md-button>
-    <span flex></span>
-    <h1>Save : {{listName}} List</h1>
-  </div>
-</md-toolbar>  
+<div ng-controller="SaveListCtrl" ng-init="initSaveListCtrl()">
+  <md-toolbar layout="row" class="md-whiteframe-z5">
+    <div class="md-toolbar-tools">
+      <md-button ng-click="toggleSideBarRight()" class="md-icon-button" aria-label="Close">
+        <md-icon md-svg-icon="/img/clear.svg"></md-icon>
+      </md-button>
+      <span flex></span>
+      <h1>Save : {{listName}} List</h1>
+    </div>    
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <md-input-container flex>
+      <label>List Name</label>
+      <input ng-model="data.listName">
+    </md-input-container>    
+    <md-input-container flex>
+      <label>Summary</label>
+      <textarea ng-model="data.listSummary" columns="1" md-maxlength="150"></textarea>
+    </md-input-container>        
+    <md-button ng-click="saveList()" class="md-raised md-warn">Save</md-button>    
+    <md-divider style="margin-top:40px;"></md-divider>    
+    <md-list>
+      <md-list-item class="md-3-line" ng-repeat="item in list">
+        <img ng-src="{{item.imgUrl}}" alt="{{item.first_name}}" class="md-avatar">
+        <div class="md-list-item-text">
+          <h4>{{item.first_name}} {{item.last_name}}</h4>          
+        </div>
+        <md-divider inset></md-divider>
+      </md-list-item>
+    </md-list>
+  </md-content>  
 </div>
