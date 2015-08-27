@@ -1,4 +1,5 @@
 angular.module('Speck').controller('ListsCtrl', ['$scope', '$rootScope', '$http', '$log', 'AuthService', ListsCtrl]);
+angular.module('Speck').controller('ListDetailsCtrl', ['$scope', '$rootScope', '$state','$stateParams','$http', '$log', 'AuthService', ListDetailsCtrl]);
 
 function ListsCtrl($scope, $rootScope, $http, $log, aS) {
   $scope.userLists
@@ -14,5 +15,17 @@ function ListsCtrl($scope, $rootScope, $http, $log, aS) {
       console.log('User Lists: ', data);    
       $scope.userLists = data;
     });   
+  }
+}
+
+
+function ListDetailsCtrl($scope, $rootScope, $state, $stateParams, $http, $log, aS) {  
+  $scope.list = [];
+  $scope.initListDetailsCtrl = function(){
+    console.log('initListDetailsCtrl')
+    var url = '/api/list/' + $stateParams.id  ;
+    $http.get(url).then(function(response){
+      $scope.list = response.data[0].list;
+    })
   }
 }

@@ -1,3 +1,26 @@
-<div flex layout="row" layout-sm="column">
-
+<div flex layout="column" ng-controller="ListDetailsCtrl" ng-init="initListDetailsCtrl()" layout-sm="column">
+  <md-card ng-repeat="item in list" style="margin:20px;padding:10px;">
+    <div layout="row">
+      <div style="background:url({{item.imgUrl}}) no-repeat;background-size:100% 100%;" class="circular-image-sm m-lr-10"></div>
+      <div flex="40">
+        <p>{{item.first_name}} {{item.last_name}}</p>
+      </div>
+      <div flex id="candidate-asp" style="float:left;margin-top:15px;">
+        <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('comp')!=-1}">attach_money</md-icon>
+        <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('career')!=-1}">trending_up</md-icon>
+        <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('culture')!=-1}">group</md-icon>
+        <md-icon md-font-icon="material-icons" class="md-24" ng-class="{'md-warn':item.aspText.indexOf('challenge')!=-1}">code</md-icon>
+      </div>
+    </div>
+    <div layout="row">
+      <div flex>
+        <md-chips ng-model="item.spec" readonly=true></md-chips>
+      </div>
+      <div flex="10">
+      </div>
+      <div flex="10">
+        <md-icon md-font-icon="material-icons" class="md-36">navigate_next</md-icon>
+      </div>
+    </div>
+  </md-card>
 </div>

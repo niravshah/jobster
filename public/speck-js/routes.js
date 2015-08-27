@@ -44,8 +44,9 @@ angular.module('Speck').config(['$stateProvider', '$urlRouterProvider', '$httpPr
         }).state('v2.lists.details', {
             url: '/:id',
             'views': {
-                'lists': {
+                'lists@v2': {
                     templateUrl: '/speck-templates/v2-dash-list-details.html'
+                  
                 }
             }
         }).state('v2.specs', {
