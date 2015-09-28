@@ -26,4 +26,13 @@ module.exports = function(app, passport) {
    }
   })
  });
+ 
+ app.post('/specky/lnreg',function(req, res){
+   
+   console.log('LN Reg',req.body.profile);
+   
+ });
+  
+  
+  
 }
